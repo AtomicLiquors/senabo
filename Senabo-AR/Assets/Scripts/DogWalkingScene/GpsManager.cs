@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.Android;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -23,11 +24,18 @@ public class GpsManager : MonoBehaviour
     // 업데이트 시간
     private double timeCounter;
 
+    Animator welshAnim;
+
     IEnumerator Start()
     {
-        // Check if the user has location service enabled.
-        if (!Input.location.isEnabledByUser)
-            yield break;
+        if (welshAnim == null)
+            welshAnim = GameObject.Find("WelshCorgi").GetComponentInChildren<Animator>();
+
+        while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
+        {
+            Permission.RequestUserPermission(Permission.FineLocation);
+            Permission.RequestUserPermission(Permission.CoarseLocation);
+        }
 
         // Starts the location service.
         Input.location.Start(1, 1); // 정확도, 업데이트 거리
@@ -103,14 +111,17 @@ public class GpsManager : MonoBehaviour
                     if (dist < 0.5)
                     {
                         userState = "멈춰 있음";
+                        welshAnim.SetTrigger("WelshIdle");
                     }
                     else if (dist < 2.2)
                     {
                         userState = "걷는 중";
+                        welshAnim.SetTrigger("WelshWalk");
                     }
                     else
                     {
-                        userState = "뛰는 중";
+                        userState = "뛰는 중"; 
+                        welshAnim.SetTrigger("WelshRun");
                     }
                 }
             }
