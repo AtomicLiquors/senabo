@@ -1,13 +1,13 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-3425236587778693711
+--- !u!21 &-5562108179640024352
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: neodgm SDF Material
+  m_Name: neodgm SDF - Title Material
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 4776678065095852441}
+        m_Texture: {fileID: 2372969681250735298}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -118,10 +118,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: neodgm SDF
+  m_Name: neodgm SDF - Title
   m_EditorClassIdentifier: 
   hashCode: 0
-  material: {fileID: -3425236587778693711}
+  material: {fileID: -5562108179640024352}
   materialHashCode: 0
   m_Version: 1.1.0
   m_SourceFontFileGUID: d77f30718ae2d964da6e9ae5665b0ca3
@@ -7753,7 +7753,7 @@ MonoBehaviour:
     m_GlyphIndex: 7169
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: 4776678065095852441}
+  - {fileID: 2372969681250735298}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 0
   m_ClearDynamicDataOnBuild: 0
@@ -9674,13 +9674,13 @@ MonoBehaviour:
   boldSpacing: 7
   italicStyle: 35
   tabSize: 10
---- !u!28 &4776678065095852441
+--- !u!28 &2372969681250735298
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: neodgm SDF Atlas
+  m_Name: neodgm SDF - Title Atlas
   m_ImageContentsHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
