@@ -26,12 +26,14 @@ public class GpsManager : MonoBehaviour
 
     Animator welshAnim;
 
+
     IEnumerator Start()
     {
+        positionText.text = "실행 되나?";
         if (welshAnim == null)
-            welshAnim = GameObject.Find("WelshCorgi").GetComponentInChildren<Animator>();
+            welshAnim = GameObject.Find("WelshCorgi(Clone)").GetComponentInChildren<Animator>();
 
-        while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
+            while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
         {
             Permission.RequestUserPermission(Permission.FineLocation);
             Permission.RequestUserPermission(Permission.CoarseLocation);
