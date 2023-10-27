@@ -397,7 +397,7 @@ TextureImporter:
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 5, y: 5, z: 5, w: 5}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -2703,7 +2703,7 @@ TextureImporter:
         serializedVersion: 2
         x: 160
         y: 128
-        width: 256
+        width: 192
         height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -5205,7 +5205,7 @@ TextureImporter:
         width: 48
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -5213,6 +5213,48 @@ TextureImporter:
       bones: []
       spriteID: f599c827ea4fc6649b45d91299c52b94
       internalID: 1127086073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI books & more_242
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 416
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 6, y: 11, z: 4, w: 4}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8edc3eb1a89089e4dabe48829447c9df
+      internalID: -1936225470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI books & more_243
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 192
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 11, y: 3, z: 11, w: 3}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a94abca24ba3cc43b1de81060f200f8
+      internalID: 215626831
       vertices: []
       indices: 
       edges: []
@@ -5388,6 +5430,8 @@ TextureImporter:
       UI books & more_24: 1111112906
       UI books & more_240: -1794758001
       UI books & more_241: 1127086073
+      UI books & more_242: -1936225470
+      UI books & more_243: 215626831
       UI books & more_25: 711847825
       UI books & more_26: -1558620348
       UI books & more_27: -428862607
