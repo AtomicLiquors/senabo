@@ -43,6 +43,11 @@ public class ARPlaceOnPlane : MonoBehaviour
                 gpsManager.SetActive(true);
                 dogLeadSpawner.SetActive(true);
             }
+            else
+            {
+                placeObject.transform.position = hitPose.position;
+                placeObject.transform.rotation = hitPose.rotation;
+            }
         }
     }
 }
