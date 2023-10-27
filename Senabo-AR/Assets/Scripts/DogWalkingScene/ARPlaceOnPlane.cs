@@ -9,8 +9,6 @@ public class ARPlaceOnPlane : MonoBehaviour
 
     public ARRaycastManager arRaycaster;
     public GameObject placeObject;
-    GameObject spawnObject;
-
     public GameObject gpsManager;
     public GameObject dogLeadSpawner;
 
@@ -37,16 +35,13 @@ public class ARPlaceOnPlane : MonoBehaviour
         if (hits.Count > 0)
         {
             Pose hitPose = hits[0].pose;
-            if (!spawnObject)
+            if (!placeObject.activeInHierarchy)
             {
-                spawnObject = Instantiate(placeObject, hitPose.position, hitPose.rotation);
+                placeObject.SetActive(true);
+                placeObject.transform.position = hitPose.position;
+                placeObject.transform.rotation = hitPose.rotation;
                 gpsManager.SetActive(true);
                 dogLeadSpawner.SetActive(true);
-            }
-            else
-            {
-                spawnObject.transform.position = hitPose.position;
-                spawnObject.transform.rotation = hitPose.rotation;
             }
         }
     }

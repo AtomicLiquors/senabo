@@ -24,14 +24,16 @@ public class GpsManager : MonoBehaviour
     // 업데이트 시간
     private double timeCounter;
 
+    [SerializeField]
+    GameObject dogObject;
+
     Animator welshAnim;
 
 
     IEnumerator Start()
     {
-        positionText.text = "실행 되나?";
         if (welshAnim == null)
-            welshAnim = GameObject.Find("WelshCorgi(Clone)").GetComponentInChildren<Animator>();
+            welshAnim = dogObject.GetComponentInChildren<Animator>();
 
             while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
         {
