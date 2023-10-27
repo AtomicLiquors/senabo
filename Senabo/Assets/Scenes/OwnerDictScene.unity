@@ -219,7 +219,10 @@ RectTransform:
   m_Children:
   - {fileID: 1876345242}
   - {fileID: 1011210016}
+<<<<<<< HEAD
   - {fileID: 748826355}
+=======
+>>>>>>> 7f5933d233782bd2d413f9a79aaf1e270b03b233
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -370,6 +373,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506977876}
   m_CullTransparentMesh: 1
+<<<<<<< HEAD
 --- !u!1 &748826354
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +449,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 748826354}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> 7f5933d233782bd2d413f9a79aaf1e270b03b233
 --- !u!1 &1011210015
 GameObject:
   m_ObjectHideFlags: 0
