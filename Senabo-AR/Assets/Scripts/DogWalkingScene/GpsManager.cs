@@ -16,27 +16,23 @@ public class GpsManager : MonoBehaviour
 
     // 사용자의 이동 거리
     public TMP_Text userMovementDistanceText;
-    private double userMovementDistance; 
+    private double userMovementDistance;
 
     // 사용자의 상태(멈춰있기, 걷기, 달리기)
     public Text userStateText;
     private string userState;
-
-    // 업데이트 시간
-    private double timeCounter;
 
     [SerializeField]
     GameObject dogObject;
 
     Animator welshAnim;
 
-
     IEnumerator Start()
     {
         if (welshAnim == null)
             welshAnim = dogObject.GetComponentInChildren<Animator>();
 
-            while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
+        while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
         {
             Permission.RequestUserPermission(Permission.FineLocation);
             Permission.RequestUserPermission(Permission.CoarseLocation);
@@ -68,70 +64,76 @@ public class GpsManager : MonoBehaviour
         }
         else
         {
-            // If the connection succeeded, this retrieves the device's current location and displays it in the Console window.
-            //Debug.Log("Location: " + Input.location.lastData.latitude + " " + Input.location.lastData.longitude + " " + Input.location.lastData.altitude + " " + Input.location.lastData.horizontalAccuracy + " " + Input.location.lastData.timestamp);
-
             // 값 초기화
             userMovementDistance = 0;
             userState = "출발 전";
             pastLat = Input.location.lastData.latitude;
             pastLon = Input.location.lastData.longitude;
-      
-            while (true)
-            {
-                // while 돌릴때 yeild return 반드시 써야함!
-                yield return null;
-                positionText.text = "현재 좌표: " + pastLat + " / " + pastLon;
-                userMovementDistanceText.text = userMovementDistance.ToString("F2") + "m";
-                userStateText.text = "상태: " + userState;
-            }
+            StartCoroutine("CountTimeForGPS");
         }
-
-        // Stops the location service if there is no need to query location updates continuously.
-        // Input.location.Stop();
     }
 
+    public bool isDelay;
 
     void Update()
     {
-        timeCounter += Time.deltaTime;
-        // 1초 단위로 실행
-        if (timeCounter > 1.0)
+    }
+
+    // 게임 오브젝트가 사라질때 실행
+    private void OnDestroy()
+    {
+        StopAllCoroutines();
+        // Stops the location service if there is no need to query location updates continuously.
+        Input.location.Stop();
+    }
+
+    // 시간 처리 생명 주기 관리
+    private IEnumerator CountTimeForGPS()
+    {
+        yield return new WaitForSeconds(1);
+        ContinuousGPSUpdates();
+        // 재귀적으로 자기 자신을 호출하여 1초마다 반복
+        StartCoroutine("CountTimeForGPS");
+    }
+
+    // 1초마다 GPS 데이터를 받아서 사용자 이동 거리, 속도 반환
+    void ContinuousGPSUpdates()
+    {
+        if (Input.location.status == LocationServiceStatus.Running)
         {
-            if (Input.location.status == LocationServiceStatus.Running)
+            curLat = Input.location.lastData.latitude;
+            curLon = Input.location.lastData.longitude;
+
+            // 이동 전, 후 좌표로 거리 계산
+            double dist = distance(pastLat, pastLon, curLat, curLon);
+
+            // 값이 튀는 경우 방지, 사람이 1초에 이동 가능한 거리 일 경우
+            if (dist < 10)
             {
-                curLat = Input.location.lastData.latitude;
-                curLon = Input.location.lastData.longitude;
+                userMovementDistance += dist;
+                pastLat = curLat;
+                pastLon = curLon;
 
-                // 이동 전, 후 좌표로 거리 계산
-                double dist = distance(pastLat, pastLon, curLat, curLon);
-
-                // 값이 튀는 경우 방지, 사람이 1초에 이동 가능한 거리 일 경우
-                if (dist < 10)
+                if (dist < 0.5)
                 {
-                    userMovementDistance += dist;
-                    pastLat = curLat;
-                    pastLon = curLon;
-
-                    if (dist < 0.5)
-                    {
-                        userState = "멈춰 있음";
-                        welshAnim.SetTrigger("WelshIdle");
-                    }
-                    else if (dist < 2.2)
-                    {
-                        userState = "걷는 중";
-                        welshAnim.SetTrigger("WelshWalk");
-                    }
-                    else
-                    {
-                        userState = "뛰는 중"; 
-                        welshAnim.SetTrigger("WelshRun");
-                    }
+                    userState = "멈춰 있음";
+                    welshAnim.SetTrigger("WelshIdle");
+                }
+                else if (dist < 2.2)
+                {
+                    userState = "걷는 중";
+                    welshAnim.SetTrigger("WelshWalk");
+                }
+                else
+                {
+                    userState = "뛰는 중";
+                    welshAnim.SetTrigger("WelshRun");
                 }
             }
-            timeCounter = 0;
         }
+        positionText.text = "현재 좌표: " + pastLat + " / " + pastLon;
+        userMovementDistanceText.text = userMovementDistance.ToString("F2") + "m";
+        userStateText.text = "상태: " + userState;
     }
 
 
@@ -161,5 +163,4 @@ public class GpsManager : MonoBehaviour
     {
         return (rad * 180.0f / Mathf.PI);
     }
-
 }
