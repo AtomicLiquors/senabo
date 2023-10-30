@@ -11,6 +11,7 @@ public class ARPlaceOnPlane : MonoBehaviour
     public GameObject placeObject;
     public GameObject gpsManager;
     public GameObject dogLeadSpawner;
+    public GameObject walkTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +43,7 @@ public class ARPlaceOnPlane : MonoBehaviour
                 placeObject.transform.rotation = hitPose.rotation;
                 gpsManager.SetActive(true);
                 dogLeadSpawner.SetActive(true);
+                walkTimer.SetActive(true);
             }
             else
             {
