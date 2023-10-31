@@ -1,18 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WalkTimer : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    TMP_Text totalWalkTime;
+    Text totalWalkTime;
+
 
     private float elapsedTime = 0f;
     void Start()
     {
-        totalWalkTime.SetText("출발");
+        totalWalkTime.text = "출발";
         StartCoroutine(UpdateElapsedTime());
     }
 
@@ -28,7 +31,7 @@ public class WalkTimer : MonoBehaviour
                 elapsedTime += Time.deltaTime;
 
                 // Do something with the elapsed time, e.g., print it
-                totalWalkTime.SetText(elapsedTime.ToString("F2") + "초");
+                totalWalkTime.text = String.Join("", elapsedTime.ToString("F2"),"분");
             
 
             yield return new WaitForSeconds(1); // Yielding null will make the coroutine wait for the next frame

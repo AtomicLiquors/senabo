@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 using UnityEngine.Android;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class GpsManager : MonoBehaviour
@@ -15,7 +12,7 @@ public class GpsManager : MonoBehaviour
     public Text positionText;
 
     // 사용자의 이동 거리
-    public TMP_Text userMovementDistanceText;
+    public Text userMovementDistanceText;
     private double userMovementDistance;
 
     // 사용자의 상태(멈춰있기, 걷기, 달리기)
@@ -130,7 +127,7 @@ public class GpsManager : MonoBehaviour
             }
         }
         positionText.text = "현재 좌표: " + pastLat + " / " + pastLon;
-        userMovementDistanceText.text = userMovementDistance.ToString("F2") + "m";
+        userMovementDistanceText.text = String.Join("", userMovementDistance.ToString("F2"), "km");
         userStateText.text = "상태: " + userState;
     }
 

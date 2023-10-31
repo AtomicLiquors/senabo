@@ -27,7 +27,7 @@ public class ARPlaceOnPlane : MonoBehaviour
 
         List<ARRaycastHit> hits = new List<ARRaycastHit>();
         arRaycaster.Raycast(screenCenter, hits, TrackableType.Planes);
-        /*
+        
         if (hits.Count > 0)
         {
             Pose hitPose = hits[0].pose;
@@ -46,6 +46,6 @@ public class ARPlaceOnPlane : MonoBehaviour
                 placeObject.transform.position = hitPose.position;
                 //placeObject.transform.rotation = hitPose.rotation;
             }
-        }*/
+        }
     }
 }
