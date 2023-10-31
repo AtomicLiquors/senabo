@@ -11,7 +11,7 @@ public class MainScene : MonoBehaviour
 
     void Start()
     {
-        actionModal.SetActive(false);
+        
     }
 
     public void LoadMoveHospitalScene()
