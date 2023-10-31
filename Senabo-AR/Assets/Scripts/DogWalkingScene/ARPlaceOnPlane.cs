@@ -12,18 +12,13 @@ public class ARPlaceOnPlane : MonoBehaviour
     public GameObject gpsManager;
     public GameObject dogLeadSpawner;
     public GameObject walkTimer;
+    public GameObject dogRotator;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
         UpdateCenterObject();
-
     }
 
     private void UpdateCenterObject()
@@ -32,7 +27,7 @@ public class ARPlaceOnPlane : MonoBehaviour
 
         List<ARRaycastHit> hits = new List<ARRaycastHit>();
         arRaycaster.Raycast(screenCenter, hits, TrackableType.Planes);
-
+        /*
         if (hits.Count > 0)
         {
             Pose hitPose = hits[0].pose;
@@ -40,16 +35,17 @@ public class ARPlaceOnPlane : MonoBehaviour
             {
                 placeObject.SetActive(true);
                 placeObject.transform.position = hitPose.position;
-                placeObject.transform.rotation = hitPose.rotation;
+                //placeObject.transform.rotation = hitPose.rotation;
                 gpsManager.SetActive(true);
                 dogLeadSpawner.SetActive(true);
                 walkTimer.SetActive(true);
+                dogRotator.SetActive(true);
             }
             else
             {
                 placeObject.transform.position = hitPose.position;
-                placeObject.transform.rotation = hitPose.rotation;
+                //placeObject.transform.rotation = hitPose.rotation;
             }
-        }
+        }*/
     }
 }

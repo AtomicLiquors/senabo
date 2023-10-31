@@ -5,13 +5,13 @@ using UnityEngine;
 public class DogLeadDrawer : MonoBehaviour
 {
     // Start is called before the first frame update
-    LineRenderer lineRenderer;
+    private LineRenderer lineRenderer;
     Vector3 dogPos, cameraPos;
 
     [SerializeField]
     GameObject dogObject;
 
-    void Start()
+    void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.startWidth = .05f;
@@ -19,16 +19,10 @@ public class DogLeadDrawer : MonoBehaviour
     }
 
     void Update() {
-        print(dogObject);
-        dogPos = ModifyDogPos(dogObject.GetComponent<Transform>().position);
-        cameraPos = Camera.current.ViewportToWorldPoint(new Vector3(0.5f, 0f, Camera.current.nearClipPlane));
+        dogPos = dogObject.GetComponent<Transform>().position;
+        cameraPos = Camera.current.ViewportToWorldPoint(new Vector3(5f, -5f, Camera.current.nearClipPlane));
         lineRenderer.SetPosition(0, dogPos);
         lineRenderer.SetPosition(1, cameraPos);
     }
 
-    Vector3 ModifyDogPos(Vector3 originalDogPos)
-    {
-        float z = originalDogPos.z + 0.3f;
-        return new Vector3(originalDogPos.x, originalDogPos.y, z);
-    }
 }
