@@ -70,10 +70,17 @@ public class GpsManager : MonoBehaviour
             pastLat = Input.location.lastData.latitude;
             pastLon = Input.location.lastData.longitude;
             StartCoroutine("CountTimeForGPS");
+
+            while (true)
+            {
+                // 1초 대기
+                yield return new WaitForSeconds(1);
+                Debug.Log("GPS 정상 작동");
+                // GPS 값을 가져오는 함수 호출
+                ContinuousGPSUpdates();
+            }
         }
     }
-
-    public bool isDelay;
 
     void Update()
     {
@@ -85,15 +92,6 @@ public class GpsManager : MonoBehaviour
         StopAllCoroutines();
         // Stops the location service if there is no need to query location updates continuously.
         Input.location.Stop();
-    }
-
-    // 시간 처리 생명 주기 관리
-    private IEnumerator CountTimeForGPS()
-    {
-        yield return new WaitForSeconds(1);
-        ContinuousGPSUpdates();
-        // 재귀적으로 자기 자신을 호출하여 1초마다 반복
-        StartCoroutine("CountTimeForGPS");
     }
 
     // 1초마다 GPS 데이터를 받아서 사용자 이동 거리, 속도 반환

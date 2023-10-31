@@ -1,42 +1,62 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class StrollEventManager : MonoBehaviour
 {
     private int[] randomTimes;
-    private double countTimes;
 
     // Start is called before the first frame update
     void Start()
     {
-        countTimes = 0;
         randomTimes = new int[4];
 
-        // 1분부터 30분까지 랜덤한 값 4개를 randomTimes 배열에 입력
+        // 1분부터 60분까지 랜덤한 값 4개를 randomTimes 배열에 입력
         for (int i = 0; i < randomTimes.Length; i++)
         {
-            randomTimes[i] = UnityEngine.Random.Range(1, 61); // 1부터 60까지의 랜덤한 값 생성
+            randomTimes[i] = UnityEngine.Random.Range(1, 61) * 60; // 1부터 60까지의 랜덤한 값 생성
         }
+
+        StartCoroutine(function1(randomTimes[0]));
+        StartCoroutine(function2(randomTimes[1]));
+        StartCoroutine(function3(randomTimes[2]));
+        StartCoroutine(function4(randomTimes[3]));
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        countTimes += Time.deltaTime;
-
-        // 시간을 분 단위로 변환
-        int currentMinutes = (int)(countTimes / 60);
-
-        // 랜덤한 시간과 현재 시간이 일치하는지 확인하여 이벤트 실행
-        for (int i = 0; i < randomTimes.Length; i++)
-        {
-            if (currentMinutes == randomTimes[i])
-            {
-                Debug.Log("이벤트 발생! 현재 시간: " + currentMinutes + "분, 랜덤 시간: " + randomTimes[i] + "분");
-            }
-        }
 
     }
 
+    // ================돌발 이벤트 발생 함수================
+    // 1. 다른 강아지를 만났을 때
+    IEnumerator function1(int delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        Debug.Log(delayTime);
+    }
 
+    // 2, 땅에 떨어진 이물질을 주워 먹으려 할 때
+    IEnumerator function2(int delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        Debug.Log(delayTime);
+    }
+
+    // 3. 주저 앉아서 움직이지 않으려 할 때
+    IEnumerator function3(int delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        Debug.Log(delayTime);
+    }
+
+    // 4. 배변 활동
+    IEnumerator function4(int delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        Debug.Log(delayTime);
+    }
 }
