@@ -9,6 +9,7 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 dragOrigin;
 
+
     private void Update()
     {
         PanCamera();
@@ -31,4 +32,5 @@ public class CameraMovement : MonoBehaviour
             cam.transform.position += difference;
         }
     }
+
 }
