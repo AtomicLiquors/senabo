@@ -4,21 +4,28 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
-public class ARPlaceOnPlane : MonoBehaviour
+public class ARObjectController : MonoBehaviour
 {
 
     public ARRaycastManager arRaycaster;
-    public GameObject placeObject;
+    public GameObject myDog;
     public GameObject gpsManager;
     public GameObject dogLeadSpawner;
     public GameObject walkTimer;
     public GameObject dogRotator;
+
+    private StrollEventManager strollEventManager;
 
 
     // Update is called once per frame
     void Update()
     {
         UpdateCenterObject();
+
+        if (strollEventManager != null)
+        {
+            Debug.Log(strollEventManager.dogEventTrigger);
+        }
     }
 
     /*
@@ -39,21 +46,22 @@ public class ARPlaceOnPlane : MonoBehaviour
         if (hits.Count > 0)
         {
             Pose hitPose = hits[0].pose;
-            if (!placeObject.activeInHierarchy)
+            if (!myDog.activeInHierarchy)
             {
-                placeObject.SetActive(true);
-                placeObject.transform.position = hitPose.position;
+                myDog.SetActive(true);
+                myDog.transform.position = hitPose.position;
                 gpsManager.SetActive(true);
                 dogLeadSpawner.SetActive(true);
                 walkTimer.SetActive(true);
                 //                dogRotator.SetActive(true);
-                placeObject.transform.rotation = Quaternion.Euler(rotationSpeed += Time.deltaTime * 10, 0, 0);
+                myDog.transform.rotation = Quaternion.Euler(rotationSpeed += Time.deltaTime * 10, 0, 0);
 
+                strollEventManager = FindAnyObjectByType<StrollEventManager>();
             }
             else
             {
-                placeObject.transform.position = hitPose.position;
-                placeObject.transform.rotation = Quaternion.Euler(rotationSpeed += Time.deltaTime * 10, 0, 0);
+                myDog.transform.position = hitPose.position;
+                myDog.transform.rotation = Quaternion.Euler(rotationSpeed += Time.deltaTime * 10, 0, 0);
             }
         }
 

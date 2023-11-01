@@ -66,13 +66,12 @@ public class GpsManager : MonoBehaviour
             userState = "출발 전";
             pastLat = Input.location.lastData.latitude;
             pastLon = Input.location.lastData.longitude;
-            StartCoroutine("CountTimeForGPS");
 
             while (true)
             {
                 // 1초 대기
                 yield return new WaitForSeconds(1);
-                Debug.Log("GPS 정상 작동");
+                Debug.Log("Gps 반복 중");
                 // GPS 값을 가져오는 함수 호출
                 ContinuousGPSUpdates();
             }
@@ -101,6 +100,7 @@ public class GpsManager : MonoBehaviour
 
             // 이동 전, 후 좌표로 거리 계산
             double dist = distance(pastLat, pastLon, curLat, curLon);
+            if (dist < 0) return;
 
             // 값이 튀는 경우 방지, 사람이 1초에 이동 가능한 거리 일 경우
             if (dist < 10)
@@ -113,16 +113,19 @@ public class GpsManager : MonoBehaviour
                 {
                     userState = "멈춰 있음";
                     welshAnim.SetTrigger("WelshIdle");
+                    Debug.Log("멈춰 있음");
                 }
                 else if (dist < 2.2)
                 {
                     userState = "걷는 중";
                     welshAnim.SetTrigger("WelshWalk");
+                    Debug.Log("걷는 중");
                 }
                 else
                 {
                     userState = "뛰는 중";
                     welshAnim.SetTrigger("WelshRun");
+                    Debug.Log("뛰는 중");
                 }
             }
         }
@@ -136,17 +139,26 @@ public class GpsManager : MonoBehaviour
     // 현재 위치의 위도, 경도 -> 목적지의 위도 경도
     private double distance(double lat1, double lon1, double lat2, double lon2)
     {
-        double theta = lon1 - lon2;
-        double dist = Math.Sin(Deg2Rad(lat1)) * Math.Sin(Deg2Rad(lat2))
-        + Math.Cos(Deg2Rad(lat1)) * Math.Cos(Deg2Rad(lat2))
-        * Math.Cos(Deg2Rad(theta));
+        try
+        {
+            double theta = lon1 - lon2;
+            double dist = Math.Sin(Deg2Rad(lat1)) * Math.Sin(Deg2Rad(lat2))
+            + Math.Cos(Deg2Rad(lat1)) * Math.Cos(Deg2Rad(lat2))
+            * Math.Cos(Deg2Rad(theta));
 
-        dist = Math.Acos(dist);
-        dist = Rad2Deg(dist);
-        dist = dist * 60 * 1.1515;
-        dist = dist * 1609.344; // 미터 변환
+            dist = Math.Acos(dist);
+            dist = Rad2Deg(dist);
+            dist = dist * 60 * 1.1515;
+            dist = dist * 1609.344; // 미터 변환
+            return dist;
+        }
+        catch (Exception e)
+        {
+            // 분모가 0일 경우 방지
+            Debug.Log("GPS 예외 발생");
+            return -1; // 에러가 발생한 경우 -1 또는 다른 적절한 값 반환
+        }
 
-        return dist;
     }
 
     private double Deg2Rad(double deg)
