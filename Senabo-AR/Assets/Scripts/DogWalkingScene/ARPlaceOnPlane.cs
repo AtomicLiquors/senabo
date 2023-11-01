@@ -21,13 +21,21 @@ public class ARPlaceOnPlane : MonoBehaviour
         UpdateCenterObject();
     }
 
+    /*
+    private IEnumerator DogSpawner()
+    {
+
+    }*/
+
     private void UpdateCenterObject()
     {
         Vector3 screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
 
         List<ARRaycastHit> hits = new List<ARRaycastHit>();
         arRaycaster.Raycast(screenCenter, hits, TrackableType.Planes);
-        
+
+        float rotationSpeed = 30f; // Adjust the speed of rotation as needed
+
         if (hits.Count > 0)
         {
             Pose hitPose = hits[0].pose;
@@ -35,17 +43,19 @@ public class ARPlaceOnPlane : MonoBehaviour
             {
                 placeObject.SetActive(true);
                 placeObject.transform.position = hitPose.position;
-                //placeObject.transform.rotation = hitPose.rotation;
                 gpsManager.SetActive(true);
                 dogLeadSpawner.SetActive(true);
                 walkTimer.SetActive(true);
-                dogRotator.SetActive(true);
+                //                dogRotator.SetActive(true);
+                placeObject.transform.rotation = Quaternion.Euler(rotationSpeed += Time.deltaTime * 10, 0, 0);
+
             }
             else
             {
                 placeObject.transform.position = hitPose.position;
-                //placeObject.transform.rotation = hitPose.rotation;
+                placeObject.transform.rotation = Quaternion.Euler(rotationSpeed += Time.deltaTime * 10, 0, 0);
             }
         }
+
     }
 }

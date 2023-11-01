@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GyroControl : MonoBehaviour
@@ -13,7 +11,7 @@ public class GyroControl : MonoBehaviour
     private Quaternion rot;
     void Start()
     {
-        dogObject = new GameObject("Camera Container");
+        //dogObject = new GameObject("Camera Container");
         dogObject.transform.position = transform.position;
         transform.SetParent(dogObject.transform);
         gyroEnabled = EnableGyro();
@@ -25,7 +23,6 @@ public class GyroControl : MonoBehaviour
         {
             gyro = Input.gyro;
             gyro.enabled = true;
-            //cameraContainer.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
             rot = Quaternion.Euler(0f, 0f, 0f);
             return true;
         }
@@ -34,12 +31,23 @@ public class GyroControl : MonoBehaviour
     }
 
     // Update is called once per frame
+    
     void Update()
     {
+        /*
         if (gyroEnabled)
         {
             Quaternion qRot = gyro.attitude * rot;
             dogObject.transform.localRotation = Quaternion.Euler(0f, qRot.eulerAngles.y, 0f);
-        }
+        }*/
+        rotatePerFrame();
+    }
+    
+    private void rotatePerFrame()
+    {
+        float rotationSpeed = 30f; // Adjust the speed of rotation as needed
+        Vector3 currentRotation = dogObject.transform.localEulerAngles;
+        currentRotation.y += rotationSpeed * Time.deltaTime;
+        dogObject.transform.localEulerAngles = currentRotation;
     }
 }

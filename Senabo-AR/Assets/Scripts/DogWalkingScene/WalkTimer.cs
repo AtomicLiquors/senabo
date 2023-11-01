@@ -10,31 +10,31 @@ public class WalkTimer : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     Text totalWalkTime;
+    
+    public GameObject dogObject;
 
-
+    private int minuteInNumber = 0;
     private float elapsedTime = 0f;
-    void Start()
+    IEnumerator Start()
     {
-        totalWalkTime.text = "출발";
+        totalWalkTime.text = "출발 전";
+
+        yield return new WaitUntil(() => dogObject.activeInHierarchy);
+
         StartCoroutine(UpdateElapsedTime());
     }
-
-    // Update is called once per frame
 
     IEnumerator UpdateElapsedTime()
     {
         while (true)
         {
-            // Check if the object is activated
+            elapsedTime += Time.deltaTime;
+            minuteInNumber++;
 
-                // Update elapsed time
-                elapsedTime += Time.deltaTime;
+            //totalWalkTime.text = String.Join("", elapsedTime.ToString("F2"),"분");
+            totalWalkTime.text = String.Join("", minuteInNumber.ToString("D2"), "분");
 
-                // Do something with the elapsed time, e.g., print it
-                totalWalkTime.text = String.Join("", elapsedTime.ToString("F2"),"분");
-            
-
-            yield return new WaitForSeconds(1); // Yielding null will make the coroutine wait for the next frame
+            yield return new WaitForSeconds(1);
         }
     }
 }
