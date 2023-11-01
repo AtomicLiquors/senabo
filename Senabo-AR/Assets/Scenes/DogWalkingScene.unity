@@ -2785,6 +2785,7 @@ MonoBehaviour:
   dogLeadSpawner: {fileID: 1577749883}
   walkTimer: {fileID: 2101391897}
   dogRotator: {fileID: 294619134}
+  otherDog: {fileID: 2247168222010617711, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
 --- !u!1 &1710119733
 GameObject:
   m_ObjectHideFlags: 0

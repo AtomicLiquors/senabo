@@ -14,18 +14,16 @@ public class ARObjectController : MonoBehaviour
     public GameObject walkTimer;
     public GameObject dogRotator;
 
+
     private StrollEventManager strollEventManager;
 
+    [SerializeField]
+    private GameObject otherDog;
 
     // Update is called once per frame
     void Update()
     {
         UpdateCenterObject();
-
-        if (strollEventManager != null)
-        {
-            Debug.Log(strollEventManager.dogEventTrigger);
-        }
     }
 
     /*
@@ -62,6 +60,15 @@ public class ARObjectController : MonoBehaviour
             {
                 myDog.transform.position = hitPose.position;
                 myDog.transform.rotation = Quaternion.Euler(rotationSpeed += Time.deltaTime * 10, 0, 0);
+            }
+
+            if (strollEventManager != null && strollEventManager.dogEventTrigger)
+            {
+                // hitÀ» Á¤·Ä
+                hits.Sort((hit1, hit2) => hit1.distance.CompareTo(hit2.distance));
+                Pose tempPose = hits[hits.Count-1].pose;
+                Instantiate(otherDog, tempPose.position, tempPose.rotation);
+                strollEventManager.dogEventTrigger = false;
             }
         }
 

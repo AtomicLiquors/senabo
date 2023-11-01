@@ -41,7 +41,6 @@ public class StrollEventManager : MonoBehaviour
     IEnumerator function1(int delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-
         dogEventTrigger = true;
         // 진동 알림
         for (int i = 0; i < 2; i++)
@@ -56,8 +55,6 @@ public class StrollEventManager : MonoBehaviour
     IEnumerator function2(int delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-
-        dogEventTrigger = false;
         // 진동 알림
         for (int i = 0; i < 2; i++)
         {
@@ -71,8 +68,6 @@ public class StrollEventManager : MonoBehaviour
     IEnumerator function3(int delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-
-        dogEventTrigger = true;
         // 진동 알림
         for (int i = 0; i < 2; i++)
         {
@@ -85,8 +80,6 @@ public class StrollEventManager : MonoBehaviour
     IEnumerator function4(int delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-
-        dogEventTrigger = false;
         // 진동 알림
         for (int i = 0; i < 2; i++)
         {
