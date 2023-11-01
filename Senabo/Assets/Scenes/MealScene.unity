@@ -362,7 +362,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1142468448}
-        m_TargetAssemblyTypeName: PoopScene, Assembly-CSharp
+        m_TargetAssemblyTypeName: MealScene, Assembly-CSharp
         m_MethodName: LoadMainScene
         m_Mode: 1
         m_Arguments:
@@ -525,7 +525,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1142468443}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f053d900170ca054e8858e1bda1369a4, type: 3}
+  m_Script: {fileID: 11500000, guid: 60cc603b06f3c1642bc260fdfd589511, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1283072049
@@ -562,7 +562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 220, y: 6}
+  m_AnchoredPosition: {x: 120, y: 6}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1283072051
@@ -916,7 +916,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBC30\uBCC0 \uD328\uD2B8 \uC815\uB9AC"
+  m_Text: "\uBC25 \uC8FC\uAE30"
 --- !u!1 &1613811698
 GameObject:
   m_ObjectHideFlags: 0
