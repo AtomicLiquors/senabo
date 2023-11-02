@@ -9,9 +9,8 @@ public class StrollEventManager : MonoBehaviour
 {
     private int[] randomTimes;
 
-    public GameObject spawnObject;
-
-    public bool dogEventTrigger;
+    [SerializeField]
+    private ARObjectController aRObjectController;
 
     // Start is called before the first frame update
     void Start()
@@ -40,8 +39,10 @@ public class StrollEventManager : MonoBehaviour
     // 1. 다른 강아지를 만났을 때
     IEnumerator function1(int delayTime)
     {
+        delayTime = 1;
         yield return new WaitForSeconds(delayTime);
-        dogEventTrigger = true;
+
+        aRObjectController.setDogEventTrigger();
         // 진동 알림
         for (int i = 0; i < 2; i++)
         {

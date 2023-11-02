@@ -3187,8 +3187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee34c0406070864db336aa2fa88af04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnObject: {fileID: 0}
-  dogEventTrigger: 0
+  aRObjectController: {fileID: 1600812349}
 --- !u!1 &2101391897
 GameObject:
   m_ObjectHideFlags: 0
