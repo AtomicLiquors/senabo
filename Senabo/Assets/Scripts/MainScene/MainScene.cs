@@ -16,13 +16,16 @@ public class MainScene : MonoBehaviour
 
     public void LoadBathScene()
     {
-        Debug.Log("화장실 ㄱㄱ");
         SceneManager.LoadScene("BathScene");
+    }
+
+    public void LoadMealScene()
+    {
+        SceneManager.LoadScene("MealScene");
     }
 
     public void LoadPoopScene()
     {
-        Debug.Log("응가 ㄱㄱ");
         SceneManager.LoadScene("PoopScene");
     }
 
