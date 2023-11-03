@@ -46,8 +46,8 @@ public class MainScene : MonoBehaviour
         {
             MainSceneClass receivedData = new MainSceneClass { id = 123456, name = "만두", days = 30 };
 
-            MainTitleText.text = receivedData.name + "와(과) 함께한지 " + receivedData.days + "일째";
-
+            MainTitleText.text = receivedData.name + "와(과) 함께한 지 " + receivedData.days + "일째";
+            
             Debug.Log("WebRequest Error Occured");
         }
     }
