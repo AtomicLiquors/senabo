@@ -9,16 +9,16 @@ public class BackgroundImage : MonoBehaviour
     {
         float cameraHeight = Camera.main.orthographicSize;
 
-        // ÀÌ¹ÌÁöÀÇ Transform component °¡Á®¿À±â
+        // ì´ë¯¸ì§€ì˜ Transform component ê°€ì ¸ì˜¤ê¸°
         Transform transform = GetComponent<Transform>();
 
-        // ÀÌ¹ÌÁö ³ôÀÌ¸¦ Ä«¸Ş¶ó ³ôÀÌ¿¡ ¸Â°Ô ¼³Á¤ÇÏ±â
+        // ì´ë¯¸ì§€ ë†’ì´ë¥¼ ì¹´ë©”ë¼ ë†’ì´ì— ë§ê²Œ ì„¤ì •í•˜ê¸°
         transform.localScale = new Vector2(1, cameraHeight / transform.localScale.y);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
