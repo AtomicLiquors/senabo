@@ -36,16 +36,13 @@ public class ARObjectController : MonoBehaviour
     {
         if (dogEventTrigger)
         {
-            // ======= otherDog를 myDog 앞에 마주보도록 위치 설정 ==========
-            Vector3 offset = myDog.transform.forward * 2.0f; // myDog에서 약간 떨어진 위치
+            // ======= otherDog를 생성하여 myDog 앞에 마주보도록 위치 설정 ========== //
+            Vector3 offset = myDog.transform.forward * 2.0f; 
 
-            // myDog의 현재 회전값 가져오기
-            Quaternion myDogRotation = myDog.transform.rotation;
-
-            // myDog의 현재 회전값에 180도 회전을 더하여 otherDog가 myDog를 바라보도록 회전 설정
-            Quaternion lookRotation = myDogRotation * Quaternion.Euler(0, 180, 0);
-
-            Instantiate(otherDog, myDog.transform.position + offset, lookRotation);
+            otherDog.SetActive(true);
+            otherDog.transform.position = myDog.transform.position + offset;
+            float rotationSpeed = 180f;
+            otherDog.transform.rotation = Quaternion.Euler(0, rotationSpeed += Time.deltaTime * 10, 0);
             dogEventTrigger = false;
         }
 
@@ -60,7 +57,7 @@ public class ARObjectController : MonoBehaviour
         // myDog가 비활성 상태인 경우
         if (!myDog.activeInHierarchy)
         {
-            float rotationSpeed = 30f; // Adjust the speed of rotation as needed
+            float rotationSpeed = 90f; // Adjust the speed of rotation as needed
 
             // 처음 클릭한 상태일 때만 RayCast를 쏘도록 하고, 평면을 인식했을 경우
             if (touch.phase == TouchPhase.Began && arRaycaster.Raycast(touchPosition, arHits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
@@ -76,7 +73,7 @@ public class ARObjectController : MonoBehaviour
                 dogAnimationManager.SetActive(true);
 
                 // dogRotator.SetActive(true);
-                myDog.transform.rotation = Quaternion.Euler(rotationSpeed += Time.deltaTime * 10, 0, 0);
+                //myDog.transform.rotation = Quaternion.Euler(0, rotationSpeed += Time.deltaTime * 10, 0);
             }
         }
     }
