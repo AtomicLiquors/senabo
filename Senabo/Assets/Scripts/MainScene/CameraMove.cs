@@ -22,8 +22,8 @@ public class NewBehaviourScript : MonoBehaviour
         minY = -bgSize.y / 2 + cameraOrthographicSize;
         maxY = bgSize.y / 2 - cameraOrthographicSize;
 
-        Debug.Log("cameraOrthographicSize: " + cameraOrthographicSize);
-        Debug.Log("minX: " + minX + ", maxX: " + maxX + ", minY: " + minY + ", maxY: " + maxY);
+        // Debug.Log("cameraOrthographicSize: " + cameraOrthographicSize);
+        // Debug.Log("minX: " + minX + ", maxX: " + maxX + ", minY: " + minY + ", maxY: " + maxY);
     }
 
     private void LateUpdate()
@@ -55,7 +55,7 @@ public class NewBehaviourScript : MonoBehaviour
             Camera.main.transform.position = ResetCamera;
         }
 
-        Debug.Log("x: " + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y);
+        // Debug.Log("x: " + Camera.main.transform.position.x + ", y: " + Camera.main.transform.position.y);
 
     }
 

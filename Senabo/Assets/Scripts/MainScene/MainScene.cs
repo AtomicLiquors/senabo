@@ -11,7 +11,7 @@ public class MainScene : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     public void LoadBathScene()
@@ -29,31 +29,36 @@ public class MainScene : MonoBehaviour
         SceneManager.LoadScene("PoopScene");
     }
 
+    public void LoadDogWalking2DScene()
+    {
+        SceneManager.LoadScene("DogWalking2DScene");
+    }
+
     public void LoadMoveHospitalScene()
     {
         SceneManager.LoadScene("MoveHospitalScene");
     }
-    
+
     public void LoadMoveGroomingScene()
     {
         SceneManager.LoadScene("MoveGroomingScene");
     }
-    
+
     public void LoadHeartScene()
     {
         SceneManager.LoadScene("HeartScene");
     }
-    
+
     public void LoadOwnerDictScene()
     {
         SceneManager.LoadScene("OwnerDictScene");
     }
-    
+
     public void LoadProfileScene()
     {
         SceneManager.LoadScene("ProfileScene");
     }
-    
+
     public void LoadSettingScene()
     {
         SceneManager.LoadScene("SettingScene");
