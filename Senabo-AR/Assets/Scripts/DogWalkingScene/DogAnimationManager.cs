@@ -8,18 +8,16 @@ public class DogAnimationManager : MonoBehaviour
     private GameObject dogObject;
 
     Animator welshAnim;
-    bool isEventOn;
     // Start is called before the first frame update
     void Start()
     {
-        isEventOn = false;
         if (welshAnim == null)
             welshAnim = dogObject.GetComponentInChildren<Animator>();
     }
 
     public void handleDogMovement(string motion)
     {
-        if(!isEventOn) welshAnim.SetTrigger(motion);
+        if(!EventStatusManager.GetDogEvent()) welshAnim.SetTrigger(motion);
     }
 
     public void handleDogSuddenEvent(string motion)

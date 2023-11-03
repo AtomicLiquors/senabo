@@ -22,18 +22,11 @@ public class GpsManager : MonoBehaviour
     [SerializeField]
     GameObject dogAnimationManager;
 
-    [SerializeField]
-    GameObject dogObject;
-
     DogAnimationManager dogAnimator;
 
-    Animator welshAnim;
 
     IEnumerator Start()
     {
-        if (welshAnim == null)
-            welshAnim = dogObject.GetComponentInChildren<Animator>();
-
         dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>();
 
         while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
