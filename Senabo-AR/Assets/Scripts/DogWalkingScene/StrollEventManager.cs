@@ -10,11 +10,19 @@ public class StrollEventManager : MonoBehaviour
     private int[] randomTimes;
 
     [SerializeField]
-    private ARObjectController aRObjectController;
+    private ARObjectController arObjectController;
+
+    [SerializeField]
+    private GameObject dogObject;
+
+    Animator welshAnim;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (welshAnim == null)
+            welshAnim = dogObject.GetComponentInChildren<Animator>();
+
         randomTimes = new int[4];
 
         // 1분부터 60분까지 랜덤한 값 4개를 randomTimes 배열에 입력
@@ -23,10 +31,10 @@ public class StrollEventManager : MonoBehaviour
             randomTimes[i] = UnityEngine.Random.Range(1, 31); // 1부터 60까지의 랜덤한 값 생성
         }
 
-        StartCoroutine(function1(randomTimes[0]));
-        StartCoroutine(function2(randomTimes[1]));
-        StartCoroutine(function3(randomTimes[2]));
-        StartCoroutine(function4(randomTimes[3]));
+        StartCoroutine(suddenEncounter(randomTimes[0]));
+        StartCoroutine(suddenEat(randomTimes[1]));
+        StartCoroutine(suddenStop(randomTimes[2]));
+        StartCoroutine(suddenPoop(randomTimes[3]));
     }
 
     // Update is called once per frame
@@ -37,12 +45,14 @@ public class StrollEventManager : MonoBehaviour
 
     // ================돌발 이벤트 발생 함수================
     // 1. 다른 강아지를 만났을 때
-    IEnumerator function1(int delayTime)
+    IEnumerator suddenEncounter(int delayTime)
     {
         delayTime = 1;
+        welshAnim.SetTrigger("WelshBark");
         yield return new WaitForSeconds(delayTime);
 
-        aRObjectController.setDogEventTrigger();
+        arObjectController.setDogEventTrigger();
+        
         // 진동 알림
         for (int i = 0; i < 2; i++)
         {
@@ -53,8 +63,9 @@ public class StrollEventManager : MonoBehaviour
 
 
     // 2, 땅에 떨어진 이물질을 주워 먹으려 할 때
-    IEnumerator function2(int delayTime)
+    IEnumerator suddenEat(int delayTime)
     {
+        welshAnim.SetTrigger("WelshEat");
         yield return new WaitForSeconds(delayTime);
         // 진동 알림
         for (int i = 0; i < 2; i++)
@@ -62,12 +73,12 @@ public class StrollEventManager : MonoBehaviour
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
         }
-
     }
 
     // 3. 주저 앉아서 움직이지 않으려 할 때
-    IEnumerator function3(int delayTime)
+    IEnumerator suddenStop(int delayTime)
     {
+        welshAnim.SetTrigger("WelshSit");
         yield return new WaitForSeconds(delayTime);
         // 진동 알림
         for (int i = 0; i < 2; i++)
@@ -78,8 +89,9 @@ public class StrollEventManager : MonoBehaviour
     }
 
     // 4. 배변 활동
-    IEnumerator function4(int delayTime)
+    IEnumerator suddenPoop(int delayTime)
     {
+        welshAnim.SetTrigger("WelshPoop");
         yield return new WaitForSeconds(delayTime);
         // 진동 알림
         for (int i = 0; i < 2; i++)

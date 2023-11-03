@@ -11,6 +11,8 @@ public class ARObjectController : MonoBehaviour
     public GameObject dogLeadSpawner;
     public GameObject walkTimer;
     public GameObject dogRotator;
+    public GameObject strollEventManager;
+    public GameObject dogAnimationManager;
 
     [SerializeField]
     private GameObject myDog;
@@ -70,6 +72,8 @@ public class ARObjectController : MonoBehaviour
                 gpsManager.SetActive(true);
                 dogLeadSpawner.SetActive(true);
                 walkTimer.SetActive(true);
+                strollEventManager.SetActive(true);
+                dogAnimationManager.SetActive(true);
 
                 // dogRotator.SetActive(true);
                 myDog.transform.rotation = Quaternion.Euler(rotationSpeed += Time.deltaTime * 10, 0, 0);

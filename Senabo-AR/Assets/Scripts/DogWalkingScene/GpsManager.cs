@@ -20,7 +20,12 @@ public class GpsManager : MonoBehaviour
     private string userState;
 
     [SerializeField]
+    GameObject dogAnimationManager;
+
+    [SerializeField]
     GameObject dogObject;
+
+    DogAnimationManager dogAnimator;
 
     Animator welshAnim;
 
@@ -28,6 +33,8 @@ public class GpsManager : MonoBehaviour
     {
         if (welshAnim == null)
             welshAnim = dogObject.GetComponentInChildren<Animator>();
+
+        dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>();
 
         while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
         {
@@ -78,9 +85,6 @@ public class GpsManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-    }
 
     // ∞‘¿” ø¿∫Í¡ß∆Æ∞° ªÁ∂Û¡˙∂ß Ω««‡
     private void OnDestroy()
@@ -112,19 +116,19 @@ public class GpsManager : MonoBehaviour
                 if (dist < 0.5)
                 {
                     userState = "∏ÿ√Á ¿÷¿Ω";
-                    welshAnim.SetTrigger("WelshIdle");
+                    dogAnimator.handleDogMovement("WelshIdle");
                     Debug.Log("∏ÿ√Á ¿÷¿Ω");
                 }
                 else if (dist < 2.2)
                 {
                     userState = "∞»¥¬ ¡ﬂ";
-                    welshAnim.SetTrigger("WelshWalk");
+                    dogAnimator.handleDogMovement("WelshWalk");
                     Debug.Log("∞»¥¬ ¡ﬂ");
                 }
                 else
                 {
                     userState = "∂Ÿ¥¬ ¡ﬂ";
-                    welshAnim.SetTrigger("WelshRun");
+                    dogAnimator.handleDogMovement("WelshRun");
                     Debug.Log("∂Ÿ¥¬ ¡ﬂ");
                 }
             }

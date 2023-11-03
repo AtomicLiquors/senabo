@@ -570,6 +570,8 @@ Transform:
   - {fileID: 1577749884}
   - {fileID: 2101391898}
   - {fileID: 294619136}
+  - {fileID: 2129361216}
+  - {fileID: 1781007256}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &154397935
@@ -2780,11 +2782,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arRaycaster: {fileID: 1828601336}
-  myDog: {fileID: 2089110259}
   gpsManager: {fileID: 7680013780120186904}
   dogLeadSpawner: {fileID: 1577749883}
   walkTimer: {fileID: 2101391897}
   dogRotator: {fileID: 294619134}
+  strollEventManager: {fileID: 2129361215}
+  dogAnimationManager: {fileID: 1781007255}
+  myDog: {fileID: 2089110259}
   otherDog: {fileID: 2247168222010617711, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
 --- !u!1 &1710119733
 GameObject:
@@ -3015,6 +3019,51 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "00\uBD84"
+--- !u!1 &1781007255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1781007256}
+  - component: {fileID: 1781007257}
+  m_Layer: 0
+  m_Name: DogAnimationManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1781007256
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781007255}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 82522212}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1781007257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781007255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 844534c2903427c4181255c389b0ae54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dogObject: {fileID: 2089110259}
 --- !u!1 &1828601335
 GameObject:
   m_ObjectHideFlags: 0
@@ -3160,10 +3209,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1469399687890826709, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 154397936}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2247168222010617711, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2089110262}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
 --- !u!1 &2089110259 stripped
 GameObject:
@@ -3175,19 +3221,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1469399687890826709, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
   m_PrefabInstance: {fileID: 2089110258}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2089110262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2089110259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fee34c0406070864db336aa2fa88af04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aRObjectController: {fileID: 1600812349}
 --- !u!1 &2101391897
 GameObject:
   m_ObjectHideFlags: 0
@@ -3233,6 +3266,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalWalkTime: {fileID: 1768069890}
+  dogObject: {fileID: 2089110259}
+--- !u!1 &2129361215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2129361216}
+  - component: {fileID: 2129361217}
+  m_Layer: 0
+  m_Name: StrollEventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2129361216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129361215}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 82522212}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2129361217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129361215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fee34c0406070864db336aa2fa88af04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arObjectController: {fileID: 0}
   dogObject: {fileID: 2089110259}
 --- !u!4 &3228568607743443491
 Transform:
@@ -3281,6 +3360,7 @@ MonoBehaviour:
   positionText: {fileID: 1345455568}
   userMovementDistanceText: {fileID: 302988622}
   userStateText: {fileID: 667804019}
+  dogAnimationManager: {fileID: 1781007255}
   dogObject: {fileID: 2089110259}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
