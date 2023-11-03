@@ -59,6 +59,8 @@ public class StrollEventManager : MonoBehaviour
             Handheld.Vibrate(); // 0.5초간 진동이 울림
             yield return new WaitForSeconds(1); 
         }
+
+
     }
 
 
