@@ -3311,7 +3311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee34c0406070864db336aa2fa88af04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arObjectController: {fileID: 0}
+  arObjectController: {fileID: 1600812349}
   dogObject: {fileID: 2089110259}
 --- !u!4 &3228568607743443491
 Transform:
