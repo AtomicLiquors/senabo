@@ -23,6 +23,26 @@ public class MainScene : MonoBehaviour
     void Start()
     {
         StartCoroutine(WebRequestGET());
+        StartCoroutine(Upload());
+    }
+
+    IEnumerator Upload()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("파라메타", "데이터");
+
+        UnityWebRequest www = UnityWebRequest.Post("http://www.my-server.com/myform", form);
+        www.SetRequestHeader("헤더", "헤더 값");
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("성공!");
+        }
     }
 
     IEnumerator WebRequestGET()
@@ -47,7 +67,7 @@ public class MainScene : MonoBehaviour
             MainSceneClass receivedData = new MainSceneClass { id = 123456, name = "만두", days = 30 };
 
             MainTitleText.text = receivedData.name + "와(과) 함께한 지 " + receivedData.days + "일째";
-            
+
             Debug.Log("WebRequest Error Occured");
         }
     }
