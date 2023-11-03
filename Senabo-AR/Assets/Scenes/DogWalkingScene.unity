@@ -664,7 +664,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 211533640}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab63ef0b2ac8f9841abd687b18b3b91f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e1a889b7a4cefd468fc407e0f4a52d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &211533642
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71ae4747a07ecc4caddf022011d2e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dogObject: {fileID: 2089110259}
+  myDog: {fileID: 2089110259}
 --- !u!4 &294619136
 Transform:
   m_ObjectHideFlags: 0

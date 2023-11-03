@@ -22,6 +22,8 @@ public class ARObjectController : MonoBehaviour
 
     private static List<ARRaycastHit> arHits = new List<ARRaycastHit>();
 
+    private Gyroscope gyro;
+    private bool myDogCheck;
 
     // 화면에 다른 강아지가 등장하는 이벤트 발생을 확인하는 변수
     private bool dogEventTrigger;
@@ -29,7 +31,6 @@ public class ARObjectController : MonoBehaviour
     {
         dogEventTrigger = true;
     }
-
 
     // Update is called once per frame
     void Update()
@@ -57,8 +58,6 @@ public class ARObjectController : MonoBehaviour
         // myDog가 비활성 상태인 경우
         if (!myDog.activeInHierarchy)
         {
-            float rotationSpeed = 90f; // Adjust the speed of rotation as needed
-
             // 처음 클릭한 상태일 때만 RayCast를 쏘도록 하고, 평면을 인식했을 경우
             if (touch.phase == TouchPhase.Began && arRaycaster.Raycast(touchPosition, arHits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
             {
@@ -66,14 +65,12 @@ public class ARObjectController : MonoBehaviour
                 myDog.SetActive(true);
                 myDog.transform.position = hitPose.position;
 
+                dogRotator.SetActive(true);
                 gpsManager.SetActive(true);
                 dogLeadSpawner.SetActive(true);
                 walkTimer.SetActive(true);
                 strollEventManager.SetActive(true);
                 dogAnimationManager.SetActive(true);
-
-                // dogRotator.SetActive(true);
-                //myDog.transform.rotation = Quaternion.Euler(0, rotationSpeed += Time.deltaTime * 10, 0);
             }
         }
     }
