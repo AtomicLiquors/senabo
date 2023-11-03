@@ -17,15 +17,18 @@ public class GyroManager : MonoBehaviour
         gyro.enabled = true;
     }
 
+    private void OnDestroy()
+    {
+        gyro.enabled = false;
+    }
+
     private void Update()
     {
        Debug.Log("gyro: "+gyro.attitude);
-
         Quaternion gyroRotation = gyro.attitude;
 
         // y축 회전 확인
         float yRotation = gyroRotation.eulerAngles.y;
-
         myDog.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 }

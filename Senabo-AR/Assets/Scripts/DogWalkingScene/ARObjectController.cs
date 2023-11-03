@@ -13,6 +13,7 @@ public class ARObjectController : MonoBehaviour
     public GameObject dogRotator;
     public GameObject strollEventManager;
     public GameObject dogAnimationManager;
+    public GameObject dogPositionManager;
 
     [SerializeField]
     private GameObject myDog;
@@ -71,6 +72,7 @@ public class ARObjectController : MonoBehaviour
                 walkTimer.SetActive(true);
                 strollEventManager.SetActive(true);
                 dogAnimationManager.SetActive(true);
+                dogPositionManager.SetActive(true);
             }
         }
     }
