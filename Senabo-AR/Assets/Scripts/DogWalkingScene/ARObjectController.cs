@@ -69,8 +69,8 @@ public class ARObjectController : MonoBehaviour
                // dogRotator.SetActive(true);
                 dogLeadSpawner.SetActive(true);
                 walkTimer.SetActive(true);
-                strollEventManager.SetActive(true);
                 dogAnimationManager.SetActive(true);
+                strollEventManager.SetActive(true);
                 gpsManager.SetActive(true);
                 dogManager.SetActive(true);
             }

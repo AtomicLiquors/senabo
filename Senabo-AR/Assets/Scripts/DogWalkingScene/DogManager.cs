@@ -25,33 +25,31 @@ public class DogManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 카메라의 중앙으로 ray를 쏜다
-        Vector3 screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        // 평면을 인식하여 hits에 값을 입력
-        arRaycaster.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon);
+        Vector3 screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));   // 카메라의 중앙으로 ray를 쏜다
+        arRaycaster.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon); // 평면을 인식하여 hits에 값을 입력
 
+        // 평면을 인식 했을 때
         if (hits.Count > 0)
         {
             Pose hitPose = hits[0].pose;
             // myDog.transform.position = hitPose.position;
 
-            // 이동 방향 계산
+            // 이동 방향 설정
             Vector3 moveDirection = hitPose.position - myDog.transform.position;
             moveDirection.y = 0; // 원하는 축으로 이동하도록 y 값을 0으로 설정
 
-            // magnitude는 3차원 백터의 크기/길이
             // 이동하는 경우(이동 거리가 정한 값보다 클 경우)
-            if (moveDirection.magnitude > stoppingDistance)
+            if (moveDirection.magnitude > stoppingDistance) // magnitude는 3차원 백터의 크기/길이
             {
                 // 이동 방향으로 회전
                 Quaternion newRotation = Quaternion.LookRotation(moveDirection);
                 myDog.GetComponent<Rigidbody>().MoveRotation(newRotation);
 
                 // 거리가 멀 때
-                if (moveDirection.magnitude > 1.5f)
+                if (moveDirection.magnitude > 1.3f)
                 {
                     dogAnimator.handleDogMovement("WelshRun");
-                    myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 3f);
+                    myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 4f);
                 }
                 // 거리가 짧을 때
                 else
@@ -60,7 +58,7 @@ public class DogManager : MonoBehaviour
                     myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 2f);
                 }
             }
-            // 이동안하는 경우
+            // 이동안하는 경우(너무 짧은 거리는 이동 X)
             else
             {
                 // 멈출 거리에 도달한 경우
@@ -68,11 +66,14 @@ public class DogManager : MonoBehaviour
                 myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지
                 myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // 회전 중지
             }
-
-            //myDog.GetComponent<Rigidbody>().AddForce(myDog.transform.forward * 10f);
-
         }
-
+        // 평면을 인식 못 했을 때
+        else
+        {
+            dogAnimator.handleDogMovement("WelshIdle");
+            myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지
+            myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // 회전 중지
+        }
 
     }
     }
