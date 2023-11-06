@@ -58,9 +58,9 @@ public class StrollEventManager : MonoBehaviour
     // 1. 다른 강아지를 만났을 때
     IEnumerator SuddenEncounter(int delayTime)
     {
-       EventStatusManager.SwitchDogEvent(true);
+       
         yield return new WaitForSeconds(delayTime);
-
+        EventStatusManager.SwitchDogEvent(true);
         dogAnimator.handleDogSuddenEvent("WelshBark");
         arObjectController.setDogEventTrigger();
         
@@ -68,7 +68,7 @@ public class StrollEventManager : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             Handheld.Vibrate(); // 0.5초간 진동이 울림
-            yield return new WaitForSeconds(1); 
+            yield return new WaitForSeconds(3); 
         }
 
         // 이벤트 처리 로직
@@ -80,14 +80,14 @@ public class StrollEventManager : MonoBehaviour
     // 2, 땅에 떨어진 이물질을 주워 먹으려 할 때
     IEnumerator SuddenEat(int delayTime)
     {
+        yield return new WaitForSeconds(delayTime);
         EventStatusManager.SwitchDogEvent(true);
         dogAnimator.handleDogSuddenEvent("WelshEat");
-        yield return new WaitForSeconds(delayTime);
         // 진동 알림
         for (int i = 0; i < 2; i++)
         {
             Handheld.Vibrate();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
         }
         EventStatusManager.SwitchDogEvent(false);
     }
@@ -96,14 +96,15 @@ public class StrollEventManager : MonoBehaviour
     IEnumerator SuddenStop(int delayTime)
     {
 
+       
+        yield return new WaitForSeconds(delayTime);
         EventStatusManager.SwitchDogEvent(true);
         dogAnimator.handleDogSuddenEvent("WelshSit");
-        yield return new WaitForSeconds(delayTime);
         // 진동 알림
         for (int i = 0; i < 2; i++)
         {
             Handheld.Vibrate();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
         }
         EventStatusManager.SwitchDogEvent(false);
     }
@@ -112,14 +113,15 @@ public class StrollEventManager : MonoBehaviour
     IEnumerator SuddenPoop(int delayTime)
     {
 
+       
+        yield return new WaitForSeconds(delayTime);
         EventStatusManager.SwitchDogEvent(true);
         dogAnimator.handleDogSuddenEvent("WelshPoop");
-        yield return new WaitForSeconds(delayTime);
         // 진동 알림
         for (int i = 0; i < 2; i++)
         {
             Handheld.Vibrate();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
         }
         EventStatusManager.SwitchDogEvent(false);
     }
