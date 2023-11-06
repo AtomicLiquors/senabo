@@ -83,7 +83,7 @@ public class HeartScene : MonoBehaviour
         // string url = ServerSettings.SERVER_URL + "/api/communication/save/" + getHeartType();
         string url = ServerSettings.SERVER_URL + "/api/communication/save/" + getHeartType() + "?email=" + PlayerPrefs.GetString("email"); // TEST CODE
         UnityWebRequest request = new UnityWebRequest(url, "POST");
-        Debug.Log("url? " + url);
+        
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
