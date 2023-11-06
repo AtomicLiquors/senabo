@@ -29,7 +29,8 @@ public class StrollEventManager : MonoBehaviour
         //if (welshAnim == null)
          //   welshAnim = dogObject.GetComponentInChildren<Animator>();
 
-        dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>(); if (dogAnimator == null)
+        dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>(); 
+        if (dogAnimator == null)
         {
             Debug.LogError("DogAnimationManager component not found on dogAnimationManager GameObject!");
         }
@@ -69,6 +70,8 @@ public class StrollEventManager : MonoBehaviour
             Handheld.Vibrate(); // 0.5초간 진동이 울림
             yield return new WaitForSeconds(1); 
         }
+
+        // 이벤트 처리 로직
 
         EventStatusManager.SwitchDogEvent(false);
     }
