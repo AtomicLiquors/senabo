@@ -12,40 +12,76 @@ public class PoopScene : MonoBehaviour
     public Sprite[] poopPadSprites;
 
     private int clickedCount = 0, spriteIndex = 0, changeLimit = 3;
+    private Button button;
 
     void Start()
     {
-        StartCoroutine(Upload());
+        StartCoroutine(CreatePoop());
 
-        Button button = poopPadImage.GetComponent<Button>();
+        button = poopPadImage.GetComponent<Button>();
         button.onClick.AddListener(OnClickPoopPad);
     }
 
-    IEnumerator Upload()
+    void OnClickPoopPad()
+    {
+        clickedCount++;
+        // Debug.Log("click 횟수: " + clickedCount + ", 사진 순번: " + spriteIndex); // Debug Code
+        if (clickedCount > changeLimit && spriteIndex < poopPadSprites.Length)
+        {
+            poopPadImage.sprite = poopPadSprites[spriteIndex++];
+            clickedCount = 0;
+        }
+
+        if (spriteIndex == poopPadSprites.Length)
+        {
+            button.onClick.RemoveListener(OnClickPoopPad);
+            StartCoroutine(CleanPoop());
+        }
+    }
+
+    IEnumerator CreatePoop()
     {
         WWWForm form = new WWWForm();
-        form.AddField("파라메타", "데이터");
+        form.AddField("email", PlayerPrefs.GetString("email"));
 
-        UnityWebRequest www = UnityWebRequest.Post("http://www.my-server.com/myform", form);
-        www.SetRequestHeader("헤더", "헤더 값");
-        yield return www.SendWebRequest();
+        // string url = ServerSettings.SERVER_URL + "/api/poop/save";
+        string url = ServerSettings.SERVER_URL + "/api/poop/save?email=" + PlayerPrefs.GetString("email"); // TEST CODE
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
 
-        if (www.isNetworkError || www.isHttpError)
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
         {
-            Debug.Log(www.error);
+            Debug.Log("PoopScene CreatePoop Error! " + request.error);
         }
         else
         {
-            Debug.Log("성공!");
+            Debug.Log("PoopScene CreatePoop Success!");
         }
     }
-    
-    void OnClickPoopPad() {
-        clickedCount++;
-        Debug.Log("click 횟수: " + clickedCount + ", 사진 순번: " + spriteIndex);
-        if(clickedCount > changeLimit && spriteIndex < poopPadSprites.Length) {
-            poopPadImage.sprite = poopPadSprites[spriteIndex++];
-            clickedCount = 0;
+
+    IEnumerator CleanPoop()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("email", PlayerPrefs.GetString("email"));
+
+        // string url = ServerSettings.SERVER_URL + "/api/poop/clean";
+        string url = ServerSettings.SERVER_URL + "/api/poop/clean?email=" + PlayerPrefs.GetString("email"); // TEST CODE
+        UnityWebRequest request = new UnityWebRequest(url, "PATCH");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        yield return request.SendWebRequest();
+
+        if (request.isNetworkError || request.isHttpError)
+        {
+            Debug.Log("PoopScene CleanPoop Error! " + request.error);
+        }
+        else
+        {
+            Debug.Log("PoopScene CleanPoop Success!");
         }
     }
 
