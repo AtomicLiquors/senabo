@@ -35,33 +35,15 @@ public class MainScene : MonoBehaviour
 
     void Start()
     {
+        PlayerPrefs.SetString("email", "ssafy@naver.com"); // TEST CODE
         StartCoroutine(WebRequestGET());
-        // StartCoroutine(Upload());
-    }
-
-    IEnumerator Upload()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("email", PlayerPrefs.GetString("email"));
-
-        UnityWebRequest www = UnityWebRequest.Post(ServerSettings.SERVER_URL + "/api/member/update", form);
-        // www.SetRequestHeader("Header", "Header Value");
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error); // Debug Code
-        }
-        else
-        {
-            Debug.Log("Success"); // Debug Code
-        }
     }
 
     IEnumerator WebRequestGET()
     {
         string email = PlayerPrefs.GetString("email");
-        string url = ServerSettings.SERVER_URL + "/api/member/get/" + email;
+        // string url = ServerSettings.SERVER_URL + "/member/get/" + email;
+        string url = ServerSettings.SERVER_URL + "/member/get?email=" + email; // TEST CODE
 
         UnityWebRequest www = UnityWebRequest.Get(url);
 
@@ -74,7 +56,8 @@ public class MainScene : MonoBehaviour
             var response = JsonUtility.FromJson<APIResponse<MainSceneClass>>(jsonString);
 
             TimeSpan dateDiff = DateTime.Now - DateTime.Parse(response.data.createTime);
-            MainTitleText.text = PlayerPrefs.GetString("dogName") + "와(과) 함께한 지 " + (dateDiff.TotalDays + 1) + "일 째";
+            // MainTitleText.text = PlayerPrefs.GetString("dogName") + "와(과) 함께한 지 " + (dateDiff.TotalDays + 1) + "일 째";
+            MainTitleText.text = response.data.dogName + "와(과) 함께한 지 " + ((int)dateDiff.TotalDays + 1) + "일 째"; // TEST CODE
             Debug.Log("Received Object: " + response.data); // Debug Code
         }
         else

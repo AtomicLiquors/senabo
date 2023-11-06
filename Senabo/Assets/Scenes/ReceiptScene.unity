@@ -954,7 +954,7 @@ MonoBehaviour:
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 272952923}
   m_HorizontalScrollbarVisibility: 0
-  m_VerticalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 1
   m_HorizontalScrollbarSpacing: 0
   m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
@@ -1385,6 +1385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af6b353bd664c34d94408ed35c15799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 440
   totalPriceText: {fileID: 382715565}
   receiptPrefab: {fileID: 1636084767316543265, guid: ae625bdd77a13a34eb9c7deb8bca2ae4, type: 3}
   receiptContent: {fileID: 938909791}
