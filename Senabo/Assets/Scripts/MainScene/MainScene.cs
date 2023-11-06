@@ -42,8 +42,8 @@ public class MainScene : MonoBehaviour
     IEnumerator WebRequestGET()
     {
         string email = PlayerPrefs.GetString("email");
-        // string url = ServerSettings.SERVER_URL + "/member/get/" + email;
-        string url = ServerSettings.SERVER_URL + "/member/get?email=" + email; // TEST CODE
+        // string url = ServerSettings.SERVER_URL + "/api/member/get/" + email;
+        string url = ServerSettings.SERVER_URL + "/api/member/get?email=" + email; // TEST CODE
 
         UnityWebRequest www = UnityWebRequest.Get(url);
 

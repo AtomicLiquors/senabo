@@ -53,8 +53,8 @@ public class ReceiptScene : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("email", PlayerPrefs.GetString("email"));
 
-        // string url = ServerSettings.SERVER_URL + "/expense/save";
-        string url = ServerSettings.SERVER_URL + "/expense/save?email=" + PlayerPrefs.GetString("email"); // TEST CODE
+        // string url = ServerSettings.SERVER_URL + "/api/expense/save";
+        string url = ServerSettings.SERVER_URL + "/api/expense/save?email=" + PlayerPrefs.GetString("email"); // TEST CODE
         UnityWebRequest request = new UnityWebRequest(url, "POST");
 
         string postJsonData = JsonUtility.ToJson(new { receiptHistories });
