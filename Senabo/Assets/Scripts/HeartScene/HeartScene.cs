@@ -17,7 +17,8 @@ public class HeartType
 
 public class HeartScene : MonoBehaviour
 {
-    public Image dogImage, heartImage;
+    public Image dogImage;
+    public GameObject heartImage;
     public int heartType; // TEST CODE
     private Button dogBody;
     private int heartCount = 0, heartLimit = 3;
@@ -36,7 +37,7 @@ public class HeartScene : MonoBehaviour
             Debug.Log(heartCount + "회 교감 진행"); // Debug Code
             heartUploading = true;
             heartCount++;
-            heartImage.enabled = true;
+            heartImage.SetActive(true);
             StartCoroutine(UploadAfterDelay(1.0f));
         }
 
@@ -52,7 +53,7 @@ public class HeartScene : MonoBehaviour
 
         StartCoroutine(Upload());
         heartUploading = false;
-        heartImage.enabled = false;
+        heartImage.SetActive(false);
     }
 
     string getHeartType()
