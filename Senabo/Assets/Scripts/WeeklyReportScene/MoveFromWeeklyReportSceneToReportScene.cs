@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MoveFromWalkCheckListSceneToWalkScene : MonoBehaviour
+public class MoveFromWeeklyReportSceneToReportScene : MonoBehaviour
 {
     public void SceneChange()
     {
-        //SceneManager.LoadScene("WalkScene");
+        SceneManager.LoadScene("ReportScene");
     }
+
 }
