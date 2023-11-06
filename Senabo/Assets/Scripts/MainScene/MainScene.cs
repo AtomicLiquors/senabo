@@ -10,44 +10,57 @@ using UnityEngine.UI;
 public class MainSceneClass
 {
     public long id;
-    public string name;
+    public string dogName;
+    public string email;
+    public string species;
+    public char sex;
+    public int affection;
+    public int stressLevel;
+    public double houseLatitude;
+    public double houseLongitude;
+    public int totalTime;
+    public string uid;
+    public string deviceToken;
+    public string exitTime;
+    public string enterTime;
+    public string createTime;
+    public string updateTime;
     public int days;
 }
 
 public class MainScene : MonoBehaviour
 {
     public Text MainTitleText;
-
     public GameObject actionModal;
 
     void Start()
     {
         StartCoroutine(WebRequestGET());
-        StartCoroutine(Upload());
+        // StartCoroutine(Upload());
     }
 
     IEnumerator Upload()
     {
         WWWForm form = new WWWForm();
-        form.AddField("파라메타", "데이터");
+        form.AddField("email", PlayerPrefs.GetString("email"));
 
-        UnityWebRequest www = UnityWebRequest.Post("http://www.my-server.com/myform", form);
-        www.SetRequestHeader("헤더", "헤더 값");
+        UnityWebRequest www = UnityWebRequest.Post(ServerSettings.SERVER_URL + "/api/member/update", form);
+        // www.SetRequestHeader("Header", "Header Value");
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
         {
-            Debug.Log(www.error);
+            Debug.Log(www.error); // Debug Code
         }
         else
         {
-            Debug.Log("성공!");
+            Debug.Log("Success"); // Debug Code
         }
     }
 
     IEnumerator WebRequestGET()
     {
-        string email = "kim@ssafy.com";
+        string email = PlayerPrefs.GetString("email");
         string url = ServerSettings.SERVER_URL + "/api/member/get/" + email;
 
         UnityWebRequest www = UnityWebRequest.Get(url);
@@ -56,20 +69,18 @@ public class MainScene : MonoBehaviour
 
         if (www.error == null)
         {
-            Debug.Log(www.downloadHandler.text); //
+            Debug.Log(www.downloadHandler.text); // Debug Code
             string jsonString = www.downloadHandler.text;
             var response = JsonUtility.FromJson<APIResponse<MainSceneClass>>(jsonString);
 
-            // 현재 날짜와 비교하여 며칠 째인지 확인해야 함
-            Debug.Log("Received Object: " + response.data); //
+            TimeSpan dateDiff = DateTime.Now - DateTime.Parse(response.data.createTime);
+            MainTitleText.text = PlayerPrefs.GetString("dogName") + "와(과) 함께한 지 " + (dateDiff.TotalDays + 1) + "일 째";
+            Debug.Log("Received Object: " + response.data); // Debug Code
         }
         else
         {
-            MainSceneClass receivedData = new MainSceneClass { id = 123456, name = "만두", days = 30 };
-
-            MainTitleText.text = receivedData.name + "와(과) 함께한 지 " + receivedData.days + "일째";
-
-            Debug.Log("WebRequest Error Occured");
+            MainTitleText.text = "강아지와(과) 함께한 지 0일째"; // TEST CODE
+            Debug.Log("WebRequest Error Occured"); // Debug Code
         }
     }
 
