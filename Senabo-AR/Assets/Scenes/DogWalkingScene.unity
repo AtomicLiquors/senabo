@@ -3410,6 +3410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arObjectController: {fileID: 1600812349}
+  dogManager: {fileID: 768948089}
   dogObject: {fileID: 2089110259}
   dogAnimationManager: {fileID: 1781007255}
 --- !u!4 &3228568607743443491
@@ -3459,7 +3460,6 @@ MonoBehaviour:
   positionText: {fileID: 1345455568}
   userMovementDistanceText: {fileID: 302988622}
   userStateText: {fileID: 667804019}
-  dogAnimationManager: {fileID: 1781007255}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
