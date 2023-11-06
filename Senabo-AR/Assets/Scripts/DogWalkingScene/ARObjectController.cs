@@ -9,8 +9,8 @@ public class ARObjectController : MonoBehaviour
     public ARRaycastManager arRaycaster;
     public GameObject gpsManager;
     public GameObject dogLeadSpawner;
+    public GameObject dogStrap;
     public GameObject walkTimer;
-    public GameObject dogRotator;
     public GameObject strollEventManager;
     public GameObject dogAnimationManager;
     public GameObject dogManager;
@@ -65,9 +65,17 @@ public class ARObjectController : MonoBehaviour
                 Pose hitPose = arHits[0].pose;
                 myDog.SetActive(true);
                 myDog.transform.position = hitPose.position;
+                /*
+                if (EventStatusManager.GetHarnessOn()) {
+                    dogLeadSpawner.SetActive(true);
+                    dogStrap.SetActive(true);
+                }
+                else
+                {
+                    dogLeadSpawner.SetActive(false);
+                    dogStrap.SetActive(false);
+                }*/
 
-               // dogRotator.SetActive(true);
-                dogLeadSpawner.SetActive(true);
                 walkTimer.SetActive(true);
                 strollEventManager.SetActive(true);
                 dogAnimationManager.SetActive(true);
