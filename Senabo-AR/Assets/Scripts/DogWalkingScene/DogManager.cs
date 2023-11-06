@@ -15,6 +15,12 @@ public class DogManager : MonoBehaviour
 
     DogAnimationManager dogAnimator;
 
+    private bool strollEventCheck;
+    public void updateStrollEventCheck(bool check)
+    {
+        strollEventCheck = check;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +31,14 @@ public class DogManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 돌발 이벤트 발생 중일 때
+        if (strollEventCheck)
+        {
+            myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지
+            myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // 회전 중지
+            return;
+        }
+
         Vector3 screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));   // 카메라의 중앙으로 ray를 쏜다
         arRaycaster.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon); // 평면을 인식하여 hits에 값을 입력
 

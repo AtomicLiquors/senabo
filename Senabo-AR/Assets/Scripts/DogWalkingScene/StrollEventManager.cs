@@ -13,14 +13,15 @@ public class StrollEventManager : MonoBehaviour
     private ARObjectController arObjectController;
 
     [SerializeField]
+    private DogManager dogManager;
+
+    [SerializeField]
     private GameObject dogObject;
 
     [SerializeField]
     GameObject dogAnimationManager;
 
     DogAnimationManager dogAnimator;
-
-  //  Animator welshAnim;
 
 
     // Start is called before the first frame update
@@ -49,10 +50,6 @@ public class StrollEventManager : MonoBehaviour
         StartCoroutine(SuddenPoop(randomTimes[3]));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     // ================돌발 이벤트 발생 함수================
     // 1. 다른 강아지를 만났을 때
@@ -60,8 +57,10 @@ public class StrollEventManager : MonoBehaviour
     {
         delayTime = 1;
         yield return new WaitForSeconds(delayTime);
-        dogAnimator.handleDogSuddenEvent("WelshBark");
+
+        dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
+        dogAnimator.handleDogSuddenEvent("WelshBark");
         arObjectController.setDogEventTrigger();
         
         // 진동 알림
@@ -71,8 +70,7 @@ public class StrollEventManager : MonoBehaviour
             yield return new WaitForSeconds(1); 
         }
 
-        // 이벤트 처리 로직
-
+        dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
     }
 
@@ -82,14 +80,19 @@ public class StrollEventManager : MonoBehaviour
     {
         delayTime = 7;
         yield return new WaitForSeconds(delayTime);
-        dogAnimator.handleDogSuddenEvent("WelshEat");
+
+        dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
+        dogAnimator.handleDogSuddenEvent("WelshEat");
+
         // 진동 알림
         for (int i = 0; i < 4; i++)
         {
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
         }
+
+        dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
     }
 
@@ -97,16 +100,20 @@ public class StrollEventManager : MonoBehaviour
     IEnumerator SuddenStop(int delayTime)
     {
         delayTime = 15;
-
         yield return new WaitForSeconds(delayTime);
-        dogAnimator.handleDogSuddenEvent("WelshSit");
+
+        dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
+        dogAnimator.handleDogSuddenEvent("WelshSit");
+
         // 진동 알림
         for (int i = 0; i < 4; i++)
         {
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
         }
+
+        dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
     }
 
@@ -114,16 +121,20 @@ public class StrollEventManager : MonoBehaviour
     IEnumerator SuddenPoop(int delayTime)
     {
         delayTime = 22;
-
         yield return new WaitForSeconds(delayTime);
-        dogAnimator.handleDogSuddenEvent("WelshPoop");
+
+        dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
+        dogAnimator.handleDogSuddenEvent("WelshPoop");
+
         // 진동 알림
         for (int i = 0; i < 4; i++)
         {
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
         }
+
+        dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
     }
 

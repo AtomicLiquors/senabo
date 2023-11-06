@@ -23,9 +23,6 @@ public class ARObjectController : MonoBehaviour
 
     private static List<ARRaycastHit> arHits = new List<ARRaycastHit>();
 
-    private Gyroscope gyro;
-    private bool myDogCheck;
-
     // 화면에 다른 강아지가 등장하는 이벤트 발생을 확인하는 변수
     private bool dogEventTrigger;
     public void setDogEventTrigger()
