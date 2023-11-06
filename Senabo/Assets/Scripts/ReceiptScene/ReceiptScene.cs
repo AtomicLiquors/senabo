@@ -37,7 +37,7 @@ public class ReceiptType
 
 public class ReceiptScene : MonoBehaviour
 {
-    public int type;
+    public static int type;
     public Text totalPriceText;
     public GameObject receiptPrefab;
     public Transform receiptContent;
@@ -68,7 +68,7 @@ public class ReceiptScene : MonoBehaviour
 
         if (request.isNetworkError || request.isHttpError)
         {
-            Debug.Log(request.error);
+            Debug.Log("ReceiptScene Error! " + request.error);
         }
         else
         {

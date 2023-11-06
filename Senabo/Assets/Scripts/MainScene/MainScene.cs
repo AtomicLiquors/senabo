@@ -51,14 +51,12 @@ public class MainScene : MonoBehaviour
 
         if (www.error == null)
         {
-            Debug.Log(www.downloadHandler.text); // Debug Code
             string jsonString = www.downloadHandler.text;
             var response = JsonUtility.FromJson<APIResponse<MainSceneClass>>(jsonString);
 
             TimeSpan dateDiff = DateTime.Now - DateTime.Parse(response.data.createTime);
             // MainTitleText.text = PlayerPrefs.GetString("dogName") + "와(과) 함께한 지 " + (dateDiff.TotalDays + 1) + "일 째";
             MainTitleText.text = response.data.dogName + "와(과) 함께한 지 " + ((int)dateDiff.TotalDays + 1) + "일 째"; // TEST CODE
-            Debug.Log("Received Object: " + response.data); // Debug Code
         }
         else
         {
@@ -89,11 +87,13 @@ public class MainScene : MonoBehaviour
 
     public void LoadMoveHospitalScene()
     {
+        ReceiptScene.type = ReceiptType.HospitalCost1;
         SceneManager.LoadScene("MoveHospitalScene");
     }
 
     public void LoadMoveGroomingScene()
     {
+        ReceiptScene.type = ReceiptType.GroomingCost;
         SceneManager.LoadScene("MoveGroomingScene");
     }
 
