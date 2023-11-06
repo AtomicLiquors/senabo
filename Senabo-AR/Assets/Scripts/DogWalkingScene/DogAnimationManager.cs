@@ -6,33 +6,22 @@ public class DogAnimationManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject dogObject;
-    [SerializeField]
-    private GameObject dogStrapObject;
-
 
     Animator welshAnim;
-    Animator strapAnim;
     // Start is called before the first frame update
     void Start()
     {
         if (welshAnim == null)
             welshAnim = dogObject.GetComponentInChildren<Animator>();
-        if (strapAnim == null && dogStrapObject.activeInHierarchy)
-            strapAnim = dogStrapObject.GetComponentInChildren<Animator>();
     }
 
     public void handleDogMovement(string motion)
     {
-        if (!EventStatusManager.GetDogEvent())
-        {
-            welshAnim.SetTrigger(motion);
-            if(strapAnim) strapAnim.SetTrigger(motion);
-        }
+        if(!EventStatusManager.GetDogEvent()) welshAnim.SetTrigger(motion);
     }
 
     public void handleDogSuddenEvent(string motion)
     {
         welshAnim.SetTrigger(motion);
-        if (strapAnim) strapAnim.SetTrigger(motion);
     }
 }
