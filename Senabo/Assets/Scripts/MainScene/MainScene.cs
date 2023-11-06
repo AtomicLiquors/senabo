@@ -60,6 +60,7 @@ public class MainScene : MonoBehaviour
             string jsonString = www.downloadHandler.text;
             var response = JsonUtility.FromJson<APIResponse<MainSceneClass>>(jsonString);
 
+            // 현재 날짜와 비교하여 며칠 째인지 확인해야 함
             Debug.Log("Received Object: " + response.data); //
         }
         else
