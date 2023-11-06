@@ -1872,7 +1872,7 @@ GameObject:
   - component: {fileID: 768948088}
   - component: {fileID: 768948089}
   m_Layer: 0
-  m_Name: DogPositionManager
+  m_Name: DogManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1907,6 +1907,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arRaycaster: {fileID: 1828601336}
   myDog: {fileID: 2089110259}
+  dogAnimationManager: {fileID: 1781007255}
 --- !u!1 &782628375
 GameObject:
   m_ObjectHideFlags: 0
@@ -2833,7 +2834,7 @@ MonoBehaviour:
   dogRotator: {fileID: 294619134}
   strollEventManager: {fileID: 2129361215}
   dogAnimationManager: {fileID: 1781007255}
-  dogPositionManager: {fileID: 768948087}
+  dogManager: {fileID: 768948087}
   myDog: {fileID: 2089110259}
   otherDog: {fileID: 223974227}
 --- !u!1 &1710119733

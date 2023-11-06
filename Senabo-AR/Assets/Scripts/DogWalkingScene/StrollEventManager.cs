@@ -58,7 +58,6 @@ public class StrollEventManager : MonoBehaviour
     IEnumerator SuddenEncounter(int delayTime)
     {
        EventStatusManager.SwitchDogEvent(true);
-        delayTime = 1;
         yield return new WaitForSeconds(delayTime);
 
         dogAnimator.handleDogSuddenEvent("WelshBark");

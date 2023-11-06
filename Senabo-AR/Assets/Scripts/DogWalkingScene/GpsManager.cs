@@ -109,19 +109,19 @@ public class GpsManager : MonoBehaviour
                 if (dist < 0.5)
                 {
                     userState = "¸ØÃç ÀÖÀ½";
-                    dogAnimator.handleDogMovement("WelshIdle");
+                    // dogAnimator.handleDogMovement("WelshIdle");
                     Debug.Log("¸ØÃç ÀÖÀ½");
                 }
                 else if (dist < 2.2)
                 {
                     userState = "°È´Â Áß";
-                    dogAnimator.handleDogMovement("WelshWalk");
+                    // dogAnimator.handleDogMovement("WelshWalk");
                     Debug.Log("°È´Â Áß");
                 }
                 else
                 {
                     userState = "¶Ù´Â Áß";
-                    dogAnimator.handleDogMovement("WelshRun");
+                    // dogAnimator.handleDogMovement("WelshRun");
                     Debug.Log("¶Ù´Â Áß");
                 }
             }
