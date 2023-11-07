@@ -13,11 +13,7 @@ public class EventStatusManager : MonoBehaviour
         isDogEventOn = false;
     }
 
-    void Update()
-    {
-        Debug.Log(isDogEventOn);
-    }
-
+    //돌발 상황 발생 시점에 Void Update로 isDogEventOn 출력시 True로 정상 출력됨.
     public static void SwitchDogEvent(bool eventStatus)
     {
         isDogEventOn = eventStatus;
