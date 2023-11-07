@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
@@ -37,7 +37,7 @@ public class CountReport : MonoBehaviour
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
-        string accessToken = "tokentoken"; // ÃßÈÄ PlayerPrefs¿¡¼­ ÃßÃâÇÒ ¿¹Á¤
+        string accessToken = "tokentoken"; // ì¶”í›„ PlayerPrefsì—ì„œ ì¶”ì¶œí•  ì˜ˆì •
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);
@@ -64,28 +64,28 @@ public class CountReport : MonoBehaviour
                 {
                     SimpleReportClass report = reports[i];
 
-                    // Prefab º¹Á¦
+                    // Prefab ë³µì œ
                     GameObject reportElement = Instantiate(prefab);
 
                     reportElement.name = $"{report.week}";
 
-                    // º¹Á¦µÈ PrefabÀ» GridLayoutGroup¿¡ ¿¬°á
+                    // ë³µì œëœ Prefabì„ GridLayoutGroupì— ì—°ê²°
                     reportElement.transform.SetParent(reportListGroup.transform);
 
-                    // º¹Á¦µÈ PrefabÀÇ local scale ¼³Á¤
+                    // ë³µì œëœ Prefabì˜ local scale ì„¤ì •
                     reportElement.transform.localScale = scale;
 
-                    // AddListener·Î ¹öÆ°¿¡ moveWeeklyReportScene ÇÔ¼ö ¿¬°á
+                    // AddListenerë¡œ ë²„íŠ¼ì— moveWeeklyReportScene í•¨ìˆ˜ ì—°ê²°
                     reportElement.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(
                         () => MoveToWeeklyReportScene(report.week));
 
                     if (report.week == 9)
                     {
-                        reportElement.transform.GetChild(0).transform.GetChild(2).GetComponent<Text>().text = $"ÃÖÁ¾";
+                        reportElement.transform.GetChild(0).transform.GetChild(2).GetComponent<Text>().text = $"ìµœì¢…";
                     }
                     else
                     {
-                        reportElement.transform.GetChild(0).transform.GetChild(2).GetComponent<Text>().text = $"{report.week}ÁÖÂ÷";
+                        reportElement.transform.GetChild(0).transform.GetChild(2).GetComponent<Text>().text = $"{report.week}ì£¼ì°¨";
                     }
 
                     if (report.endStressScore > 20)

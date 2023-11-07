@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -49,7 +49,7 @@ public class MemberInfo : MonoBehaviour
         }
         else
         {
-            Debug.Log("»ç¿ëÀÚ Á¤º¸ ºÒ·¯¿À±â ½ÇÆĞ");
+            Debug.Log("ì‚¬ìš©ì ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
         }
     }
 
@@ -59,7 +59,7 @@ public class MemberInfo : MonoBehaviour
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
-        string accessToken = "tokentoken"; // ÃßÈÄ PlayerPrefs¿¡¼­ ÃßÃâÇÒ ¿¹Á¤
+        string accessToken = "tokentoken"; // ì¶”í›„ PlayerPrefsì—ì„œ ì¶”ì¶œí•  ì˜ˆì •
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);
@@ -74,15 +74,15 @@ public class MemberInfo : MonoBehaviour
 
             if (totalExpenditureAmount.totalAmount == 0)
             {
-                totalExpenditureAmountText.text = "0¿ø";
+                totalExpenditureAmountText.text = "0ì›";
             } else
             {
-                totalExpenditureAmountText.text = string.Format("{0:#,###}¿ø", totalExpenditureAmount.totalAmount);
+                totalExpenditureAmountText.text = string.Format("{0:#,###}ì›", totalExpenditureAmount.totalAmount);
             }
         }
         else
         {
-            Debug.Log("ÃÑ ±İ¾× ºÒ·¯¿À±â ½ÇÆĞ");
+            Debug.Log("ì´ ê¸ˆì•¡ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
         }
     }
 }

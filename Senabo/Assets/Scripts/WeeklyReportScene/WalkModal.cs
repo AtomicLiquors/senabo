@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,15 +33,15 @@ public class WalkModal : MonoBehaviour
 
         if (hours > 0 && minutes > 0)
         {
-            return $"{hours}½Ã°£ {minutes}ºĞ";
+            return $"{hours}ì‹œê°„ {minutes}ë¶„";
         }
 
         if (hours > 0)
         {
-            return $"{hours}½Ã°£";
+            return $"{hours}ì‹œê°„";
         }
 
-        return $"{minutes}ºĞ";
+        return $"{minutes}ë¶„";
     }
 
     IEnumerator GetWeeklyWalkList()
@@ -50,7 +50,7 @@ public class WalkModal : MonoBehaviour
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
-        string accessToken = "tokentoken"; // ÃßÈÄ PlayerPrefs¿¡¼­ ÃßÃâÇÒ ¿¹Á¤
+        string accessToken = "tokentoken"; // ì¶”í›„ PlayerPrefsì—ì„œ ì¶”ì¶œí•  ì˜ˆì •
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);
@@ -90,7 +90,7 @@ public class WalkModal : MonoBehaviour
                 dayWalkElement.transform.SetParent(WalkContent.transform);
                 dayWalkElement.transform.localScale = scale;
 
-                dayWalkElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(walksByCreateTime[i][0].startTime):yyyy.MM.dd}"; // ³¯Â¥ ÁöÁ¤
+                dayWalkElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(walksByCreateTime[i][0].startTime):yyyy.MM.dd}"; // ë‚ ì§œ ì§€ì •
 
                 for (int j = 0; j < walksByCreateTime[i].Count; j++)
                 {
@@ -101,13 +101,13 @@ public class WalkModal : MonoBehaviour
                     walkRecordElemnt.transform.localScale = scale;
 
                     walkRecordElemnt.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(walk.createTime):HH:mm}";
-                    walkRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{GetTimeFormat(walk.startTime, walk.endTime)} µ¿¾È\n{walk.distance}km¸¦ °É¾ú¾î¿ä.";
+                    walkRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{GetTimeFormat(walk.startTime, walk.endTime)} ë™ì•ˆ\n{walk.distance}kmë¥¼ ê±¸ì—ˆì–´ìš”.";
                 }
             }
         }
         else
         {
-            Debug.Log("ÁÖ°£ »êÃ¥ °ü¸® ³»¿ª ºÒ·¯¿À±â ½ÇÆĞ");
+            Debug.Log("ì£¼ê°„ ì‚°ì±… ê´€ë¦¬ ë‚´ì—­ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
         }
     }
 }

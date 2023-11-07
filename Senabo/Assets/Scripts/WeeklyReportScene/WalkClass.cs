@@ -1,4 +1,4 @@
-[System.Serializable]
+﻿[System.Serializable]
 public class WalkClass
 {
     public long id;

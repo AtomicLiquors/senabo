@@ -1,4 +1,4 @@
-[System.Serializable]
+﻿[System.Serializable]
 public class PoopClass
 {
     public long id;
