@@ -14,13 +14,13 @@ public class DogLeadDrawer : MonoBehaviour
     void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.startWidth = .05f;
-        lineRenderer.endWidth = .05f;
+        lineRenderer.startWidth = .02f;
+        lineRenderer.endWidth = .02f;
     }
 
     void Update() {
         dogPos = dogObject.GetComponent<Transform>().position;
-        cameraPos = Camera.current.ViewportToWorldPoint(new Vector3(5f, -5f, Camera.current.nearClipPlane));
+        cameraPos = Camera.current.ViewportToWorldPoint(new Vector3(-5f, -5f, Camera.current.nearClipPlane - 2f));
         lineRenderer.SetPosition(0, dogPos);
         lineRenderer.SetPosition(1, cameraPos);
     }

@@ -13,6 +13,11 @@ public class EventStatusManager : MonoBehaviour
         isDogEventOn = false;
     }
 
+    void Update()
+    {
+        Debug.Log(isDogEventOn);
+    }
+
     public static void SwitchDogEvent(bool eventStatus)
     {
         isDogEventOn = eventStatus;
