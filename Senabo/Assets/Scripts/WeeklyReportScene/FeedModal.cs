@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class FeedModal : MonoBehaviour
 {
     private string email = "kim@ssafy.com";
-    private string dogName = "µÎºÎºÎ";
+    private string dogName = "ë‘ë¶€ë¶€";
 
     public GameObject DayFeedElement;
     public GameObject FeedRecordElemnt;
@@ -26,13 +26,13 @@ public class FeedModal : MonoBehaviour
     {
         char lastLetter = dogName.ElementAt(dogName.Length - 1);
 
-        // ÇÑ±ÛÀÇ Á¦ÀÏ Ã³À½°ú ³¡ÀÇ ¹üÀ§ ¹ÛÀÏ °æ¿ì 
+        // í•œê¸€ì˜ ì œì¼ ì²˜ìŒê³¼ ëì˜ ë²”ìœ„ ë°–ì¼ ê²½ìš° 
         if (lastLetter < 0xAC00 || lastLetter > 0xD7A3)
         {
-            return "¿¡°Ô";
+            return "ì—ê²Œ";
         }
 
-        return (lastLetter - 0xAC00) % 28 > 0 ? "ÀÌ¿¡°Ô" : "¿¡°Ô";
+        return (lastLetter - 0xAC00) % 28 > 0 ? "ì´ì—ê²Œ" : "ì—ê²Œ";
     }
 
     IEnumerator GetWeeklyFeedList()
@@ -41,7 +41,7 @@ public class FeedModal : MonoBehaviour
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
-        string accessToken = "tokentoken"; // ÃßÈÄ PlayerPrefs¿¡¼­ ÃßÃâÇÒ ¿¹Á¤
+        string accessToken = "tokentoken"; // ì¶”í›„ PlayerPrefsì—ì„œ ì¶”ì¶œí•  ì˜ˆì •
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);
@@ -81,7 +81,7 @@ public class FeedModal : MonoBehaviour
                 dayFeedElement.transform.SetParent(FeedContent.transform);
                 dayFeedElement.transform.localScale = scale;
 
-                dayFeedElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(feedsByCreateTime[i][0].createTime):yyyy.MM.dd}"; // ³¯Â¥ ÁöÁ¤
+                dayFeedElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(feedsByCreateTime[i][0].createTime):yyyy.MM.dd}"; // ë‚ ì§œ ì§€ì •
 
                 for (int j = 0; j < feedsByCreateTime[i].Count; j++)
                 {
@@ -92,13 +92,13 @@ public class FeedModal : MonoBehaviour
                     feedRecordElemnt.transform.localScale = scale;
 
                     feedRecordElemnt.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(feed.createTime):HH:mm}";
-                    feedRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{dogName}{GetVerb(dogName)} ¹äÀ» Áá¾î¿ä!";
+                    feedRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{dogName}{GetVerb(dogName)} ë°¥ì„ ì¤¬ì–´ìš”!";
                 }
             }
         }
         else
         {
-            Debug.Log("ÁÖ°£ ¹è½Ä ³»¿ª ºÒ·¯¿À±â ½ÇÆĞ");
+            Debug.Log("ì£¼ê°„ ë°°ì‹ ë‚´ì—­ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
         }
     }
 }

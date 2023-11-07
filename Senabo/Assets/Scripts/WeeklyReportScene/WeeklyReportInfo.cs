@@ -1,7 +1,8 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -19,8 +20,20 @@ public class WeeklyReportInfo : MonoBehaviour
     public Text affectionIndexText;
     public Text stressIndexText;
 
+    public GameObject CommunicationGage;
+    public GameObject FeedGage;
+    public GameObject WalkGage;
+    public GameObject PoopGage;
+    public GameObject HealthGage;
+
     private void Awake()
     {
+        CommunicationGage.SetActive(false);
+        FeedGage.SetActive(false);
+        WalkGage.SetActive(false);
+        PoopGage.SetActive(false);
+        HealthGage.SetActive(false);
+
         StartCoroutine(GetDetailReport());
     }
 
@@ -28,13 +41,13 @@ public class WeeklyReportInfo : MonoBehaviour
     {
         char lastLetter = dogName.ElementAt(dogName.Length - 1);
 
-        // ÇÑ±ÛÀÇ Á¦ÀÏ Ã³À½°ú ³¡ÀÇ ¹üÀ§ ¹ÛÀÏ °æ¿ì 
+        // í•œê¸€ì˜ ì œì¼ ì²˜ìŒê³¼ ëì˜ ë²”ìœ„ ë°–ì¼ ê²½ìš° 
         if (lastLetter < 0xAC00 || lastLetter > 0xD7A3)
         {
-            return "¿Í";
+            return "ì™€";
         }
 
-        return (lastLetter - 0xAC00) % 28 > 0 ? "ÀÌ¿Í" : "¿Í";
+        return (lastLetter - 0xAC00) % 28 > 0 ? "ì´ì™€" : "ì™€";
     }
 
     IEnumerator GetDetailReport()
@@ -45,7 +58,7 @@ public class WeeklyReportInfo : MonoBehaviour
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
-        string accessToken = "tokentoken"; // ÃßÈÄ PlayerPrefs¿¡¼­ ÃßÃâÇÒ ¿¹Á¤
+        string accessToken = "tokentoken"; // ì¶”í›„ PlayerPrefsì—ì„œ ì¶”ì¶œí•  ì˜ˆì •
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);
@@ -62,7 +75,7 @@ public class WeeklyReportInfo : MonoBehaviour
 
             weeklyReportDateText.text = $"{DateTime.Parse(report.createTime):yyyy.MM.dd} - {DateTime.Parse(report.createTime).AddDays(6):yyyy.MM.dd}";
 
-            weeklyReportTimeDynamicText.text = $"{report.dogName}{GetVerb(report.dogName)} {report.totalTime}½Ã°£";
+            weeklyReportTimeDynamicText.text = $"{report.dogName}{GetVerb(report.dogName)} {report.totalTime}ì‹œê°„";
 
             int affectionIndexDiff = report.endAffectionScore - report.startAffectionScore;
             affectionIndexDiffText.text = $"{(affectionIndexDiff < 0 ? "-" : "+")}{Math.Abs(affectionIndexDiff)}";
@@ -88,10 +101,22 @@ public class WeeklyReportInfo : MonoBehaviour
 
             affectionIndexText.text = report.endAffectionScore.ToString();
             stressIndexText.text = report.endStressScore.ToString();
+            
+            // 100 : x = 630 : y -> 63x = 10y -> y = 63/ 10 x 
+            CommunicationGage.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(100, 50);
+            CommunicationGage.SetActive(true);
+            FeedGage.GetComponent<Image>().rectTransform.sizeDelta = new Vector2((float)6.3 * report.feedScore, 50);
+            FeedGage.SetActive(true);
+            WalkGage.GetComponent<Image>().rectTransform.sizeDelta = new Vector2((float)6.3 * report.walkScore, 50);
+            WalkGage.SetActive(true);
+            PoopGage.GetComponent<Image>().rectTransform.sizeDelta = new Vector2((float)6.3 * report.poopScore, 50);
+            PoopGage.SetActive(true);
+            HealthGage.GetComponent<Image>().rectTransform.sizeDelta = new Vector2((float)6.3 * report.diseaseScore, 50);
+            HealthGage.SetActive(true);
         }
         else
         {
-            Debug.Log("ÁÖ°£ »ó¼¼ ¸®Æ÷Æ® ºÒ·¯¿À±â ½ÇÆĞ");
+            Debug.Log("ì£¼ê°„ ìƒì„¸ ë¦¬í¬íŠ¸ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
         }
     }
 }

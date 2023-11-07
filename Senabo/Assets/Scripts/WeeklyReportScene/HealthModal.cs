@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class HealthModal : MonoBehaviour
 {
     private string email = "kim@ssafy.com";
-    private string dogName = "µÎºÎºÎ";
+    private string dogName = "ë‘ë¶€ë¶€";
 
     public GameObject DayHealthElement;
     public GameObject HealthRecordElemnt;
@@ -28,7 +28,7 @@ public class HealthModal : MonoBehaviour
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
-        string accessToken = "tokentoken"; // ÃßÈÄ PlayerPrefs¿¡¼­ ÃßÃâÇÒ ¿¹Á¤
+        string accessToken = "tokentoken"; // ì¶”í›„ PlayerPrefsì—ì„œ ì¶”ì¶œí•  ì˜ˆì •
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);
@@ -68,7 +68,7 @@ public class HealthModal : MonoBehaviour
                 dayHealthElement.transform.SetParent(HealthContent.transform);
                 dayHealthElement.transform.localScale = scale;
 
-                dayHealthElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(healthsByCreateTime[i][0].createTime):yyyy.MM.dd}"; // ³¯Â¥ ÁöÁ¤
+                dayHealthElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(healthsByCreateTime[i][0].createTime):yyyy.MM.dd}"; // ë‚ ì§œ ì§€ì •
 
                 for (int j = 0; j < healthsByCreateTime[i].Count; j++)
                 {
@@ -79,13 +79,13 @@ public class HealthModal : MonoBehaviour
                     healthRecordElemnt.transform.localScale = scale;
 
                     healthRecordElemnt.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(health.createTime):HH:mm}";
-                    healthRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{dogName}{GetVerb(dogName)} {health.diseaseName}¿¡ °É·Á ¾ÆÆÍ¾î¿ä.";
+                    healthRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{dogName}{GetVerb(dogName)} {health.diseaseName}ì— ê±¸ë ¤ ì•„íŒ ì–´ìš”.";
                 }
             }
         }
         else
         {
-            Debug.Log("ÁÖ°£ °Ç°­ ³»¿ª ºÒ·¯¿À±â ½ÇÆĞ");
+            Debug.Log("ì£¼ê°„ ê±´ê°• ë‚´ì—­ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
         }
     }
 
@@ -93,13 +93,13 @@ public class HealthModal : MonoBehaviour
     {
         char lastLetter = dogName.ElementAt(dogName.Length - 1);
 
-        // ÇÑ±ÛÀÇ Á¦ÀÏ Ã³À½°ú ³¡ÀÇ ¹üÀ§ ¹ÛÀÏ °æ¿ì 
+        // í•œê¸€ì˜ ì œì¼ ì²˜ìŒê³¼ ëì˜ ë²”ìœ„ ë°–ì¼ ê²½ìš° 
         if (lastLetter < 0xAC00 || lastLetter > 0xD7A3)
         {
-            return "°¡";
+            return "ê°€";
         }
 
-        return (lastLetter - 0xAC00) % 28 > 0 ? "ÀÌ°¡" : "°¡";
+        return (lastLetter - 0xAC00) % 28 > 0 ? "ì´ê°€" : "ê°€";
     }
 
 }

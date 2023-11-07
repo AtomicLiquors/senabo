@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class WalkResultInfo : MonoBehaviour
 {
     private string email = "kim@ssafy.com";
-    private string dogName = "µÎºÎºÎ"; // PlayerPrefs¿¡ ÀúÀåµÅ ÀÖ´Ù°í °¡Á¤
+    private string dogName = "ë‘ë¶€ë¶€"; // PlayerPrefsì— ì €ì¥ë¼ ìˆë‹¤ê³  ê°€ì •
     private int walkTime = 72;
     private double walkDistance = 2.3;
 
@@ -34,15 +34,15 @@ public class WalkResultInfo : MonoBehaviour
 
         if (hours > 0 && minutes > 0)
         {
-            return $"{hours}½Ã°£ {minutes}ºĞ";
+            return $"{hours}ì‹œê°„ {minutes}ë¶„";
         }
 
         if (hours > 0)
         {
-            return $"{hours}½Ã°£";
+            return $"{hours}ì‹œê°„";
         }
 
-        return $"{minutes}ºĞ";
+        return $"{minutes}ë¶„";
     }
 
     IEnumerator GetTodayWalkInfo()
@@ -51,7 +51,7 @@ public class WalkResultInfo : MonoBehaviour
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
-        string accessToken = "tokentoken"; // ÃßÈÄ PlayerPrefs¿¡¼­ ÃßÃâÇÒ ¿¹Á¤
+        string accessToken = "tokentoken"; // ì¶”í›„ PlayerPrefsì—ì„œ ì¶”ì¶œí•  ì˜ˆì •
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);
@@ -69,7 +69,7 @@ public class WalkResultInfo : MonoBehaviour
         }
         else
         {
-            Debug.Log("ÀÏÀÏ »êÃ¥ Á¤º¸ ºÒ·¯¿À±â ½ÇÆĞ");
+            Debug.Log("ì¼ì¼ ì‚°ì±… ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
         }
     }
 }

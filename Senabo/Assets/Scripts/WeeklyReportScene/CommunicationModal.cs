@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +26,7 @@ public class CommunicationModal : MonoBehaviour
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
-        string accessToken = "tokentoken"; // ÃßÈÄ PlayerPrefs¿¡¼­ ÃßÃâÇÒ ¿¹Á¤
+        string accessToken = "tokentoken"; // ì¶”í›„ PlayerPrefsì—ì„œ ì¶”ì¶œí•  ì˜ˆì •
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);
@@ -66,7 +66,7 @@ public class CommunicationModal : MonoBehaviour
                 dayCommunicationElement.transform.SetParent(CommunicationContent.transform);
                 dayCommunicationElement.transform.localScale = scale;
 
-                dayCommunicationElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(communicationsByCreateTime[i][0].createTime):yyyy.MM.dd}"; // ³¯Â¥ ÁöÁ¤
+                dayCommunicationElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(communicationsByCreateTime[i][0].createTime):yyyy.MM.dd}"; // ë‚ ì§œ ì§€ì •
 
                 for (int j = 0; j < communicationsByCreateTime[i].Count; j++)
                 {
@@ -77,13 +77,13 @@ public class CommunicationModal : MonoBehaviour
                     communicationRecordElemnt.transform.localScale = scale;
 
                     communicationRecordElemnt.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(communication.createTime):HH:mm}";
-                    communicationRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{communication.type}À» ÇÏ¸ç ±³°¨Çß¾î¿ä.";
+                    communicationRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{communication.type}ì„ í•˜ë©° êµê°í–ˆì–´ìš”.";
                 }
             }
         }
         else
         {
-            Debug.Log("ÁÖ°£ ±³°¨ ³»¿ª ºÒ·¯¿À±â ½ÇÆĞ");
+            Debug.Log("ì£¼ê°„ êµê° ë‚´ì—­ ë¶ˆëŸ¬ì˜¤ê¸° ì‹¤íŒ¨");
         }
     }
 

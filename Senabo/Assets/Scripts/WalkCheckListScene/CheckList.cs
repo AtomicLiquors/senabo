@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -106,7 +106,7 @@ public class CheckList : MonoBehaviour
 
         UnityWebRequest response = UnityWebRequest.Post(api_url, form);
 
-        string accessToken = "tokentoken"; // ÃßÈÄ PlayerPrefs¿¡¼­ ÃßÃâÇÒ ¿¹Á¤
+        string accessToken = "tokentoken"; // ì¶”í›„ PlayerPrefsì—ì„œ ì¶”ì¶œí•  ì˜ˆì •
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);
@@ -120,7 +120,7 @@ public class CheckList : MonoBehaviour
         }
         else
         {
-            Debug.Log("»êÃ¥ ½ÃÀÛÇÏ±â ½ÇÆĞ");
+            Debug.Log("ì‚°ì±… ì‹œì‘í•˜ê¸° ì‹¤íŒ¨");
         }
     }
 
