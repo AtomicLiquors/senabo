@@ -2,6 +2,9 @@
 
 public class WalkEndRequestDtoClass
 {
-    public string email;
-    public string distance;
+    private double distance;
+
+    public WalkEndRequestDtoClass(double distance) {
+        this.distance = distance;
+    }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1312,7 +1312,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 249674309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10720c23e9384c94bbd6816f9441f465, type: 3}
+  m_Script: {fileID: 11500000, guid: 1340b7db4ca905c479b44d5ff9511b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &294619134
@@ -3731,7 +3731,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4fb2a8ac3f0714482cf041efe83072, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkDetectingFloorModal: {fileID: 0}
   WalkStartTipModal: {fileID: 344352868}
   WalkSuddenEventModal: {fileID: 166739834}
   WalkSuddenEventText: {fileID: 105903859}

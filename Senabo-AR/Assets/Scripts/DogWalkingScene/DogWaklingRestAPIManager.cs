@@ -8,18 +8,28 @@ using UnityEngine.Networking;
 
 public class DogWalkingRestAPIManager : MonoBehaviour
 {
-
+    static public WalkEndRequestDtoClass walkEndRequestDto;
     void Start()
     {
-        StartCoroutine(SendSenaboRequests());
+        StartCoroutine(TestSenaboRequests());
+       // StartCoroutine(SendWalkStartInfo());
+       // StartCoroutine(SendWalkEndInfo());
     }
 
+    public void handleWalkStart()
+    {
+        StartCoroutine(SendWalkStartInfo());
+    }
 
-    IEnumerator SendSenaboRequests()
+    public void handleWalkEnd()
+    {
+        StartCoroutine(SendWalkEndInfo());
+    }
+
+    IEnumerator TestSenaboRequests()
     {
         // + PlayerPrefs.GetString("email");
-        string url = $"{ServerSettings.SERVER_URL}/api/member/check?email=gyqls234@gmail.com";
-
+        string url = $"{ServerSettings.SERVER_URL}/api/walk/list?email=ssafy@gmail.com";
         while (true)
         {
             UnityWebRequest webRequest = UnityWebRequest.Get(url);
@@ -52,53 +62,65 @@ public class DogWalkingRestAPIManager : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
     }
-    /*
+
     IEnumerator SendWalkStartInfo()
     {
-        string url = ServerSettings.SERVER_URL + "/api/member/check?email=gyqls234@gmail.com";
-        string jsonFile = JsonUtility.ToJson(SignUpManager.signUpRequestDto);
-        string url = $"{ServerSettings.SERVER_URL}/api/member/sign-up";
+        string jsonFile = JsonUtility.ToJson(null);
+        string url = $"{ServerSettings.SERVER_URL}/api/walk/start?email=ssafy@gmail.com";
+        // Spring Security 적용 후에는 쿼리스트링 사용하지 않을 예정.
 
-         using (UnityWebRequest request = UnityWebRequest.PostWwwForm(url, jsonFile))
+        using (UnityWebRequest request = UnityWebRequest.PostWwwForm(url, jsonFile))
         {
-             byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonFile);
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonFile);
             request.uploadHandler = new UploadHandlerRaw(jsonToSend);
             request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
 
-    
+
             yield return request.SendWebRequest();
-        }
-        while (true)
-        {
-            UnityWebRequest webRequest = UnityWebRequest.Post(url, json);
 
-            // Optionally, set headers or add other configuration
-            Debug.Log(webRequest.result);
-
-            yield return webRequest.SendWebRequest();
-
-            // Request completed, check the result
-            if (webRequest.result == UnityWebRequest.Result.Success)
+            if (request.error == null)
             {
-                string jsonText = webRequest.downloadHandler.text;
-                Debug.Log(jsonText);
-
+                Debug.Log(request.downloadHandler.text);
                 yield break;
             }
             else
             {
-                // Request failed, handle the error
-                Debug.LogError("Error: " + webRequest.error);
+                Debug.Log("산책 시작 정보 전송 실패");
+                Debug.LogError(request.error.ToString());
             }
-
-            // Clean up the web request object
-            webRequest.Dispose();
-
-            // Wait for the specified delay before making the next request
-            yield return new WaitForSeconds(2f);
         }
-    }*/
+    }
 
+    IEnumerator SendWalkEndInfo()
+    {
+        walkEndRequestDto = new WalkEndRequestDtoClass(1.5);
+        string jsonFile = JsonUtility.ToJson(walkEndRequestDto);
+        string url = $"{ServerSettings.SERVER_URL}/api/walk/end?email=ssafy@gmail.com";
+
+        
+        UnityWebRequest request = UnityWebRequest.Put(url, jsonFile);
+        
+       // request.method = "PATCH";
+        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonFile);
+        request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+        request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+
+        yield return request.SendWebRequest();
+
+        if (request.error == null)
+        {
+            Debug.Log(request.downloadHandler.text);
+            yield break;
+        }
+        else
+        {
+            Debug.Log("산책 종료 정보 전송 실패");
+            Debug.LogError(request.error.ToString());
+        }
+        
+    }
 
 }
