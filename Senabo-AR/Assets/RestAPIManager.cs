@@ -27,7 +27,7 @@ public class RestAPIManager : MonoBehaviour
     void Start()
     {
         //(SendRequests());
-        SendHttpClientRequest();
+        // StartCoroutine(SendSenaboRequests());
     }
 
     IEnumerator SendRequests()
@@ -35,6 +35,41 @@ public class RestAPIManager : MonoBehaviour
         while (true)
         {
             UnityWebRequest webRequest = UnityWebRequest.Get(apiUrl);
+
+            // Optionally, set headers or add other configuration
+            Debug.Log(webRequest.result);
+
+            yield return webRequest.SendWebRequest();
+
+            // Request completed, check the result
+            if (webRequest.result == UnityWebRequest.Result.Success)
+            {
+                string jsonText = webRequest.downloadHandler.text;
+                Debug.Log(jsonText);
+
+                yield break;
+            }
+            else
+            {
+                // Request failed, handle the error
+                Debug.LogError("Error: " + webRequest.error);
+            }
+
+            // Clean up the web request object
+            webRequest.Dispose();
+
+            // Wait for the specified delay before making the next request
+            yield return new WaitForSeconds(requestDelay);
+        }
+    }
+
+    IEnumerator SendSenaboRequests()
+    {
+        while (true)
+        {
+
+            string url = ServerSettings.SERVER_URL + "/member/check?email=gyqls234@gmail.com";
+            UnityWebRequest webRequest = UnityWebRequest.Get(url);
 
             // Optionally, set headers or add other configuration
             Debug.Log(webRequest.result);

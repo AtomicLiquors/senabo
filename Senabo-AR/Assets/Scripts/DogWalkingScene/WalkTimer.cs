@@ -34,7 +34,7 @@ public class WalkTimer : MonoBehaviour
             //totalWalkTime.text = String.Join("", elapsedTime.ToString("F2"),"Ка");
             totalWalkTime.text = String.Join("", minuteInNumber.ToString("D2"), "Ка");
 
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(60);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -7,6 +8,7 @@ using UnityEngine.XR.ARSubsystems;
 public class ARObjectController : MonoBehaviour
 {
     public ARRaycastManager arRaycaster;
+    public GameObject UIModalManager;
     public GameObject gpsManager;
     public GameObject dogLeadSpawner;
     public GameObject walkTimer;
@@ -22,12 +24,19 @@ public class ARObjectController : MonoBehaviour
     private GameObject otherDog;
 
     private static List<ARRaycastHit> arHits = new List<ARRaycastHit>();
+    private UIModalManager ummScript;
+
 
     // 화면에 다른 강아지가 등장하는 이벤트 발생을 확인하는 변수
     private bool dogEventTrigger;
     public void setDogEventTrigger()
     {
         dogEventTrigger = true;
+    }
+
+    private void Start()
+    {
+        ummScript = UIModalManager.GetComponent<UIModalManager>();
     }
 
     // Update is called once per frame
@@ -53,14 +62,18 @@ public class ARObjectController : MonoBehaviour
         Touch touch = Input.GetTouch(0);
         Vector2 touchPosition = touch.position;
 
+
         // myDog가 비활성 상태인 경우
         if (!myDog.activeInHierarchy)
         {
+            ummScript.CloseModal(ummScript.StartTip);
+
             // 처음 클릭한 상태일 때만 RayCast를 쏘도록 하고, 평면을 인식했을 경우
             if (touch.phase == TouchPhase.Began && arRaycaster.Raycast(touchPosition, arHits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
             {
                 Pose hitPose = arHits[0].pose;
-                myDog.SetActive(true);
+                myDog.SetActive(true); 
+
                 myDog.transform.position = hitPose.position;
 
                // dogRotator.SetActive(true);
