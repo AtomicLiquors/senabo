@@ -11,7 +11,7 @@ public class AutomaticMove : MonoBehaviour
 
     private float journeyLength;
     private float startTime;
-    private readonly float limitTime = 1.0f;
+    private readonly float limitTime = 4.0f;
 
     void Start()
     {
@@ -47,11 +47,6 @@ public class AutomaticMove : MonoBehaviour
         {
             float fractionOfJourney = distanceCovered / journeyLength;
             transform.position = Vector3.Lerp(startPoint.position, endPoint.position, fractionOfJourney);
-        }
-        else
-        {
-            transform.position = startPoint.position;
-            startTime = Time.time;
         }
     }
 }
