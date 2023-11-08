@@ -7,11 +7,7 @@ public class UIModalManager : MonoBehaviour
 {
 
     [SerializeField]
-    GameObject WalkDetectingFloorModal;
-
-    [SerializeField]
     GameObject WalkStartTipModal;
-
 
     [SerializeField]
     GameObject WalkSuddenEventModal;
@@ -52,8 +48,6 @@ public class UIModalManager : MonoBehaviour
     {
         switch (modalType)
         {
-            case ModalType.DetectingFloor:
-                return WalkDetectingFloorModal;
             case ModalType.StartTip:
                 return WalkStartTipModal;
             case ModalType.SuddenEvent:
