@@ -11,15 +11,35 @@ public class AutomaticMove : MonoBehaviour
 
     private float journeyLength;
     private float startTime;
-    private int repeatCount = 0;
+    private readonly float limitTime = 1.0f;
+
     void Start()
     {
+        StartCoroutine(LoadScene());
+
         journeyLength = Vector3.Distance(startPoint.position, endPoint.position);
         startTime = Time.time;
-        Invoke("SwitchScene", 3.0f);
     }
 
-    void Update()
+    IEnumerator LoadScene()
+    {
+        yield return null;
+        AsyncOperation operation = SceneManager.LoadSceneAsync("ReceiptScene");
+        operation.allowSceneActivation = false;
+
+        while (!operation.isDone)
+        {
+            yield return null;
+            DogMove();
+
+            if(Time.time - startTime > limitTime && operation.progress >= 0.9f) {
+                operation.allowSceneActivation = true;
+            }
+        }
+
+    }
+
+    void DogMove()
     {
         float distanceCovered = (Time.time - startTime) * movementSpeed;
 
@@ -32,22 +52,6 @@ public class AutomaticMove : MonoBehaviour
         {
             transform.position = startPoint.position;
             startTime = Time.time;
-            repeatCount++;
-
-            if (repeatCount == 3)
-            {
-                LoadReceiptScene();
-            }
         }
-    }
-
-    public void LoadReceiptScene()
-    {
-        SceneManager.LoadScene("ReceiptScene");
-    }
-
-    private void SwitchScene()
-    {
-        SceneManager.LoadScene("ReceiptScene");
     }
 }
