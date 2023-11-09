@@ -9,4 +9,10 @@ public class MoveFromWalkCheckListSceneToMainScene : MonoBehaviour
     {
         SceneManager.LoadScene("MainScene");
     }
+
+    public void SceneChangeToTip()
+    {
+        SceneManager.LoadScene("TipModalScene");
+
+    }
 }

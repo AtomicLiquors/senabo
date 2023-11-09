@@ -117,7 +117,7 @@ public class MainScene : MonoBehaviour
 
     public void LoadOwnerDictScene()
     {
-        // SceneManager.LoadScene("OwnerDictScene");
+        SceneManager.LoadScene("OwnerDictScene");
         Debug.Log("견주 사전으로 이동");
     }
 
@@ -128,7 +128,7 @@ public class MainScene : MonoBehaviour
 
     public void LoadSettingScene()
     {
-        //SceneManager.LoadScene("SettingScene");
+        SceneManager.LoadScene("SettingScene");
         Debug.Log("환경 설정으로 이동");
     }
 
