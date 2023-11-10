@@ -74,6 +74,6 @@ crashlytics-build.properties
 Assets/Prefabs/DogWalkingScene/AR_WelshCorgi/
 
 # Firebase key
-/Assets/google_json.file
-/Assets/google_json.file.meta
+/Assets/google-services.json
+/Assets/google-services.json.meta
 user.keystore
