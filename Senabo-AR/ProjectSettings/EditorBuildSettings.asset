@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/DogWalkingScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Scenes/SignUpScene.unity
+    guid: 04d6999b173268a4f8ad2380544ce551
+  - enabled: 1
     path: Assets/Scenes/BathScene.unity
     guid: 4da9e33bab921c24faf41fea6635337e
   - enabled: 1
@@ -47,9 +50,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SignUpProfileScene.unity
     guid: 5705ee90382eb9b4186abb14676d4aa0
-  - enabled: 1
-    path: Assets/Scenes/SignUpScene.unity
-    guid: 04d6999b173268a4f8ad2380544ce551
   - enabled: 1
     path: Assets/Scenes/TeethScene.unity
     guid: 8fb2f6fbfa414854a95f84973a9d236c

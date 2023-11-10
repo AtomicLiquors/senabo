@@ -27,8 +27,13 @@ public class StrollEventManager : MonoBehaviour
     private GameObject userGestureManager;
 
     private bool gestureEventTrigger;
+    private bool distanceEventTrigger;
     public void updateGestureEventTrigger(){
         this.gestureEventTrigger = true;
+    }
+    public void updateDistanceEventTrigger()
+    {
+        this.distanceEventTrigger = true;
     }
 
     // Start is called before the first frame update
@@ -74,18 +79,32 @@ public class StrollEventManager : MonoBehaviour
         // 진동 알림
         for (int i = 0; i < 10; i++)
         {
-            // event를 해결했을 경우
-            if (gestureEventTrigger)
+            // 일정 거리 이상 떨어진 경우
+            if (distanceEventTrigger)
             {
-                Debug.Log("짖는 이벤트 해제!");
                 gestureEventTrigger = false;
-                break;
+                distanceEventTrigger = false;
+                userGestureManager.SetActive(false);
+                yield break;
             }
-            dogAnimator.handleDogSuddenEvent("WelshBark");
+
+            // 사용자가 핸드폰을 당기는 모션을 안했을 경우
+            if (!gestureEventTrigger)
+            {
+                dogAnimator.handleDogSuddenEvent("WelshBark");
+            }
+            // 사용자가 핸드폰을 당기는 모션을 했을 경우
+            else
+            {
+                EventStatusManager.SwitchDogEvent(false); // 이벤트가 변경될 수 있게
+                dogManager.updateStrollEventCheck(false); // 다시 강아지가 움직일 수 있게
+            }
+
             Handheld.Vibrate(); // 0.5초간 진동이 울림
             yield return new WaitForSeconds(1); 
         }
 
+        // 사용자가 이벤트에 잘 대응하지 못했을 경우 실행
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
         userGestureManager.SetActive(false);

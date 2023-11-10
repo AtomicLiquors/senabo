@@ -28,7 +28,7 @@ public class UserGestureManager : MonoBehaviour
             lastShakeTime = Time.time;
 
             // 두 번째 흔들림 감지 시 이벤트 실행
-            if (shakeCount == 4)
+            if (shakeCount == 2)
             {
                 // 두 번 흔들림에 대한 이벤트 호출
                 strollEventManager.updateGestureEventTrigger();

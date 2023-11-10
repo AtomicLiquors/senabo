@@ -42,13 +42,28 @@ public class ARObjectController : MonoBehaviour
         {
             Debug.Log("GPS를 활성화해주세요.");
             // GPS 활성화 요청
-
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (myDog.activeInHierarchy)
+        {
+            // myDog와 otherDog 간의 거리를 계산
+            float distance = Vector3.Distance(myDog.transform.position, otherDog.transform.position);
+
+            // 거리가 10m 이상인 경우
+            if (distance >= 5.0f)
+            {
+                Debug.Log("myDog와 otherDog 간의 거리가 10m 이상입니다.");
+                otherDog.SetActive(false);
+                Debug.Log("StrollEvent");
+                StrollEventManager var = strollEventManager.GetComponent<StrollEventManager>();
+                var.updateDistanceEventTrigger();
+            }
+        }
+
         if (dogEventTrigger)
         {
             // ======= otherDog를 생성하여 myDog 앞에 마주보도록 위치 설정 ========== //
