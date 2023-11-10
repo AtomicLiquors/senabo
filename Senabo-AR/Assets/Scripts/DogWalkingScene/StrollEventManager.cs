@@ -67,7 +67,7 @@ public class StrollEventManager : MonoBehaviour
 
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
-        dogAnimator.handleDogSuddenEvent("WelshBark");
+        
         arObjectController.setDogEventTrigger();
         userGestureManager.SetActive(true);
 
@@ -81,6 +81,7 @@ public class StrollEventManager : MonoBehaviour
                 gestureEventTrigger = false;
                 break;
             }
+            dogAnimator.handleDogSuddenEvent("WelshBark");
             Handheld.Vibrate(); // 0.5초간 진동이 울림
             yield return new WaitForSeconds(1); 
         }
@@ -99,7 +100,6 @@ public class StrollEventManager : MonoBehaviour
 
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
-        dogAnimator.handleDogSuddenEvent("WelshEat");
         userGestureManager.SetActive(true);
 
         // 진동 알림
@@ -112,6 +112,7 @@ public class StrollEventManager : MonoBehaviour
                 gestureEventTrigger = false;
                 break;
             }
+            dogAnimator.handleDogSuddenEvent("WelshEat");
             Handheld.Vibrate(); // 0.5초간 진동이 울림
             yield return new WaitForSeconds(1);
         }
@@ -129,11 +130,12 @@ public class StrollEventManager : MonoBehaviour
 
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
-        dogAnimator.handleDogSuddenEvent("WelshSit");
 
         // 진동 알림
         for (int i = 0; i < 4; i++)
         {
+
+            dogAnimator.handleDogSuddenEvent("WelshSit"); 
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
         }
@@ -150,11 +152,11 @@ public class StrollEventManager : MonoBehaviour
 
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
-        dogAnimator.handleDogSuddenEvent("WelshPoop");
 
         // 진동 알림
         for (int i = 0; i < 4; i++)
         {
+            dogAnimator.handleDogSuddenEvent("WelshPoop");
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
         }
