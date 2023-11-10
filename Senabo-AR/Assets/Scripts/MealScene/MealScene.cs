@@ -16,11 +16,17 @@ public class MealSceneClass
 public class MealScene : MonoBehaviour
 {
     public Image mealImage;
-    // public Sprite mealSprite;
-    private int clickedCount = 0, mealState = 0, changeLimit = 1;
+    // public Sprite mealSprite; // 꽉 찬 밥그릇 이미지
+    public GameObject MealFedAlertPanel;
+    private bool mealable = false;
     private Button button;
     void Start()
     {
+        MealFedAlertPanel.SetActive(false);
+
+        button = mealImage.GetComponent<Button>();
+        button.onClick.AddListener(OnClickMeal);
+
         StartCoroutine(CheckFeed());
     }
 
@@ -39,11 +45,11 @@ public class MealScene : MonoBehaviour
 
         if (request.isNetworkError || request.isHttpError)
         {
-            Debug.Log("MealScene CheckFeed Error! " + request.error);
+            Debug.Log("MealScene CheckFeed Error! " + request.error); // Debug Code
         }
         else
         {
-            Debug.Log("MealScene CheckFeed Success!");
+            Debug.Log("MealScene CheckFeed Success!"); // Debug Code
 
             string jsonString = request.downloadHandler.text;
             var response = JsonUtility.FromJson<APIResponse<MealSceneClass>>(jsonString);
@@ -51,14 +57,11 @@ public class MealScene : MonoBehaviour
             if (response.data.possibleYn)
             {
                 Debug.Log("배식 가능 상태"); // Debug Code
-                button = mealImage.GetComponent<Button>();
-                button.onClick.AddListener(OnClickMeal);
+                mealable = true;
             }
             else
             {
                 Debug.Log("배식 불가 상태"); // Debug Code
-                mealImage.color = new Color32(0, 30, 225, 100);
-                mealState = 1;
             }
         }
     }
@@ -88,15 +91,25 @@ public class MealScene : MonoBehaviour
 
     void OnClickMeal()
     {
-        clickedCount++;
-        if (mealState == 0 && clickedCount > changeLimit)
+        if (mealable)
         {
-            mealImage.color = new Color32(0, 30, 225, 100);
-            mealState = 1;
+            // 배식 가능 상태, 배식 진행
+            // mealImage.sprite = mealSprite;
 
             StartCoroutine(GiveFeed());
-            button.onClick.RemoveListener(OnClickMeal);
+            mealable = false;
         }
+        else
+        {
+            // 배식 불가 상태, 해당 사항 알림
+            MealFedAlertPanel.SetActive(true);
+            Invoke(nameof(DestroyModal), 2.0f);
+        }
+    }
+
+    void DestroyModal()
+    {
+        MealFedAlertPanel.SetActive(false);
     }
 
     public void LoadMainScene()
