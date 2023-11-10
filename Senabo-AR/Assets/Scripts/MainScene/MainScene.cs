@@ -7,28 +7,6 @@ using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class MainSceneClass
-{
-    public long id;
-    public string dogName;
-    public string email;
-    public string species;
-    public char sex;
-    public int affection;
-    public int stressLevel;
-    public double houseLatitude;
-    public double houseLongitude;
-    public int totalTime;
-    public string uid;
-    public string deviceToken;
-    public string exitTime;
-    public string enterTime;
-    public string createTime;
-    public string updateTime;
-    public int days;
-}
-
 public class MainScene : MonoBehaviour
 {
     public Text MainTitleText;
@@ -65,7 +43,7 @@ public class MainScene : MonoBehaviour
         if (www.error == null)
         {
             string jsonString = www.downloadHandler.text;
-            var response = JsonUtility.FromJson<APIResponse<MainSceneClass>>(jsonString);
+            var response = JsonUtility.FromJson<APIResponse<MemberGetResponseClass>>(jsonString);
 
             TimeSpan dateDiff = DateTime.Now.Date - DateTime.Parse(response.data.createTime).Date;
             MainTitleText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께한 지 {dateDiff.Days + 1}일 째";

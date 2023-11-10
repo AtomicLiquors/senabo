@@ -129,7 +129,7 @@ public class BathScene : MonoBehaviour
             Debug.Log("BathScene CheckBathTime Success"); // Debug Code
 
             string jsonString = www.downloadHandler.text;
-            var response = JsonUtility.FromJson<APIResponse<MainSceneClass>>(jsonString);
+            var response = JsonUtility.FromJson<APIResponse<MemberGetResponseClass>>(jsonString);
 
             System.TimeSpan dateDiff = System.DateTime.Now.Date - System.DateTime.Parse(response.data.createTime).Date;
             Debug.Log("입양일로부터 " + (dateDiff.Days + 1) + "일째"); // Debug Code
