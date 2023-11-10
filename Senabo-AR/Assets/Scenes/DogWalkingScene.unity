@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -632,9 +632,13 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6105199029064253937, guid: 186c5c9c5a35b3f45ba1c43d5d7ae0e8, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105199029064253937, guid: 186c5c9c5a35b3f45ba1c43d5d7ae0e8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0dcb726cc64054b468b1e22e880e97a1, type: 2}
+      objectReference: {fileID: 2100000, guid: a7f79031f814b2b499a90ee0fe24cc67, type: 2}
     - target: {fileID: 6105199029064253937, guid: 186c5c9c5a35b3f45ba1c43d5d7ae0e8, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -3200,7 +3204,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4e1b695c8f25d2440bb1f0b47dcb8395, type: 2}
+  - {fileID: 2100000, guid: 0501dbb1f3508124b93fc758f0cad241, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
