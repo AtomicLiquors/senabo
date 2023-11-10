@@ -37,6 +37,13 @@ public class ARObjectController : MonoBehaviour
     private void Start()
     {
         ummScript = UIModalManager.GetComponent<UIModalManager>();
+        // Gps가 꺼져 있을 경우
+        if (!Input.location.isEnabledByUser)
+        {
+            Debug.Log("GPS를 활성화해주세요.");
+            // GPS 활성화 요청
+
+        }
     }
 
     // Update is called once per frame

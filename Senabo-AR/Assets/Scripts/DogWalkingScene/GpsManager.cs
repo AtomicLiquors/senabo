@@ -9,20 +9,15 @@ public class GpsManager : MonoBehaviour
 {
     // 위도, 경도(이동 전, 이동 후)
     private double pastLat, pastLon, curLat, curLon;
-    public Text positionText;
 
     // 사용자의 이동 거리
     public Text userMovementDistanceText;
     private double userMovementDistance;
 
-    // 사용자의 상태(멈춰있기, 걷기, 달리기)
-    public Text userStateText;
-    private string userState;
-
-
-
     IEnumerator Start()
     {
+
+        // 스마트폰에서 Location 정보를 Permission을 요청하는 코드
         while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
         {
             Permission.RequestUserPermission(Permission.FineLocation);
@@ -57,14 +52,13 @@ public class GpsManager : MonoBehaviour
         {
             // 값 초기화
             userMovementDistance = 0;
-            userState = "출발 전";
             pastLat = Input.location.lastData.latitude;
             pastLon = Input.location.lastData.longitude;
 
             while (true)
             {
-                // 1초 대기
-                yield return new WaitForSeconds(1);
+                // 3초 대기
+                yield return new WaitForSeconds(3);
                 Debug.Log("Gps 반복 중");
                 // GPS 값을 가져오는 함수 호출
                 ContinuousGPSUpdates();
@@ -99,24 +93,9 @@ public class GpsManager : MonoBehaviour
                 userMovementDistance += dist;
                 pastLat = curLat;
                 pastLon = curLon;
-
-                if (dist < 0.5)
-                {
-                    userState = "멈춰 있음";
-                }
-                else if (dist < 2.2)
-                {
-                    userState = "걷는 중";
-                }
-                else
-                {
-                    userState = "뛰는 중";
-                }
             }
         }
-        positionText.text = "현재 좌표: " + pastLat + " / " + pastLon;
         userMovementDistanceText.text = String.Join("", userMovementDistance.ToString("F2"), "km");
-        userStateText.text = "상태: " + userState;
     }
 
 
