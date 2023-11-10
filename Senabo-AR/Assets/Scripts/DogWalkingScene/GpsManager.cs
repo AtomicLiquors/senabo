@@ -17,7 +17,7 @@ public class GpsManager : MonoBehaviour
     IEnumerator Start()
     {
 
-        // 스마트폰에서 Location 정보를 Permission을 요청하는 코드
+        // Location Permission을 요청하는 코드
         while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
         {
             Permission.RequestUserPermission(Permission.FineLocation);

@@ -62,31 +62,43 @@ public class DogManager : MonoBehaviour
                 // 거리가 멀 때
                 if (moveDirection.magnitude > 1.3f)
                 {
-                    dogAnimator.handleDogMovement("WelshRun");
-                    myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 4f);
+                    if (!strollEventCheck)
+                    {
+                        dogAnimator.handleDogMovement("WelshRun");
+                        myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 4f);
+                    }
                 }
                 // 거리가 짧을 때
                 else
                 {
-                    dogAnimator.handleDogMovement("WelshWalk");
-                    myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 2f);
+                    if (!strollEventCheck)
+                    {
+                        dogAnimator.handleDogMovement("WelshWalk");
+                        myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 2f);
+                    }
                 }
             }
             // 이동안하는 경우(너무 짧은 거리는 이동 X)
             else
             {
-                // 멈출 거리에 도달한 경우
-                dogAnimator.handleDogMovement("WelshIdle");
-                myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지
-                myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // 회전 중지
+                if (!strollEventCheck)
+                {
+                    // 멈출 거리에 도달한 경우
+                    dogAnimator.handleDogMovement("WelshIdle");
+                    myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지
+                    myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // 회전 중지
+                }
             }
         }
         // 평면을 인식 못 했을 때
         else
         {
-            dogAnimator.handleDogMovement("WelshIdle");
-            myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지
-            myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // 회전 중지
+            if (!strollEventCheck)
+            {
+                dogAnimator.handleDogMovement("WelshIdle");
+                myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지
+                myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // 회전 중지
+            }
         }
 
     }
