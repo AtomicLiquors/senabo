@@ -1413,7 +1413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &249674310
 Transform:
   m_ObjectHideFlags: 0
@@ -3734,7 +3734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arRaycaster: {fileID: 1828601336}
-  UIModalManager: {fileID: 0}
+  UIModalManager: {fileID: 1817929519}
   gpsManager: {fileID: 7680013780120186904}
   dogLeadSpawner: {fileID: 1577749883}
   walkTimer: {fileID: 2101391897}
