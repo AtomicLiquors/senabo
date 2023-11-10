@@ -67,13 +67,13 @@ public class MainScene : MonoBehaviour
             string jsonString = www.downloadHandler.text;
             var response = JsonUtility.FromJson<APIResponse<MainSceneClass>>(jsonString);
 
-            TimeSpan dateDiff = DateTime.Now - DateTime.Parse(response.data.createTime);
-            MainTitleText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께한 지 {((int)dateDiff.TotalDays + 1)}일 째";
-            //MainTitleText.text = response.data.dogName + "와(과) 함께한 지 " + ((int)dateDiff.TotalDays + 1) + "일 째"; // TEST CODE
+            TimeSpan dateDiff = DateTime.Now.Date - DateTime.Parse(response.data.createTime).Date;
+            MainTitleText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께한 지 {dateDiff.Days + 1}일 째";
+            //MainTitleText.text = response.data.dogName + "와(과) 함께한 지 " + (dateDiff + 1) + "일 째"; // TEST CODE
         }
         else
         {
-            MainTitleText.text = "강아지와(과) 함께한 지 0일째"; // TEST CODE
+            MainTitleText.text = "강아지와 함께한 지 0일 째";
             Debug.Log("WebRequest Error Occured"); // Debug Code
         }
     }
