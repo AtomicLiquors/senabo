@@ -8,14 +8,14 @@ using UnityEngine.Networking;
 public class BathScene : MonoBehaviour
 {
     public Text titleBarText;
-    public GameObject bubblePrefab;
-    public Transform bubbleParent;
-    public GameObject[] bubbleArray;
+    public GameObject bubblePrefab, dirtPrefab;
+    public Transform bubbleParent, dirtParent;
+    public GameObject[] bubbleArray, dirtArray;
     public GameObject titleBar, dogBodyImage, dogFaceImage, shiningImage;
-    public GameObject CantBathAlertPanel, HowToBathPanel1, HowToBathPanel2, HowToBathPanel3;
+    public GameObject CantBathAlertPanel, HowToBathPanel1, HowToBathPanel2, HowToBathPanel3, BrushTeethPanel1, BrushTeethPanel2;
     public Image background;
     public Sprite wetImage; // for background
-    private bool bathTimePassed = true, bathHistoryClear = true;
+    private bool bathTimePassed = false, bathHistoryClear = false, brushTeethPossible = false; // checking status
     private int selectType; // 1: Bath, 2: Teeth
     private int dogCount = 0, dogLimit = 10, dogState = 0;
     private Button dogBody, dogFace;
@@ -23,10 +23,10 @@ public class BathScene : MonoBehaviour
     void Start()
     {
         bubbleArray = new GameObject[dogLimit];
-        setSelectType(1); // Bath Only
+        dirtArray = new GameObject[dogLimit];
 
-        StartCoroutine(CheckBathTime());
-        StartCoroutine(CheckBathHistory());
+        CheckBathTime(); if(bathTimePassed) StartCoroutine(CheckBathHistory());
+        StartCoroutine(CheckTeethPossible());
     }
 
     public void setSelectType(int type)
@@ -56,9 +56,13 @@ public class BathScene : MonoBehaviour
         {
             titleBarText.text = "양치";
             dogFaceImage.SetActive(true);
+            CreateTeethDirt();
+            
             dogFace = dogFaceImage.GetComponent<Button>();
             dogFace.onClick.AddListener(OnClickDogFace);
-            // 알림창 나타내기
+
+            BrushTeethPanel1.SetActive(true);
+            Invoke(nameof(CloseAllAlert), 2.0f);
         }
         titleBar.SetActive(true);
     }
@@ -101,9 +105,31 @@ public class BathScene : MonoBehaviour
         }
     }
 
+    void CreateTeethDirt()
+    {
+        while (dogCount < dogLimit)
+        {
+            Vector3 randomPosition = new(Random.Range(-2f, 2f), Random.Range(-5f, 1f));
+            Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+            dirtArray[dogCount++] = Instantiate(dirtPrefab, randomPosition, randomRotation, dirtParent);
+        }
+    }
+
     void OnClickDogFace()
     {
-        StartCoroutine(BrushTeeth());
+        if (dogCount > 0)
+        {
+            Destroy(dirtArray[--dogCount]);
+        }
+        else
+        {
+            shiningImage.SetActive(true);
+            BrushTeethPanel2.SetActive(true);
+            Invoke(nameof(CloseAllAlert), 2.0f);
+
+            dogFace.onClick.RemoveListener(OnClickDogFace);
+            StartCoroutine(BrushTeeth());
+        }
     }
 
     void CloseAllAlert()
@@ -112,9 +138,19 @@ public class BathScene : MonoBehaviour
         HowToBathPanel1.SetActive(false);
         HowToBathPanel2.SetActive(false);
         HowToBathPanel3.SetActive(false);
+        BrushTeethPanel1.SetActive(false);
+        BrushTeethPanel2.SetActive(false);
     }
 
-    IEnumerator CheckBathTime()
+    void CheckBathTime () {
+        string createTime = PlayerPrefs.GetString("createTime");
+        System.DateTime createDate = System.DateTime.ParseExact(createTime, "yyyy-MM-ddTHH:mm:ss.fffZ", System.Globalization.CultureInfo.InvariantCulture);
+
+        System.TimeSpan dateDiff = System.DateTime.Now.Date - createDate.Date;
+        if(dateDiff.Days + 1 > 30) bathTimePassed = true;
+    }
+
+    IEnumerator CheckBathTimeByAPI()
     {
         string email = PlayerPrefs.GetString("email");
         // string url = ServerSettings.SERVER_URL + "/api/member/get/" + email;
@@ -171,6 +207,34 @@ public class BathScene : MonoBehaviour
         }
     }
 
+    IEnumerator CheckTeethPossible()
+    {
+        string api_url = $"{ServerSettings.SERVER_URL}/api/brushing-teeth/check/{CountReport.selectedReportWeek}?email={PlayerPrefs.GetString("email")}";
+
+        UnityWebRequest response = UnityWebRequest.Get(api_url);
+
+        string accessToken = "tokentoken"; // 추후 PlayerPrefs에서 추출할 예정
+        string jwtToken = $"Bearer {accessToken}";
+
+        response.SetRequestHeader("Authorization", jwtToken);
+
+        yield return response.SendWebRequest();
+
+        if (response.error == null)
+        {
+            Debug.Log(response.downloadHandler.text); // Debug Code
+
+            TeethCheckResponseDtoClass teeth = JsonUtility.FromJson<APIResponse<TeethCheckResponseDtoClass>>(response.downloadHandler.text).data;
+            brushTeethPossible = teeth.possibleYn;
+
+            Debug.Log("BathScene CheckTeethPossible Success!"); // Debug Code
+        }
+        else
+        {
+            Debug.Log("BathScene CheckTeethPossible Error!"); // Debug Code
+        }
+    }
+
     IEnumerator DoBath()
     {
         WWWForm form = new WWWForm();
@@ -186,11 +250,11 @@ public class BathScene : MonoBehaviour
 
         if (request.isNetworkError || request.isHttpError)
         {
-            Debug.Log("BathroomScene DoBath Error! " + request.error);
+            Debug.Log("BathScene DoBath Error! " + request.error);
         }
         else
         {
-            Debug.Log("BathroomScene DoBath Success!");
+            Debug.Log("BathScene DoBath Success!");
         }
     }
 
@@ -209,11 +273,11 @@ public class BathScene : MonoBehaviour
 
         if (request.isNetworkError || request.isHttpError)
         {
-            Debug.Log("BathroomScene BrushTeeth Error! " + request.error);
+            Debug.Log("BathScene BrushTeeth Error! " + request.error);
         }
         else
         {
-            Debug.Log("BathroomScene BrushTeeth Success!");
+            Debug.Log("BathScene BrushTeeth Success!");
         }
     }
 

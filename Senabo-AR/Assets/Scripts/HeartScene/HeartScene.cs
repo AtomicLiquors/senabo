@@ -19,12 +19,12 @@ public class HeartScene : MonoBehaviour
 {
     public Image dogImage;
     public GameObject heartImage, alertPanel;
-    public Button[] heartButtons;
-    private int heartType = 0;
-    private Button dogBody;
-    private int[] heartCount = new int[5];
-    private int heartLimit = 3;
+    public Sprite[] dogSprites; // normal
+    public Sprite[] dogAnimations; // heart
+    private int heartType = 0, typeNumber = 5;
     private bool heartUploading = false;
+    private readonly int heartDelayTime = 2; // TEST VALUE
+    private Button dogBody;
 
     void Start()
     {
@@ -32,40 +32,50 @@ public class HeartScene : MonoBehaviour
         dogBody.onClick.AddListener(GiveHeart);
     }
 
-    public void OffAlertPanel()
+    void Update()
     {
-        alertPanel.SetActive(false);
     }
 
     public void SetHeartType(int type)
     {
         heartType = type;
         OffAlertPanel();
+        dogImage.sprite = dogSprites[GetHeartInteger()];
+
+        Debug.Log("Heart Type: " + heartType); // Debug Code
+    }
+
+    void OffAlertPanel()
+    {
+        alertPanel.SetActive(false);
     }
 
     void GiveHeart()
     {
-        if (heartType == 0)
+        int current = GetHeartInteger();
+        if (current < 0 || current >= typeNumber)
         {
             alertPanel.SetActive(true);
             Invoke(nameof(OffAlertPanel), 2.0f);
+            Debug.Log("Heart Type is " + current + ", can't communicate!"); // Debug Code !!!
         }
         else
         {
-            int current = heartType / 100 - 1;
-            if (heartButtons[current].interactable && !heartUploading)
+            if (!heartUploading)
             {
-                heartCount[current]++;
                 heartUploading = true;
                 heartImage.SetActive(true);
-                StartCoroutine(UploadAfterDelay(1.0f));
 
-                Debug.Log(GetHeartType() + " 교감을 " + heartCount[current] + "회 진행"); // Debug Code
+                // 교감하는 애니메이션
+                // dogImage.sprite = dogAnimations[current];
 
-                if (heartCount[current] >= heartLimit)
-                {
-                    heartButtons[current].interactable = false;
-                }
+                StartCoroutine(UploadAfterDelay(heartDelayTime));
+
+                Debug.Log(GetHeartText() + " 교감 진행 시작"); // Debug Code
+            }
+            else
+            {
+                Debug.Log("교감 진행 중"); // Debug Code
             }
         }
     }
@@ -77,26 +87,26 @@ public class HeartScene : MonoBehaviour
         StartCoroutine(Upload());
         heartUploading = false;
         heartImage.SetActive(false);
+        // dogImage.sprite = dogSprites[GetHeartInteger()];
     }
 
-    string GetHeartType()
+    int GetHeartInteger()
     {
-        switch (heartType)
+        return (heartType / 100) - 1;
+    }
+
+    string GetHeartText()
+    {
+        return heartType switch
         {
-            case HeartType.WAIT:
-                return "WAIT";
-            case HeartType.SIT:
-                return "SIT";
-            case HeartType.HAND:
-                return "HAND";
-            case HeartType.PAT:
-                return "PAT";
-            case HeartType.TUG:
-                return "TUG";
-            case HeartType.WALK:
-                return "WALK";
-        }
-        return ""; // SHOULD NEVER RUN
+            HeartType.WAIT => "WAIT",
+            HeartType.SIT => "SIT",
+            HeartType.HAND => "HAND",
+            HeartType.PAT => "PAT",
+            HeartType.TUG => "TUG",
+            HeartType.WALK => "WALK",
+            _ => "",// SHOULD NEVER RUN
+        };
     }
 
     IEnumerator Upload()
@@ -105,7 +115,7 @@ public class HeartScene : MonoBehaviour
         form.AddField("email", PlayerPrefs.GetString("email"));
 
         // string url = ServerSettings.SERVER_URL + "/api/communication/save/" + GetHeartType();
-        string url = ServerSettings.SERVER_URL + "/api/communication/save/" + GetHeartType() + "?email=" + PlayerPrefs.GetString("email"); // TEST CODE
+        string url = ServerSettings.SERVER_URL + "/api/communication/save/" + GetHeartText() + "?email=" + PlayerPrefs.GetString("email"); // TEST CODE
         UnityWebRequest request = new UnityWebRequest(url, "POST");
 
         request.downloadHandler = new DownloadHandlerBuffer();

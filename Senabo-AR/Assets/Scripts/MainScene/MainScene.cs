@@ -14,7 +14,7 @@ public class MainScene : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(WebRequestGET());
+        SetTitleDayCount();
     }
 
     string GetVerb(string dogName)
@@ -30,30 +30,13 @@ public class MainScene : MonoBehaviour
         return (lastLetter - 0xAC00) % 28 > 0 ? "이와" : "와";
     }
 
-    IEnumerator WebRequestGET()
+    void SetTitleDayCount()
     {
-        string email = PlayerPrefs.GetString("email");
-        // string url = ServerSettings.SERVER_URL + "/api/member/get/" + email;
-        string url = ServerSettings.SERVER_URL + "/api/member/get?email=" + email; // TEST CODE
+        string createTime = PlayerPrefs.GetString("createTime");
+        System.DateTime createDate = System.DateTime.ParseExact(createTime, "yyyy-MM-ddTHH:mm:ss.fffZ", System.Globalization.CultureInfo.InvariantCulture);
 
-        UnityWebRequest www = UnityWebRequest.Get(url);
-
-        yield return www.SendWebRequest();
-
-        if (www.error == null)
-        {
-            string jsonString = www.downloadHandler.text;
-            var response = JsonUtility.FromJson<APIResponse<MemberGetResponseClass>>(jsonString);
-
-            TimeSpan dateDiff = DateTime.Now.Date - DateTime.Parse(response.data.createTime).Date;
-            MainTitleText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께한 지 {dateDiff.Days + 1}일 째";
-            //MainTitleText.text = response.data.dogName + "와(과) 함께한 지 " + (dateDiff + 1) + "일 째"; // TEST CODE
-        }
-        else
-        {
-            MainTitleText.text = "강아지와 함께한 지 0일 째";
-            Debug.Log("WebRequest Error Occured"); // Debug Code
-        }
+        System.TimeSpan dateDiff = System.DateTime.Now.Date - createDate.Date;
+        MainTitleText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께한 지 {dateDiff.Days + 1}일 째";
     }
 
     public void LoadBathScene()
