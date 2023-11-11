@@ -1841,7 +1841,12 @@ MonoBehaviour:
   dogImage: {fileID: 1890920400}
   heartImage: {fileID: 1406912586}
   alertPanel: {fileID: 1052262837}
-  heartButtons: []
+  dogSprites:
+  - {fileID: -1299350875, guid: 031d3360c6623494d9fb21f06ec74349, type: 3}
+  - {fileID: -1532470053, guid: 031d3360c6623494d9fb21f06ec74349, type: 3}
+  - {fileID: -759480832, guid: 031d3360c6623494d9fb21f06ec74349, type: 3}
+  - {fileID: -1341175059, guid: 031d3360c6623494d9fb21f06ec74349, type: 3}
+  - {fileID: 1131724923, guid: 031d3360c6623494d9fb21f06ec74349, type: 3}
 --- !u!1 &1283072049
 GameObject:
   m_ObjectHideFlags: 0
