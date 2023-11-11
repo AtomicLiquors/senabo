@@ -1,5 +1,5 @@
 [System.Serializable]
-public class BathSceneClass
+public class BathListResponseDtoClass
 {
     public long id;
     public long memberId;
