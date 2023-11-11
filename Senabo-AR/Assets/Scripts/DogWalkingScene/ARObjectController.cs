@@ -16,6 +16,7 @@ public class ARObjectController : MonoBehaviour
     public GameObject strollEventManager;
     public GameObject dogAnimationManager;
     public GameObject dogManager;
+    public GameObject itemSpawner;
 
     [SerializeField]
     private GameObject myDog;
@@ -105,6 +106,7 @@ public class ARObjectController : MonoBehaviour
                 strollEventManager.SetActive(true);
                 gpsManager.SetActive(true);
                 dogManager.SetActive(true);
+                itemSpawner.SetActive(true);
             }
         }
     }
