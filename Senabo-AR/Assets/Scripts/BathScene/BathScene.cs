@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
-using System.Data;
 
 public class BathScene : MonoBehaviour
 {
@@ -26,9 +25,7 @@ public class BathScene : MonoBehaviour
         bubbleArray = new GameObject[dogLimit];
         dirtArray = new GameObject[dogLimit];
 
-        // CONSIDER CALL PROCESS!!!
-        StartCoroutine(CheckBathTime());
-        StartCoroutine(CheckBathHistory());
+        CheckBathTime(); if(bathTimePassed) StartCoroutine(CheckBathHistory());
         StartCoroutine(CheckTeethPossible());
     }
 
@@ -126,7 +123,6 @@ public class BathScene : MonoBehaviour
         }
         else
         {
-            // 양치 완료
             shiningImage.SetActive(true);
             BrushTeethPanel2.SetActive(true);
             Invoke(nameof(CloseAllAlert), 2.0f);
@@ -146,7 +142,15 @@ public class BathScene : MonoBehaviour
         BrushTeethPanel2.SetActive(false);
     }
 
-    IEnumerator CheckBathTime()
+    void CheckBathTime () {
+        string createTime = PlayerPrefs.GetString("createTime");
+        System.DateTime createDate = System.DateTime.ParseExact(createTime, "yyyy-MM-ddTHH:mm:ss.fffZ", System.Globalization.CultureInfo.InvariantCulture);
+
+        System.TimeSpan dateDiff = System.DateTime.Now.Date - createDate.Date;
+        if(dateDiff.Days + 1 > 30) bathTimePassed = true;
+    }
+
+    IEnumerator CheckBathTimeByAPI()
     {
         string email = PlayerPrefs.GetString("email");
         // string url = ServerSettings.SERVER_URL + "/api/member/get/" + email;
