@@ -24,10 +24,8 @@ public class DogAnimationManager : MonoBehaviour
 
     public void handleDogMovement(string motion)
     {
-        Debug.Log(EventStatusManager.GetDogEvent());
         if (!EventStatusManager.GetDogEvent())
         {
-            Debug.Log("Inside if: " + EventStatusManager.GetDogEvent());
             welshAnim.SetTrigger(motion);
             if (strapObject.activeInHierarchy)
             {
@@ -39,8 +37,7 @@ public class DogAnimationManager : MonoBehaviour
     public void handleDogSuddenEvent(string motion)
     {
         welshAnim.SetTrigger(motion);
-
-        StartCoroutine(AnimationStatus());        
+        
        if (strapObject.activeInHierarchy)
         {
             strapAnim.SetTrigger(motion);
