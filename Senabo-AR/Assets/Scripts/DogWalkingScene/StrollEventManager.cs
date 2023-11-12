@@ -26,8 +26,8 @@ public class StrollEventManager : MonoBehaviour
     [SerializeField]
     private GameObject userGestureManager;
 
-    private bool gestureEventTrigger;
-    private bool distanceEventTrigger;
+    private bool gestureEventTrigger;   // 사용자의 당김 동작 수행 체크
+    private bool distanceEventTrigger;  // myDog와 otherDog의 거리 체크(멀리 떨어졌을 경우 true)
     public void updateGestureEventTrigger(){
         this.gestureEventTrigger = true;
     }
@@ -70,8 +70,8 @@ public class StrollEventManager : MonoBehaviour
         delayTime = 1;
         yield return new WaitForSeconds(delayTime);
 
-        dogManager.updateStrollEventCheck(true);    // 강아지가 정지하도록
-        EventStatusManager.SwitchDogEvent(true);    // 애니메이션이 변경 안되도록
+        dogManager.updateStrollEventCheck(true);    // 강아지 움직임 제어
+        EventStatusManager.SwitchDogEvent(true);    // 애니메이션 고정
         
         arObjectController.setDogEventTrigger();    // otherDog가 나오게 설정
         userGestureManager.SetActive(true);         // 손동작 인식 on
@@ -83,6 +83,7 @@ public class StrollEventManager : MonoBehaviour
             if (distanceEventTrigger)
             {
                 distanceEventTrigger = false;
+                // 돌발행동 대처 성공 데이터 처리
                 yield break;
             }
 
@@ -100,11 +101,11 @@ public class StrollEventManager : MonoBehaviour
             yield return new WaitForSeconds(1); 
         }
 
-        // 사용자가 이벤트에 잘 대처하지 못했을 경우 실행
         gestureEventTrigger = false;
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
         userGestureManager.SetActive(false);
+        // 돌발행동 대처 실패 데이터 처리
     }
 
 
@@ -114,18 +115,23 @@ public class StrollEventManager : MonoBehaviour
         delayTime = 15;
         yield return new WaitForSeconds(delayTime);
 
-        dogManager.updateStrollEventCheck(true);
-        EventStatusManager.SwitchDogEvent(true);
-        userGestureManager.SetActive(true);
+        dogManager.updateStrollEventCheck(true);        // 강아지 움직임 제어
+        EventStatusManager.SwitchDogEvent(true);        // 애니메이션 고정
+        userGestureManager.SetActive(true);             // 손동작 인식 on
 
         // 진동 알림
         for (int i = 0; i < 10; i++)
         {
-            // event를 해결했을 경우
+            // 사용자가 핸드폰을 n번 당겼을 경우
             if (gestureEventTrigger)
             {
-                Debug.Log("주워먹는 이벤트 해제!");
-                break;
+                gestureEventTrigger = false;
+                dogManager.updateStrollEventCheck(false);  // 강아지가 움직일 수 있게 설정
+                EventStatusManager.SwitchDogEvent(false);  // 애니메이션이 변경될 수 있게 설정
+                userGestureManager.SetActive(false);       // 사용자 손동작 인식 off
+
+                // 돌발행동 대처 성공 데이터 처리
+                yield break;
             }
             dogAnimator.handleDogSuddenEvent("WelshEat");
             Handheld.Vibrate(); // 0.5초간 진동이 울림
@@ -136,7 +142,9 @@ public class StrollEventManager : MonoBehaviour
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
         userGestureManager.SetActive(false);
+        // 돌발행동 대처 실패 데이터 처리
     }
+
 
     // 3. 주저 앉아서 움직이지 않으려 할 때
     IEnumerator SuddenStop(int delayTime)
