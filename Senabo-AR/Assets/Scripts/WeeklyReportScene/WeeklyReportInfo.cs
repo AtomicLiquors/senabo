@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -32,7 +30,10 @@ public class WeeklyReportInfo : MonoBehaviour
         PoopGage.SetActive(false);
         HealthGage.SetActive(false);
 
-        StartCoroutine(GetDetailReport());
+        if (PlayerPrefs.HasKey("email"))
+        {
+            StartCoroutine(GetDetailReport());
+        }
     }
 
     string GetVerb(string dogName)
