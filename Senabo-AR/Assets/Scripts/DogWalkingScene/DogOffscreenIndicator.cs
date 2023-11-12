@@ -10,6 +10,8 @@ public class DogOffscreenIndicator : MonoBehaviour
 
     [SerializeField]
     GameObject dogIndicator;
+
+    Vector3 screenPoint; 
     void Start()
     {
         
@@ -18,6 +20,10 @@ public class DogOffscreenIndicator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (dogObject.activeInHierarchy)
+        {
+
+        }
+            //screenPoint= Camera.main.WorldToViewportPoint(projectile.transform)
     }
 }
