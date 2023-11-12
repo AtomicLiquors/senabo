@@ -31,7 +31,7 @@ public class DogManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 돌발 이벤트 발생 중일 때
+        // 돌발 이벤트 발생 중일 때(아래 실행 x)
         if (strollEventCheck)
         {
             myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지

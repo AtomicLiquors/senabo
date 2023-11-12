@@ -8,7 +8,7 @@ public class UserGestureManager : MonoBehaviour
     [SerializeField]
     private StrollEventManager strollEventManager;
 
-    private const float shakeThreshold = 1.5f; // 흔들림 감도
+    private const float shakeThreshold = 2.0f; // 흔들림 감도
     private const float shakeInterval = 0.5f; // 두 번째 흔들림 간격
     private float lastShakeTime = 0f;
     private int shakeCount = 0;

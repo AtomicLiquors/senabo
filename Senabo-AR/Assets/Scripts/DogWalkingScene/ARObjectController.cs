@@ -49,22 +49,23 @@ public class ARObjectController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (myDog.activeInHierarchy)
+        // myDog와 otherDog가 모두 생성된 경우
+        if (myDog.activeInHierarchy && otherDog.activeInHierarchy)
         {
             // myDog와 otherDog 간의 거리를 계산
             float distance = Vector3.Distance(myDog.transform.position, otherDog.transform.position);
 
-            // 거리가 10m 이상인 경우
-            if (distance >= 5.0f)
+            // 거리가 3m 이상인 경우
+            if (distance >= 3.0f)
             {
-                Debug.Log("myDog와 otherDog 간의 거리가 10m 이상입니다.");
+                Debug.Log("myDog와 otherDog 간의 거리가 3m 이상입니다.");
                 otherDog.SetActive(false);
-                Debug.Log("StrollEvent");
                 StrollEventManager var = strollEventManager.GetComponent<StrollEventManager>();
                 var.updateDistanceEventTrigger();
             }
         }
 
+        // otherDog가 생성되는 이벤트가 발생한 경우
         if (dogEventTrigger)
         {
             // ======= otherDog를 생성하여 myDog 앞에 마주보도록 위치 설정 ========== //
@@ -77,6 +78,7 @@ public class ARObjectController : MonoBehaviour
             dogEventTrigger = false;
         }
 
+        // 터치가 없는 경우 아래 실행 x
         if (Input.touchCount==0)
         {
             return;
