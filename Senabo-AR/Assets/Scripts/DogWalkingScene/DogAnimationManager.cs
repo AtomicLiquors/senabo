@@ -12,7 +12,7 @@ public class DogAnimationManager : MonoBehaviour
 
 
     Animator welshAnim;
-     Animator strapAnim;
+    Animator strapAnim;
 
     void Start()
     {

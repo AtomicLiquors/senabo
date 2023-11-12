@@ -157,9 +157,9 @@ RectTransform:
   - {fileID: 502605580}
   m_Father: {fileID: 411171060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 660, y: -80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 48, y: 48}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &29393213
@@ -1670,6 +1670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goHomeButton: {fileID: 642178994}
   itemPanel: {fileID: 1358282402}
+  itemSpawner: {fileID: 2055153730}
 --- !u!4 &339990447
 Transform:
   m_ObjectHideFlags: 0
@@ -1788,7 +1789,7 @@ Transform:
   m_GameObject: {fileID: 354418182}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0.685}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3134,9 +3135,9 @@ RectTransform:
   - {fileID: 2068986016}
   m_Father: {fileID: 411171060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 426, y: -80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 148, y: 148}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &987489173
@@ -3242,16 +3243,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 165585584}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 80baeff64d50a924b85c0ee42c65dc64, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.080761
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 80baeff64d50a924b85c0ee42c65dc64, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.080761
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 80baeff64d50a924b85c0ee42c65dc64, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.080761
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 80baeff64d50a924b85c0ee42c65dc64, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: -460
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80baeff64d50a924b85c0ee42c65dc64, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -247.84
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80baeff64d50a924b85c0ee42c65dc64, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.00032173
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 80baeff64d50a924b85c0ee42c65dc64, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3631,8 +3644,8 @@ Transform:
   m_GameObject: {fileID: 1261559173}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -460, y: -250, z: 0}
+  m_LocalScale: {x: 0.104318984, y: 0.104318984, z: 0.104318984}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 165585584}
@@ -3725,7 +3738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1358282403
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4102,7 +4115,7 @@ MonoBehaviour:
   strollEventManager: {fileID: 2129361215}
   dogAnimationManager: {fileID: 1781007255}
   dogManager: {fileID: 768948087}
-  itemSpawner: {fileID: 0}
+  itemSpawner: {fileID: 2055153730}
   myDog: {fileID: 2089110259}
   otherDog: {fileID: 223974227}
 --- !u!1 &1688704070
@@ -4705,7 +4718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ded76e1af955db844bf542bd965cd4f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dogObject: {fileID: 0}
+  dogObject: {fileID: 2089110259}
   snackObject: {fileID: 997919214}
   poopObject: {fileID: 1261559173}
   snackLocation: {fileID: 354418182}
@@ -4848,7 +4861,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2247168222010617711, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5448674184451345750, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
       propertyPath: m_Enabled
@@ -5178,9 +5191,9 @@ RectTransform:
   - {fileID: 1117593302}
   m_Father: {fileID: 411171060}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 142, y: -80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 148, y: 148}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2135663570
@@ -5229,7 +5242,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 339990446}
         m_TargetAssemblyTypeName: UIItemActionManager, Assembly-CSharp
-        m_MethodName: HandlePoopBagItemClick
+        m_MethodName: HandleSnackItemClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

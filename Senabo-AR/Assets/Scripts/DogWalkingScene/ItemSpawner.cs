@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UIModalManager;
 
 public class ItemSpawner : MonoBehaviour
 {
@@ -18,6 +19,19 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField]
     private GameObject pingPaw;
 
+    public enum ItemType
+    {
+        Snack,
+        Poop,
+        Ping
+    }
+
+
+    public ItemType Snack => ItemType.Snack;
+    public ItemType Poop => ItemType.Poop;
+    public ItemType Ping => ItemType.Ping;
+
+
     private void Start()
     {
         
@@ -25,7 +39,34 @@ public class ItemSpawner : MonoBehaviour
 
     private void Update()
     {
-        SpawnItem(snackObject, snackLocation);
+        
+        
+    }
+
+    public void HandleSpawnAction(ItemType item)
+    {
+        switch (item)
+        {
+            case ItemType.Snack:
+                SpawnItem(snackObject, snackLocation);
+                break;
+            case ItemType.Poop:
+                SpawnItem(poopObject, poopLocation);
+                break;
+        }
+    }
+
+    public void HandleRemoveAction(ItemType item)
+    {
+        switch (item)
+        {
+            case ItemType.Snack:
+                RemoveItem(snackObject);
+                break;
+            case ItemType.Poop:
+                RemoveItem(poopObject);
+                break;
+        }
     }
 
     public void SpawnItem(GameObject item, GameObject location)

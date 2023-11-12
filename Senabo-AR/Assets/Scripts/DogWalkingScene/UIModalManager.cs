@@ -36,7 +36,6 @@ public class UIModalManager : MonoBehaviour
 
     public void OpenModal(ModalType modalType)
     {
-        Debug.Log(modalType.ToString());
         VerifyModal(modalType).SetActive(true);
     }
     public void CloseModal(ModalType modalType)
