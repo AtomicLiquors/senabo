@@ -20,11 +20,11 @@ public class CommunicationModal : MonoBehaviour
 
     IEnumerator GetWeeklyCommunicationList()
     {
-        string api_url = $"{ServerSettings.SERVER_URL}/api/communication/list/{CountReport.selectedReportWeek}?email={PlayerPrefs.GetString("email")}";
+        string api_url = $"{ServerSettings.SERVER_URL}/api/communication/list/{CountReport.selectedReportWeek}";
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
-        string accessToken = "tokentoken"; // 추후 PlayerPrefs에서 추출할 예정
+        string accessToken = PlayerPrefs.GetString("accessToken");
         string jwtToken = $"Bearer {accessToken}";
 
         response.SetRequestHeader("Authorization", jwtToken);

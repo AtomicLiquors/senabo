@@ -4947,7 +4947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 188.79999, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &845298481
@@ -5210,17 +5210,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fde16ba83782094c901bf1ee55befb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weeklyReportDateText: {fileID: 0}
-  weeklyReportTimeDynamicText: {fileID: 0}
-  affectionIndexDiffText: {fileID: 0}
-  stressIndexDiffText: {fileID: 0}
-  affectionIndexText: {fileID: 0}
-  stressIndexText: {fileID: 0}
-  CommunicationGage: {fileID: 0}
-  FeedGage: {fileID: 0}
-  WalkGage: {fileID: 0}
-  PoopGage: {fileID: 0}
-  HealthGage: {fileID: 0}
+  weeklyReportDateText: {fileID: 2055291687}
+  weeklyReportTimeDynamicText: {fileID: 845298481}
+  affectionIndexDiffText: {fileID: 753111052}
+  stressIndexDiffText: {fileID: 1166640853}
+  affectionIndexText: {fileID: 377389654}
+  stressIndexText: {fileID: 1817794234}
+  CommunicationGage: {fileID: 1157428889}
+  FeedGage: {fileID: 1645138681}
+  WalkGage: {fileID: 1485026774}
+  PoopGage: {fileID: 1298182386}
+  HealthGage: {fileID: 635600554}
 --- !u!114 &856671666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10853,7 +10853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 188.79999, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1812845933
