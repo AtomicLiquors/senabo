@@ -74,7 +74,7 @@ public class StrollEventManager : MonoBehaviour
     // 1. 다른 강아지를 만났을 때
     IEnumerator SuddenEncounter(int delayTime)
     {
-        delayTime = 1;
+        delayTime = 10;
         yield return new WaitForSeconds(delayTime);
 
         dogManager.updateStrollEventCheck(true);    // 강아지 움직임 제어
@@ -164,17 +164,32 @@ public class StrollEventManager : MonoBehaviour
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
         EventStatusManager.SwitchDogStopResolved(false);
+        if (itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
 
         // 진동 알림
-        for (int i = 0; i < 10; i++)
+        int cnt = 0;
+        for (int i = 0; i < 30; i++)
         {
-            if (EventStatusManager.GetDogStopResolved())
+            // 간식을 주고 4초 됬을 때
+            if (cnt == 4)
             {
-                dogManager.updateStrollEventCheck(false); 
+                dogManager.updateStrollEventCheck(false);
                 EventStatusManager.SwitchDogEvent(false);
+                itemSpawnerScript.HandleRemoveAction(ItemType.Snack);
                 yield break;
             }
-            dogAnimator.handleDogSuddenEvent("WelshSit"); 
+
+            // 간식을 준 상태일 때
+            if (EventStatusManager.GetDogStopResolved())
+            {
+                cnt++;
+                dogAnimator.handleDogSuddenEvent("WelshEat");
+            }
+            else
+            {
+                dogAnimator.handleDogSuddenEvent("WelshSit");
+            }
+
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
         }
@@ -189,7 +204,7 @@ public class StrollEventManager : MonoBehaviour
     // 4. 배변 활동
     IEnumerator SuddenPoop(int delayTime)
     {
-        delayTime = 45;
+        delayTime = 1;
         yield return new WaitForSeconds(delayTime);
 
         if(itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
@@ -197,30 +212,25 @@ public class StrollEventManager : MonoBehaviour
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
         EventStatusManager.SwitchDogPoopResolved(false);
-        itemSpawnerScript.HandleSpawnAction(ItemType.Poop);
 
         // 진동 알림
         for (int i = 0; i < 4; i++)
         {
-            if (EventStatusManager.GetDogPoopResolved())
-            {
-                itemSpawnerScript.HandleRemoveAction(ItemType.Poop);
-                dogManager.updateStrollEventCheck(false);
-                EventStatusManager.SwitchDogEvent(false);
-                yield break;
-            }
             dogAnimator.handleDogSuddenEvent("WelshPoop");
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
         }
 
+        itemSpawnerScript.HandleSpawnAction(ItemType.Poop); // Poop 생성
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
         EventStatusManager.SwitchDogPoopResolved(true);
+
         // 실패 처리
-        EventStatusManager.IncreaseStress();
+        //EventStatusManager.IncreaseStress();
     }
 
+    //itemSpawnerScript.HandleRemoveAction(ItemType.Poop);
     // ============= 내부 함수 ===================
 
 }
