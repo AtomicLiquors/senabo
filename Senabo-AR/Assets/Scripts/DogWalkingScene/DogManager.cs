@@ -15,6 +15,8 @@ public class DogManager : MonoBehaviour
 
     DogAnimationManager dogAnimator;
 
+    Vector3 screenCenter; // 카메라 중앙 위치
+
     private bool strollEventCheck;
     public void updateStrollEventCheck(bool check)
     {
@@ -26,6 +28,7 @@ public class DogManager : MonoBehaviour
     {
         dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>();
         hits = new List<ARRaycastHit>();
+        screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));   // 카메라의 중앙으로 ray를 쏜다
     }
 
     // Update is called once per frame
@@ -39,7 +42,6 @@ public class DogManager : MonoBehaviour
             return;
         }
 
-        Vector3 screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));   // 카메라의 중앙으로 ray를 쏜다
         arRaycaster.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon); // 평면을 인식하여 hits에 값을 입력
 
         // 평면을 인식 했을 때

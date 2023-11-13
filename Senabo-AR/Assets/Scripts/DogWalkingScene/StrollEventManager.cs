@@ -166,7 +166,7 @@ public class StrollEventManager : MonoBehaviour
         EventStatusManager.SwitchDogStopResolved(false);
 
         // 진동 알림
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 10; i++)
         {
             if (EventStatusManager.GetDogStopResolved())
             {
