@@ -2243,6 +2243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainTitleText: {fileID: 2066188421}
   actionModal: {fileID: 1690265949}
+  UserLocation: {fileID: 0}
 --- !u!1 &1003917536
 GameObject:
   m_ObjectHideFlags: 0

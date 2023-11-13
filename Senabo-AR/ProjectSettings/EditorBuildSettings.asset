@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: 38f0d50d18f9ab54d812067749448276
+  - enabled: 1
     path: Assets/Scenes/DogWalkingScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
@@ -14,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GagForDogTipDetail.unity
     guid: 1e08d5db487ed6a46b61c8f34026f8d8
+  - enabled: 1
+    path: Assets/Scenes/LoginScene.unity
+    guid: deddf69a264aab7449ede05eb6eca34f
   - enabled: 1
     path: Assets/Scenes/NameTagTipDetail.unity
     guid: 5c1af405180f77b4ea4b6a60fe4ef336
@@ -30,15 +36,6 @@ EditorBuildSettings:
     path: Assets/Scenes/BathOwnerDictDetailScene.unity
     guid: 86c98e6f6ba6edd4a949341102c53881
   - enabled: 1
-    path: Assets/Scenes/ChangeLocationInfo.unity
-    guid: 713cecc90eb203c40a146e2ca692d263
-  - enabled: 1
-    path: Assets/Scenes/DeleteAccountModal.unity
-    guid: f8605d1359db6c440b5894fbc0cac62c
-  - enabled: 1
-    path: Assets/Scenes/DeleteAccountSuccessAlertModal.unity
-    guid: 75ac319b65614f346a5ae56ef0e2beb2
-  - enabled: 1
     path: Assets/Scenes/EmergencyIssueOwnerDictDetailScene.unity
     guid: 6162cf1a2e464654e89f9ddbb455f8b2
   - enabled: 1
@@ -50,12 +47,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/IShouldCareOwnerDictDetailScene.unity
     guid: d31c82b21f7021549a6b78e68644da72
-  - enabled: 1
-    path: Assets/Scenes/LogoutModal.unity
-    guid: dff39a984f88c4b4fb9d8fd6df2995c7
-  - enabled: 1
-    path: Assets/Scenes/LogoutSuccessAlertModal.unity
-    guid: 276f615848bf8ad44ba119abde81182b
   - enabled: 1
     path: Assets/Scenes/OwnerDictScene.unity
     guid: 372feee505dc21840b8912c83573e5cb
@@ -81,8 +72,8 @@ EditorBuildSettings:
     path: Assets/Scenes/LocationSettingScene.unity
     guid: 5c1dfea475d3cdb4cb82e965e2e8ec70
   - enabled: 1
-    path: Assets/Scenes/LogInScene.unity
-    guid: 80b30a34adc628b4ea9cf8518bf0a65f
+    path: Assets/Scenes/LoginScene.unity
+    guid: deddf69a264aab7449ede05eb6eca34f
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: 274dc1c0ae550e841bc7fca78a0819a8
@@ -108,11 +99,8 @@ EditorBuildSettings:
     path: Assets/Scenes/ReportScene.unity
     guid: 7eb0bc6d4b19ee3468ae71b505c78d23
   - enabled: 1
-    path: Assets/Scenes/SignUpProfileScene.unity
+    path: Assets/Scenes/ProfileSettingScene.unity
     guid: 5705ee90382eb9b4186abb14676d4aa0
-  - enabled: 1
-    path: Assets/Scenes/SignUpScene.unity
-    guid: 04d6999b173268a4f8ad2380544ce551
   - enabled: 1
     path: Assets/Scenes/TeethScene.unity
     guid: 8fb2f6fbfa414854a95f84973a9d236c
@@ -127,5 +115,9 @@ EditorBuildSettings:
     guid: 45611f6651b396642b38e518b47ff24c
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: a16636b933e8db544902e9d6e87b06d1, type: 2}
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 19e6c07c759c7c343a547cb6426ec38a, type: 2}
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 73676a62c1e09b248b5c500666b2f197, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: c07c56bcbf81d2146bcb27bd1b847d4f, type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 6343fc4c200e7684186be2d7c1ccd6d4, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 382673be449c4af45a3ba3bf23c261fb, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: bc51af3ef54b6044285ac1f4c7d5d1cc, type: 2}
