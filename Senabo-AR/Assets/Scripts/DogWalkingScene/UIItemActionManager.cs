@@ -16,7 +16,13 @@ public class UIItemActionManager : MonoBehaviour
 
     ItemSpawner itemSpawnerScript;
 
+    [SerializeField]
+    private GameObject poop;
+
     private bool isItemPanelOpen = false;
+
+    [SerializeField]
+    private ARObjectController arObjectController;
 
     void Start()
     {
@@ -28,6 +34,7 @@ public class UIItemActionManager : MonoBehaviour
         goHomeButton.SetActive(!state);
     }
 
+    // 간식 버튼 클릭 시
     public void HandleSnackItemClick()
     {
         if (!EventStatusManager.GetDogStopResolved()) //이벤트 진행 여부 조건문
@@ -42,11 +49,13 @@ public class UIItemActionManager : MonoBehaviour
         }
     }
 
+    // 배변 봉투 버튼 클릭 시
     public void HandlePoopBagItemClick()
     {
-        if (!EventStatusManager.GetDogPoopResolved())
+        // poop이 활성화 상태일 때
+        if (poop.activeInHierarchy)
         {
-            EventStatusManager.SwitchDogPoopResolved(true);
+            arObjectController.setPoopEventTrigger();
         }
     }
 }

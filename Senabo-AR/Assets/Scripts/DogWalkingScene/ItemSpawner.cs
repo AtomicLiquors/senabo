@@ -30,18 +30,6 @@ public class ItemSpawner : MonoBehaviour
     public ItemType Poop => ItemType.Poop;
     public ItemType Ping => ItemType.Ping;
 
-
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
-    {
-        
-        
-    }
-
     public void HandleSpawnAction(ItemType item)
     {
         switch (item)

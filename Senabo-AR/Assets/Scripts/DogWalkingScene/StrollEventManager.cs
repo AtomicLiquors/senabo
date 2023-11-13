@@ -17,6 +17,9 @@ public class StrollEventManager : MonoBehaviour
     private DogManager dogManager;
 
     [SerializeField]
+    private EventStatusManager eventStatusManager;
+
+    [SerializeField]
     private GameObject dogObject;
 
     [SerializeField]
@@ -74,7 +77,7 @@ public class StrollEventManager : MonoBehaviour
     // 1. 다른 강아지를 만났을 때
     IEnumerator SuddenEncounter(int delayTime)
     {
-        delayTime = 10;
+        delayTime = 1;
         yield return new WaitForSeconds(delayTime);
 
         dogManager.updateStrollEventCheck(true);    // 강아지 움직임 제어
@@ -90,7 +93,7 @@ public class StrollEventManager : MonoBehaviour
             if (distanceEventTrigger)
             {
                 distanceEventTrigger = false;
-                // 돌발행동 대처 성공 데이터 처리
+                eventStatusManager.updateEncounterEventResolveCheck();  // 돌발행동 대처 성공 데이터 처리
                 yield break;
             }
 
@@ -138,7 +141,7 @@ public class StrollEventManager : MonoBehaviour
                 EventStatusManager.SwitchDogEvent(false);  // 애니메이션이 변경될 수 있게 설정
                 userGestureManager.SetActive(false);       // 사용자 손동작 인식 off
 
-                // 돌발행동 대처 성공 데이터 처리
+                eventStatusManager.updateEatEventResolveCheck(); // 돌발행동 대처 성공 데이터 처리
                 yield break;
             }
             dogAnimator.handleDogSuddenEvent("WelshEat");
@@ -176,6 +179,7 @@ public class StrollEventManager : MonoBehaviour
                 dogManager.updateStrollEventCheck(false);
                 EventStatusManager.SwitchDogEvent(false);
                 itemSpawnerScript.HandleRemoveAction(ItemType.Snack);
+                eventStatusManager.updateStopEventResolveCheck(); // 돌발행동 대처 성공 데이터 처리
                 yield break;
             }
 
@@ -204,14 +208,13 @@ public class StrollEventManager : MonoBehaviour
     // 4. 배변 활동
     IEnumerator SuddenPoop(int delayTime)
     {
-        delayTime = 1;
+        delayTime = 45;
         yield return new WaitForSeconds(delayTime);
 
         if(itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
 
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
-        EventStatusManager.SwitchDogPoopResolved(false);
 
         // 진동 알림
         for (int i = 0; i < 4; i++)
@@ -224,13 +227,5 @@ public class StrollEventManager : MonoBehaviour
         itemSpawnerScript.HandleSpawnAction(ItemType.Poop); // Poop 생성
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
-        EventStatusManager.SwitchDogPoopResolved(true);
-
-        // 실패 처리
-        //EventStatusManager.IncreaseStress();
     }
-
-    //itemSpawnerScript.HandleRemoveAction(ItemType.Poop);
-    // ============= 내부 함수 ===================
-
 }

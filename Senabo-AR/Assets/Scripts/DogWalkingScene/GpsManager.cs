@@ -13,6 +13,10 @@ public class GpsManager : MonoBehaviour
     // 사용자의 이동 거리
     public Text userMovementDistanceText;
     private double userMovementDistance;
+    public double getUserMovementDistance()
+    {
+        return this.userMovementDistance;
+    }
 
     IEnumerator Start()
     {

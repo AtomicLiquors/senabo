@@ -24,6 +24,12 @@ public class ARObjectController : MonoBehaviour
     [SerializeField]
     private GameObject otherDog;
 
+    [SerializeField]
+    private GameObject poop;
+
+    [SerializeField]
+    private EventStatusManager eventStatusManager;
+
     private static List<ARRaycastHit> arHits = new List<ARRaycastHit>();
     private UIModalManager ummScript;
 
@@ -33,6 +39,12 @@ public class ARObjectController : MonoBehaviour
     public void setDogEventTrigger()
     {
         dogEventTrigger = true;
+    }
+    // 배변 봉투 버튼을 클릭했는지 확인하는 변수
+    private bool poopEventTrigger;
+    public void setPoopEventTrigger()
+    {
+        poopEventTrigger = true;
     }
 
     private void Start()
@@ -87,7 +99,22 @@ public class ARObjectController : MonoBehaviour
         Touch touch = Input.GetTouch(0);
         Vector2 touchPosition = touch.position;
 
-
+        // 배변 봉투를 클릭한 상태 + poop이 있는 상태인 경우
+        if (poopEventTrigger && poop.activeInHierarchy)
+        {
+            if (touch.phase == TouchPhase.Began && arRaycaster.Raycast(touchPosition, arHits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon))
+            {
+                Pose hitPose = arHits[0].pose;
+                float distance = Vector3.Distance(poop.transform.position, hitPose.position);
+                if (distance <= 0.3f)
+                {
+                    Debug.Log("배변 제거!");
+                    poopEventTrigger = false;
+                    poop.SetActive(false);
+                    eventStatusManager.updatePoopEventResolveCheck();
+                }
+            }
+        }
         // myDog가 비활성 상태인 경우
         if (!myDog.activeInHierarchy)
         {

@@ -15,6 +15,11 @@ public class WalkTimer : MonoBehaviour
 
     private int minuteInNumber = 0;
     private float elapsedTime = 0f;
+    public int getTotalStrollMinute()
+    {
+        return minuteInNumber;
+    }
+
     IEnumerator Start()
     {
         totalWalkTime.text = "Ãâ¹ß Àü";
