@@ -2005,7 +2005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &456581505
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4709,6 +4709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dogObject: {fileID: 2089110259}
   strapObject: {fileID: 471837272}
+  aimPaw: {fileID: 456581504}
 --- !u!1 &1817929519
 GameObject:
   m_ObjectHideFlags: 0

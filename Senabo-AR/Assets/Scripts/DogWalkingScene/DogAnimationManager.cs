@@ -10,6 +10,9 @@ public class DogAnimationManager : MonoBehaviour
     [SerializeField]
     private GameObject strapObject;
 
+    [SerializeField]
+    private GameObject aimPaw;
+
 
     Animator welshAnim;
     Animator strapAnim;
@@ -24,6 +27,14 @@ public class DogAnimationManager : MonoBehaviour
 
     public void handleDogMovement(string motion)
     {
+        if (motion == "WelshIdle")
+        {
+            aimPaw.SetActive(false);
+        }
+        else
+        {
+            aimPaw.SetActive(true);
+        }
         if (!EventStatusManager.GetDogEvent())
         {
             welshAnim.SetTrigger(motion);
