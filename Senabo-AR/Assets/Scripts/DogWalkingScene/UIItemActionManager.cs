@@ -9,6 +9,11 @@ public class UIItemActionManager : MonoBehaviour
     public GameObject itemPanel;
     public GameObject itemSpawner;
 
+    [SerializeField]
+    GameObject dogAnimationManager;
+
+    DogAnimationManager dogAnimator;
+
     ItemSpawner itemSpawnerScript;
 
     private bool isItemPanelOpen = false;
@@ -16,7 +21,6 @@ public class UIItemActionManager : MonoBehaviour
     void Start()
     {
         itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
-        
     }
     public void SetIsItemPanelOpen(bool state)
     {
@@ -26,15 +30,23 @@ public class UIItemActionManager : MonoBehaviour
 
     public void HandleSnackItemClick()
     {
-        Debug.Log("Snack");
-        if (true) //이벤트 진행 여부 조건문
+        if (!EventStatusManager.GetDogStopResolved()) //이벤트 진행 여부 조건문
         {
+            if(dogAnimator == null)
+            {
+                dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>();
+            }
             itemSpawnerScript.HandleSpawnAction(ItemType.Snack);
+            EventStatusManager.SwitchDogStopResolved(true);
+            dogAnimator.handleDogSuddenEvent("welshEat");
         }
     }
 
     public void HandlePoopBagItemClick()
     {
-        Debug.Log("PoopBag");
+        if (!EventStatusManager.GetDogPoopResolved())
+        {
+            EventStatusManager.SwitchDogPoopResolved(true);
+        }
     }
 }

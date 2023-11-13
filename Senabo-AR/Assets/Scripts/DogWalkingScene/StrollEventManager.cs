@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using static ItemSpawner;
 
 public class StrollEventManager : MonoBehaviour
 {
@@ -21,10 +22,16 @@ public class StrollEventManager : MonoBehaviour
     [SerializeField]
     GameObject dogAnimationManager;
 
+    [SerializeField]
+    GameObject itemSpawner;
+
     DogAnimationManager dogAnimator;
 
     [SerializeField]
     private GameObject userGestureManager;
+
+    ItemSpawner itemSpawnerScript;
+
 
     private bool gestureEventTrigger;   // 사용자의 당김 동작 수행 체크
     private bool distanceEventTrigger;  // myDog와 otherDog의 거리 체크(멀리 떨어졌을 경우 true)
@@ -106,6 +113,7 @@ public class StrollEventManager : MonoBehaviour
         EventStatusManager.SwitchDogEvent(false);
         userGestureManager.SetActive(false);
         // 돌발행동 대처 실패 데이터 처리
+        EventStatusManager.IncreaseStress();
     }
 
 
@@ -143,6 +151,7 @@ public class StrollEventManager : MonoBehaviour
         EventStatusManager.SwitchDogEvent(false);
         userGestureManager.SetActive(false);
         // 돌발행동 대처 실패 데이터 처리
+        EventStatusManager.IncreaseStress();
     }
 
 
@@ -154,11 +163,17 @@ public class StrollEventManager : MonoBehaviour
 
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
+        EventStatusManager.SwitchDogStopResolved(false);
 
         // 진동 알림
         for (int i = 0; i < 4; i++)
         {
-
+            if (EventStatusManager.GetDogStopResolved())
+            {
+                dogManager.updateStrollEventCheck(false); 
+                EventStatusManager.SwitchDogEvent(false);
+                yield break;
+            }
             dogAnimator.handleDogSuddenEvent("WelshSit"); 
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
@@ -166,6 +181,9 @@ public class StrollEventManager : MonoBehaviour
 
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
+        EventStatusManager.SwitchDogStopResolved(true);
+        // 실패 처리
+        EventStatusManager.IncreaseStress();
     }
 
     // 4. 배변 활동
@@ -174,12 +192,23 @@ public class StrollEventManager : MonoBehaviour
         delayTime = 45;
         yield return new WaitForSeconds(delayTime);
 
+        if(itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
+
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
+        EventStatusManager.SwitchDogPoopResolved(false);
+        itemSpawnerScript.HandleSpawnAction(ItemType.Poop);
 
         // 진동 알림
         for (int i = 0; i < 4; i++)
         {
+            if (EventStatusManager.GetDogPoopResolved())
+            {
+                itemSpawnerScript.HandleRemoveAction(ItemType.Poop);
+                dogManager.updateStrollEventCheck(false);
+                EventStatusManager.SwitchDogEvent(false);
+                yield break;
+            }
             dogAnimator.handleDogSuddenEvent("WelshPoop");
             Handheld.Vibrate();
             yield return new WaitForSeconds(1);
@@ -187,6 +216,9 @@ public class StrollEventManager : MonoBehaviour
 
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
+        EventStatusManager.SwitchDogPoopResolved(true);
+        // 실패 처리
+        EventStatusManager.IncreaseStress();
     }
 
     // ============= 내부 함수 ===================

@@ -1671,6 +1671,8 @@ MonoBehaviour:
   goHomeButton: {fileID: 642178994}
   itemPanel: {fileID: 1358282402}
   itemSpawner: {fileID: 2055153730}
+  dogAnimationManager: {fileID: 1781007255}
+  dogAnimator: {fileID: 1781007257}
 --- !u!4 &339990447
 Transform:
   m_ObjectHideFlags: 0
@@ -5028,7 +5030,6 @@ MonoBehaviour:
   poopObject: {fileID: 1261559173}
   snackLocation: {fileID: 354418182}
   poopLocation: {fileID: 827554257}
-  pingPaw: {fileID: 0}
 --- !u!1 &2068986015
 GameObject:
   m_ObjectHideFlags: 0
@@ -5461,6 +5462,7 @@ MonoBehaviour:
   dogManager: {fileID: 768948089}
   dogObject: {fileID: 2089110259}
   dogAnimationManager: {fileID: 1781007255}
+  itemSpawner: {fileID: 2055153730}
   userGestureManager: {fileID: 85050635}
 --- !u!1 &2135663568
 GameObject:

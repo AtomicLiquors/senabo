@@ -5,7 +5,6 @@ using static UIModalManager;
 
 public class ItemSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField]
     private GameObject dogObject;
     [SerializeField]
@@ -16,9 +15,9 @@ public class ItemSpawner : MonoBehaviour
     private GameObject snackLocation;
     [SerializeField]
     private GameObject poopLocation;
-    [SerializeField]
+    /*[SerializeField]
     private GameObject pingPaw;
-
+    */
     public enum ItemType
     {
         Snack,
@@ -71,10 +70,8 @@ public class ItemSpawner : MonoBehaviour
 
     public void SpawnItem(GameObject item, GameObject location)
     {
-        Debug.Log("called");
         if (dogObject.activeInHierarchy)
         {
-            Debug.Log("activate");
             Vector3 position = location.GetComponent<Transform>().position;
             item.SetActive(true);
             item.transform.position = position;
