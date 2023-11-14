@@ -40,8 +40,6 @@ public class MainScene : MonoBehaviour
 
     public void LoadBathScene()
     {
-
-
         SceneManager.LoadScene("BathScene");
     }
 
