@@ -20,7 +20,7 @@ public class DogLeadDrawer : MonoBehaviour
 
     void Update() {
         dogPos = dogObject.GetComponent<Transform>().position;
-        cameraPos = Camera.current.ViewportToWorldPoint(new Vector3(-5f, -5f, Camera.current.nearClipPlane - 2f));
+        cameraPos = Camera.current.ViewportToWorldPoint(new Vector3(-5f, -1f, Camera.current.nearClipPlane - 1f));
         lineRenderer.SetPosition(0, dogPos);
         lineRenderer.SetPosition(1, cameraPos);
     }
