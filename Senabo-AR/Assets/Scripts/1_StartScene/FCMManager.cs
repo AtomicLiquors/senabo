@@ -14,11 +14,17 @@ public class FCMManager : MonoBehaviour
 
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
+            Debug.Log("파베 앱 초기화");
+
             if (task.Result == DependencyStatus.Available)
             {
+                Debug.Log("파베 앱 초기화2");
+
                 _app = FirebaseApp.DefaultInstance;
                 FirebaseMessaging.TokenReceived += OnTokenReceived;
                 FirebaseMessaging.MessageReceived += OnMessageReceived;
+
+                Debug.Log("파베 앱 초기화3");
 
                 MoveScene();
             }
@@ -27,6 +33,8 @@ public class FCMManager : MonoBehaviour
 
     void MoveScene()
     {
+        Debug.Log("파베 앱 초기화4");
+
         Debug.Log("email: " + PlayerPrefs.GetString("email"));
         Debug.Log("dogName: " + PlayerPrefs.GetString("dogName"));
         Debug.Log("houseLatitude: " + PlayerPrefs.GetFloat("houseLatitude"));
@@ -39,6 +47,8 @@ public class FCMManager : MonoBehaviour
 
         if (PlayerPrefs.HasKey("email"))
         {
+            Debug.Log("파베 앱 초기화5");
+
             PlayerPrefs.SetString("enterTime", DateTime.Now.ToString("yyyy.MM.dd.HH:mm"));
 
             Debug.Log("입장시간: " + PlayerPrefs.GetString("enterTime"));
@@ -46,6 +56,8 @@ public class FCMManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("파베 앱 초기화6");
+
             SceneManager.LoadScene("LoginScene");
         }
     }

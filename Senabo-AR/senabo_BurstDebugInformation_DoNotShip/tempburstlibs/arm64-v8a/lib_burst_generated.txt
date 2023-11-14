@@ -45,6 +45,7 @@ Library: C:\SENABO-MERGEMERGEMERGERMERGE\S09P31A108\Senabo-AR\Temp\BurstOutput\t
 --assembly-defines=UnityEngine;
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\SENABO-MERGEMERGEMERGERMERGE\S09P31A108\Senabo-AR\Temp\Burst
+--debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.11f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\SENABO-MERGEMERGEMERGERMERGE\S09P31A108\Senabo-AR\Library\Burst
 --output=C:\SENABO-MERGEMERGEMERGERMERGE\S09P31A108\Senabo-AR\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -105,6 +106,7 @@ Library: C:\SENABO-MERGEMERGEMERGERMERGE\S09P31A108\Senabo-AR\Temp\BurstOutput\t
 --assembly-defines=UnityEngine;
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\SENABO-MERGEMERGEMERGERMERGE\S09P31A108\Senabo-AR\Temp\Burst
+--debug=Full
 --key-folder=C:/Program Files/Unity/Hub/Editor/2022.3.11f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\SENABO-MERGEMERGEMERGERMERGE\S09P31A108\Senabo-AR\Library\Burst
 --output=C:\SENABO-MERGEMERGEMERGERMERGE\S09P31A108\Senabo-AR\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated

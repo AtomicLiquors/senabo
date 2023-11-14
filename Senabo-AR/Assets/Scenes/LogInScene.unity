@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc03723f293cd1740993cc5b9cd307b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  webClientId: 432451573462-rg10usuri5jt29kbq570nopj1d96d61c.apps.googleusercontent.com
+  webClientId: 
 --- !u!1 &508851413
 GameObject:
   m_ObjectHideFlags: 0

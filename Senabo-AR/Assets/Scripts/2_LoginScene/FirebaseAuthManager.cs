@@ -19,6 +19,7 @@ public class FirebaseAuthManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("들어옴");
         Debug.Log("***************파이어베이스 어스 매니저 시작**********");
         configuration = new GoogleSignInConfiguration
         {
