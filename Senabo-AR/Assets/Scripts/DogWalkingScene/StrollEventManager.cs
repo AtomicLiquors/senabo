@@ -186,8 +186,15 @@ public class StrollEventManager : MonoBehaviour
             // 간식을 준 상태일 때
             if (EventStatusManager.GetDogStopResolved())
             {
+                if (cnt == 0)
+                {
+                    dogAnimator.handleDogSuddenEvent("WelshIdle");
+                }
+                else
+                {
+                    dogAnimator.handleDogSuddenEvent("WelshEat");
+                }
                 cnt++;
-                dogAnimator.handleDogSuddenEvent("WelshEat");
             }
             else
             {
@@ -208,7 +215,7 @@ public class StrollEventManager : MonoBehaviour
     // 4. 배변 활동
     IEnumerator SuddenPoop(int delayTime)
     {
-        delayTime = 45;
+        delayTime = 50;
         yield return new WaitForSeconds(delayTime);
 
         if(itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
