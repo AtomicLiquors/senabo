@@ -8,7 +8,7 @@ public class DogManager : MonoBehaviour
     public ARRaycastManager arRaycaster;
     public GameObject myDog;
     List<ARRaycastHit> hits;
-    float stoppingDistance = 0.8f;
+    float stoppingDistance = 0.6f;
 
     [SerializeField]
     GameObject dogAnimationManager;
@@ -62,12 +62,13 @@ public class DogManager : MonoBehaviour
                 myDog.GetComponent<Rigidbody>().MoveRotation(newRotation);
 
                 // 거리가 멀 때
-                if (moveDirection.magnitude > 1.3f)
+                if (moveDirection.magnitude > 1.5f)
                 {
+                    myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지
                     if (!strollEventCheck)
                     {
                         dogAnimator.handleDogMovement("WelshRun");
-                        myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 4f);
+                        myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 100f);
                     }
                 }
                 // 거리가 짧을 때
