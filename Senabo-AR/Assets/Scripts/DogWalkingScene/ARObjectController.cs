@@ -68,9 +68,9 @@ public class ARObjectController : MonoBehaviour
             float distance = Vector3.Distance(myDog.transform.position, otherDog.transform.position);
 
             // 거리가 3m 이상인 경우
-            if (distance >= 3.0f)
+            if (distance >= 2.5f)
             {
-                Debug.Log("myDog와 otherDog 간의 거리가 3m 이상입니다.");
+                Debug.Log("myDog와 otherDog 간의 거리가 2m 이상입니다.");
                 otherDog.SetActive(false);
                 StrollEventManager var = strollEventManager.GetComponent<StrollEventManager>();
                 var.updateDistanceEventTrigger();

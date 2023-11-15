@@ -8,21 +8,32 @@ using UnityEngine.Networking;
 
 public class DogWalkingRestAPIManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject gpsManager;
+    private double distance;
+
     static public WalkEndRequestDtoClass walkEndRequestDto;
     void Start()
     {
-        StartCoroutine(TestSenaboRequests());
-       // StartCoroutine(SendWalkStartInfo());
-       // StartCoroutine(SendWalkEndInfo());
+       //StartCoroutine(TestSenaboRequests());
+        // StartCoroutine(SendWalkStartInfo());
+        //StartCoroutine(SendWalkEndInfo());
     }
 
-    public void handleWalkStart()
+    
+
+    public void HandleWalkStart()
     {
         StartCoroutine(SendWalkStartInfo());
     }
 
-    public void handleWalkEnd()
+    public void HandleWalkEnd()
     {
+        if (!gpsManager.activeInHierarchy)
+        {
+            Debug.Log("산책 시작되지 않음!");
+            return;
+        }
         StartCoroutine(SendWalkEndInfo());
     }
 
@@ -94,7 +105,10 @@ public class DogWalkingRestAPIManager : MonoBehaviour
 
     IEnumerator SendWalkEndInfo()
     {
-        walkEndRequestDto = new WalkEndRequestDtoClass(1.5);
+
+        GpsManager gpsManagerScript = gpsManager.GetComponent<GpsManager>();
+        distance = gpsManagerScript.getUserMovementDistance();
+        walkEndRequestDto = new WalkEndRequestDtoClass(distance);
         string jsonFile = JsonUtility.ToJson(walkEndRequestDto);
         string url = $"{ServerSettings.SERVER_URL}/api/walk/end?email=ssafy@gmail.com";
 

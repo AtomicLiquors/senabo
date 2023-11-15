@@ -1333,6 +1333,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 165585584}
     m_Modifications:
+    - target: {fileID: -4925847309917648893, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7d97aef4a83cd9041bbdf35160992ee6, type: 2}
+    - target: {fileID: 43043359663161873, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ff910950df769341a46e05364d16e33, type: 2}
     - target: {fileID: 1469399687890826709, guid: 21bfb19690b5ae0418a5a7ffa697d60d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -462.5315
@@ -1412,7 +1420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &249674310
 Transform:
   m_ObjectHideFlags: 0
@@ -1440,6 +1448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1340b7db4ca905c479b44d5ff9511b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gpsManager: {fileID: 8757684904594386367}
 --- !u!222 &259715466
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2469,6 +2478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058a8dc0d5d356c4ba617e93e34beec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  restAPIManager: {fileID: 249674311}
 --- !u!1 &656267163
 GameObject:
   m_ObjectHideFlags: 0
