@@ -10,6 +10,6 @@ public class MoveFromDogWalkingSceneToWalkResultScene : MonoBehaviour
     public void OnGoHomeButton()
     {
         restAPIManager.HandleWalkEnd();
-        SceneManager.LoadScene("WalkResultScene");
+        //SceneManager.LoadScene("WalkResultScene");
     }
 }

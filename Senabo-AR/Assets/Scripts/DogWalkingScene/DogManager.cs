@@ -48,7 +48,6 @@ public class DogManager : MonoBehaviour
         if (hits.Count > 0)
         {
             Pose hitPose = hits[0].pose;
-            // myDog.transform.position = hitPose.position;
 
             // 이동 방향 설정
             Vector3 moveDirection = hitPose.position - myDog.transform.position;
@@ -62,7 +61,7 @@ public class DogManager : MonoBehaviour
                 myDog.GetComponent<Rigidbody>().MoveRotation(newRotation);
 
                 // 거리가 멀 때
-                if (moveDirection.magnitude > 1.5f)
+                if (moveDirection.magnitude > 1.4f)
                 {
                     myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // 속도 중지
                     if (!strollEventCheck)
