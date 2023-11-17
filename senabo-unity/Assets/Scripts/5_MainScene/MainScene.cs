@@ -22,20 +22,29 @@ public class MainScene : MonoBehaviour
     [SerializeField]
     private GameObject LocationManagerObject;
     private MainLocationManager locationManager;
-    private Button dogBody;
+    //private Button dogBody;
 
     void Start()
     {
         actionModal.SetActive(false);
 
-        // StartCoroutine(CheckIsPoop());
-        // StartCoroutine(CheckEmergency());
+        Debug.Log("메인씬1");
 
-        dogBody = dogImage.GetComponent<Button>();
-        dogBody.onClick.AddListener(OnClickDogBody);
+        StartCoroutine(CheckIsPoop());
+        StartCoroutine(CheckEmergency());
+
+        Debug.Log("메인씬2");
+
+        //dogBody = dogImage.GetComponent<Button>();
+        //dogBody.onClick.AddListener(OnClickDogBody);
+
+        Debug.Log("메인씬3");
 
         LocationAlertModalText.text = $"{PlayerPrefs.GetString("dogName")}{GetGaVerb(PlayerPrefs.GetString("dogName"))}\n집에서 기다리고 있어요!";
         locationManager = LocationManagerObject.GetComponent<MainLocationManager>();
+
+        Debug.Log("메인씬4");
+
         SetTitleDayCount();
     }
 
@@ -110,7 +119,7 @@ public class MainScene : MonoBehaviour
 
     void OnClickDogBody()
     {
-
+        Debug.Log("강아지 클릭");
     }
 
     void AfterJudgePoop()
@@ -311,8 +320,11 @@ public class MainScene : MonoBehaviour
 
     void SetTitleDayCount()
     {
+        Debug.Log("텥스트트");
         string createTime = PlayerPrefs.GetString("createTime");
         TimeSpan dateDiff = DateTime.Now - DateTime.Parse(createTime);
+
+        Debug.Log("dateDiff:" + dateDiff.Days.ToString());
         MainTitleText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께한 지 {dateDiff.Days + 1}일 째 ";
     }
 
