@@ -1,0 +1,17 @@
+
+‹
+java:S14883"iImmediately return this expression instead of assigning it to the temporary variable "communicationList".(¦¸×–ûÿÿÿÿ8¡‰ß“¼1
+‹
+java:S1488;"iImmediately return this expression instead of assigning it to the temporary variable "communicationList".(ëüÊÎúÿÿÿÿ8ÎŞ–¼1
+Z
+java:S1854C"8Remove this useless assignment to local variable "list".(‡øàÏøÿÿÿÿ8µ‰ß“¼1
+K
+java:S1481C")Remove this unused "list" local variable.(‡øàÏøÿÿÿÿ8µ‰ß“¼1
+n
+java:S1128"QRemove this unused import 'com.senabo.domain.affection.service.AffectionService'.(ü•ëÃ8½œè–¼1
+m
+java:S1128"KRemove this unused import 'com.senabo.domain.report.service.ReportService'.(Î‰§ÿÿÿÿÿ8½œè–¼1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8½œè–¼1
+Q
+java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8½œè–¼1

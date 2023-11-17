@@ -1,0 +1,17 @@
+
+…
+java:S14880"cImmediately return this expression instead of assigning it to the temporary variable "diseaseList".(¹¡ŞÃşÿÿÿÿ8ş‘ıº1
+€
+java:S14888"cImmediately return this expression instead of assigning it to the temporary variable "diseaseList".(¯åØÕ8òŒñ–¼1
+z
+java:S1488H"]Immediately return this expression instead of assigning it to the temporary variable "count".(ĞóİŠ8ıÜ»¬¹1
+Z
+java:S1854@"8Remove this useless assignment to local variable "list".(è¢ˆ‹ıÿÿÿÿ8²±ı¥¹1
+K
+java:S1481@")Remove this unused "list" local variable.(è¢ˆ‹ıÿÿÿÿ8³±ı¥¹1
+m
+java:S1128	"KRemove this unused import 'com.senabo.domain.report.service.ReportService'.(Î‰§ÿÿÿÿÿ8ƒñ–¼1
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ƒñ–¼1
+Q
+java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8ƒñ–¼1

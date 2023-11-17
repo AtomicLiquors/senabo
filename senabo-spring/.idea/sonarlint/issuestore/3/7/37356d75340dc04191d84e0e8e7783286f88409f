@@ -1,0 +1,11 @@
+
+~
+java:S14884"bImmediately return this expression instead of assigning it to the temporary variable "reportList".(Ô¾ìM8„í³¼1
+z
+java:S1488@"^Immediately return this expression instead of assigning it to the temporary variable "report".(ìˆÚ08„í³¼1
+^
+java:S1126^"AReplace this if-then-else statement by a single return statement.(Éî Â8ÙÈ×‹½1
+[
+java:S1854"=Remove this useless assignment to local variable "newReport".(Ÿˆ¸8óİÑŒ½1
+L
+java:S1481".Remove this unused "newReport" local variable.(Ÿˆ¸8õİÑŒ½1

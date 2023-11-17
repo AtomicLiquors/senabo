@@ -1,0 +1,11 @@
+
+‡
+java:S1192X"eDefine a constant instead of duplicating this literal "ì„¸ìƒì— ë‚˜ìœ ë³´í˜¸ìëŠ” ìˆë‹¤" 5 times.(§ö¶úøÿÿÿÿ8­ì»‹½1
+h
+java:S1301q"KReplace this "switch" statement by "if" statements to increase readability.(ÜŸ•8®ì»‹½1
+u	java:S131D"YComplete cases by adding the missing enum constants or add a default case to this switch.(ÜŸ•8½ì»‹½1
+u	java:S131q"YComplete cases by adding the missing enum constants or add a default case to this switch.(ÜŸ•8¿ì»‹½1
+:
+java:S2119{"Save and re-use this "Random".(¼İÅf8Àì»‹½1
+;
+java:S2119‚"Save and re-use this "Random".(¸³¸[8Àì»‹½1

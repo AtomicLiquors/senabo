@@ -1,0 +1,11 @@
+
+n	java:S116 "RRename this field "API_URL" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(à³Ææ8¾Š½1
+R
+java:S1874k"5Remove this use of "sendMulticast"; it is deprecated.(ºô«’8¢¾Š½1
+X	java:S125q"<This block of commented-out lines of code should be removed.(—ìàŠ8¢¾Š½1
+Y	java:S125‘"<This block of commented-out lines of code should be removed.(»Ùì8¥¾Š½1
+Y	java:S125±"<This block of commented-out lines of code should be removed.(Áïéµ8¥¾Š½1
+L
+java:S1144u"0Remove this unused private "failMessage" method.(÷«£A8¦¾Š½1
+Q
+java:S1144ˆ"3Remove this unused private "getAccessToken" method.( ²Ò“8¦¾Š½1
