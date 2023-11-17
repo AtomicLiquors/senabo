@@ -1,7 +1,0 @@
-
-q
-java:S1192+"ODefine a constant instead of duplicating this literal "μ• μ • μ§€μ " 3 times.(†Ω­ϊÿÿÿÿ8ΜΧ•Ό1
-o
-java:S6204="RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨Ή8ΦΧ•Ό1
-o
-java:S6204P"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(­΄συ8ΪΊά•Ό1

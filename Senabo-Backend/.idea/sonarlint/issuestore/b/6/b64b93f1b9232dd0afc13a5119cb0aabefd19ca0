@@ -1,17 +1,0 @@
-
-…
-java:S14882"cImmediately return this expression instead of assigning it to the temporary variable "expenseList".(›ÀàÃÿÿÿÿÿ8¥‡ó’º1
-…
-java:S1488L"cImmediately return this expression instead of assigning it to the temporary variable "expenseList".(½úí‡şÿÿÿÿ8ñÛı–¼1
-\
-java:S1854:"?Remove this useless assignment to local variable "totalAmount".(Å„î8Ñ·÷’º1
-U
-java:S1854T"8Remove this useless assignment to local variable "list".(¥™Óö8Ûß”¦¹1
-F
-java:S1481T")Remove this unused "list" local variable.(¥™Óö8Ûß”¦¹1
-m
-java:S1128"KRemove this unused import 'com.senabo.domain.report.service.ReportService'.(Î‰§ÿÿÿÿÿ8ã¥ñ½1
-M
-java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ã¥ñ½1
-Q
-java:S1128"/Remove this unused import 'java.util.Optional'.(¨˜ëİüÿÿÿÿ8ã¥ñ½1

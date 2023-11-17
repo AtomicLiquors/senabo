@@ -1,5 +1,0 @@
-
-o
-java:S6204B"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8®µØ’º1
-o
-java:S6204V"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ª™¨¹8°µØ’º1
