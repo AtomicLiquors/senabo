@@ -51,7 +51,7 @@ public class DogManager : MonoBehaviour
 
             // 이동 방향 설정
             Vector3 moveDirection = hitPose.position - myDog.transform.position;
-            //moveDirection.y = 0; // 원하는 축으로 이동하도록 y 값을 0으로 설정
+            moveDirection.y = 0; // 원하는 축으로 이동하도록 y 값을 0으로 설정
 
             // 이동하는 경우(이동 거리가 정한 값보다 클 경우)
             if (moveDirection.magnitude > stoppingDistance) // magnitude는 3차원 백터의 크기/길이
