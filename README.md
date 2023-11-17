@@ -25,15 +25,7 @@
 <br>
 <img src="Documents/system.PNG" width="450" height="300">
 
-## 🐾 주요 기능
-|반려견 시뮬레이터(2D)|AR 산책 모드(3D)|
-|:--:|:--:|
-|<img src="Documents/mainscene.png" alt="logo" width="200" height="400">|<img src="Documents/arscene.png" alt="logo" width="200" height="400">|
-|반려견 육성|AR 강아지 생성 및 이동
-|강아지 생활패턴에 맞춘 알림 기능|GPS를 활용한 이동 거리 측정
-|강아지 관리 리포트|산책 중 돌발 이벤트 발생 (4종류)
-
-## 📆 제작 기간 및 인원
+#### 📆 제작 기간 및 인원
 
 제작 기간 : 2023. 10.09 ~ 2023. 11. 17 (7주) <br/>
 참여 인원 : 6인
@@ -42,6 +34,16 @@
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |<a href="">김령은</a>|<a href="">김재아</a>|<a href="">한라연</a>|<a href="">함소연</a>|<a href="">이종원</a>|<a href="">최효빈</a>
 |Unity|Unity|Unity|Backend|Unity AR|Unity AR|
+
+
+## 🐾 주요 기능
+|반려견 시뮬레이터(2D)|AR 산책 모드(3D)|
+|:--:|:--:|
+|<img src="Documents/mainscene.png" alt="logo" width="200" height="400">|<img src="Documents/arscene.png" alt="logo" width="200" height="400">|
+|반려견 육성|AR 강아지 생성 및 이동
+|강아지 생활패턴에 맞춘 알림 기능|GPS를 활용한 이동 거리 측정
+|강아지 관리 리포트|산책 중 돌발 이벤트 발생 (4종류)
+
 
 ## 💻 기술 스택
 ### Unity
