@@ -814,6 +814,20 @@ public class FinalReportSceneManager : MonoBehaviour
                             }
                         }
                     }
+
+                    PoopBodyText.text = $"{GetTotalTimeString(totalTimeMinute)}";
+
+                    if (totalTimeMinute / 7 > 30)
+                    {
+                        PoopGoodCommentText.SetActive(false);
+                        PoopBadCommentText.SetActive(true);
+                    }
+                    else
+                    {
+                        PoopGoodCommentText.SetActive(true);
+                        PoopBadCommentText.SetActive(false);
+                    }
+                    
                 }
             }
         }

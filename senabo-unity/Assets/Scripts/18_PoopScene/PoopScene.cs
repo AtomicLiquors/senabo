@@ -9,7 +9,7 @@ public class PoopScene : MonoBehaviour
 {
     public Image poopPadImage;
     public GameObject poopPadObject, plasticBagObject, shiningObject;
-    public Sprite[] poopPadSprites; // clean, fold1, fold2, fold3, dirt1, dirt2
+    public Sprite[] poopPadSprites; // clean, fold1, fold2, fold3, dirt1, dirt2, dirt3
     public GameObject NoPoopPanel, PoopCleanPanel1, PoopCleanPanel2, PoopCleanPanel3;
     private bool isPoop = false;
     private int padCount = 0, padState = 0, padLimit = 3;
@@ -17,12 +17,13 @@ public class PoopScene : MonoBehaviour
 
     void Start()
     {
-        // StartCoroutine(CreatePoop()); // TEST CODE
         StartCoroutine(CheckIsPoop());
     }
 
     void AfterJudgePoop()
     {
+        Debug.Log("PoopScene 배변 여무:" + isPoop);
+
         poopPadObject.SetActive(true);
 
         if (isPoop)
@@ -53,11 +54,18 @@ public class PoopScene : MonoBehaviour
 
     void OnClickPoopPad()
     {
+        Debug.Log("똥치우기 고고고고고고");
+
         if (padState < 3)
         {
             padCount++;
+
+            Debug.Log("똥치우기 스텝1:" + padCount);
+
             if (padCount >= padLimit)
             {
+                Debug.Log("똥 다치움:" + padCount);
+
                 poopPadImage.sprite = poopPadSprites[++padState];
                 padCount = 0;
 
@@ -75,11 +83,13 @@ public class PoopScene : MonoBehaviour
         {
             if (padCount == 0)
             {
+                Debug.Log("1. 접힌 패드 버리기");
                 // 1. 접힌 패드 버리기 (넣어지는 애니메이션)
                 poopPadObject.SetActive(false);
             }
             else if (padCount == 1)
             {
+                Debug.Log("1. 접힌 패드 버리기");
                 // 2. 쓰레기 봉투 치우기 (아래로 내려가는 애니메이션)
                 plasticBagObject.SetActive(false);
 
@@ -98,6 +108,8 @@ public class PoopScene : MonoBehaviour
 
                 button.onClick.RemoveListener(OnClickPoopPad);
                 button2.onClick.RemoveListener(OnClickPoopPad);
+
+                Debug.Log("똥 치우기 직전");
 
                 StartCoroutine(CleanPoop());
             }
@@ -168,15 +180,21 @@ public class PoopScene : MonoBehaviour
             FeedLatestDtoClass poop = JsonUtility.FromJson<APIResponse<FeedLatestDtoClass>>(www.downloadHandler.text).data;
 
             DateTime poopTime = Convert.ToDateTime(poop.createTime).AddHours(1);
+            Debug.Log("poopTime + 1: " + poopTime); // TEST
+            Debug.Log("curTime: " + DateTime.Now); // TEST
 
             if (DateTime.Now >= poopTime && !poop.cleanYn)
             {
                 isPoop = true;
+                Debug.Log("시간이 됨, 똥 있음"); // TEST
+            }
+            else
+            {
+                Debug.Log("똥 아직 없음"); // TEST}
             }
         }
         else
         {
-            // isPoop = true; // TEST CODE
             Debug.Log("PoopScene CheckIsPoop Error:" + www.responseCode); // Debug Code
 
             if (www.responseCode == 404)
@@ -186,7 +204,6 @@ public class PoopScene : MonoBehaviour
             else if (www.responseCode == 403)
             {
                 RefreshTokenManager.Instance.ReIssueRefreshToken();
-
                 StartCoroutine(CheckIsPoop());
             }
             else
@@ -194,12 +211,14 @@ public class PoopScene : MonoBehaviour
                 SceneManager.LoadScene("MainScene");
             }
         }
-
+        Debug.Log("PoopScene의 배변 여부: " + isPoop);// TEST
         AfterJudgePoop();
     }
 
     IEnumerator CleanPoop()
     {
+        Debug.Log("똥치우기!");
+
         string url = ServerSettings.SERVER_URL + "/api/feed/clean";
         UnityWebRequest request = new UnityWebRequest(url, "PUT");
         request.downloadHandler = new DownloadHandlerBuffer();

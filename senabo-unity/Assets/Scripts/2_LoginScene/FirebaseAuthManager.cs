@@ -1,3 +1,5 @@
+using Firebase;
+using Firebase.Messaging;
 using Google;
 using System;
 using System.Collections;
@@ -11,10 +13,20 @@ public class FirebaseAuthManager : MonoBehaviour
 {
     static public SignUpRequestDtoClass signUpRequestDto;
 
+    private string deviceToken;
+
     private void Awake()
     {
         Debug.Log("***************파이어베이스 어스 매니저 시작**********");
-        
+
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        {
+            if (task.Result == DependencyStatus.Available)
+            {
+               deviceToken = FirebaseMessaging.GetTokenAsync().Result.ToString();
+            }
+        });
+
     }
 
     public void SignInWithGoogle() 
@@ -128,7 +140,8 @@ public class FirebaseAuthManager : MonoBehaviour
                     PlayerPrefs.SetString("enterTime", DateTime.Now.ToString("yyyy.MM.dd.HH:mm"));
 
                     Debug.Log("입장시간: " + PlayerPrefs.GetString("enterTime"));
-                    SceneManager.LoadScene("MainScene");
+
+                    StartCoroutine(UpdateDeviceToken());
                 }
                 else // 비회원인 경우
                 {
@@ -146,6 +159,46 @@ public class FirebaseAuthManager : MonoBehaviour
             {
                 Debug.Log("회원 여부 확인 실패");
                 SignOutFromGoogle();
+            }
+        }
+    }
+
+    IEnumerator UpdateDeviceToken()
+    {
+        Debug.Log("디바이스 토큰 갱신 요청");
+
+        Debug.Log("디바이스 토큰:" + deviceToken);
+
+        UpdateDeviceTokenRequestDtoClass updateDeviceTokenRequestDto = new UpdateDeviceTokenRequestDtoClass();
+        updateDeviceTokenRequestDto.deviceToken = deviceToken;
+
+        string api_url = $"{ServerSettings.SERVER_URL}/api/member/device-token";
+        string jsonFile = JsonUtility.ToJson(updateDeviceTokenRequestDto);
+
+        using(UnityWebRequest request = UnityWebRequest.Put(api_url, jsonFile))
+        {
+            string accessToken = PlayerPrefs.GetString("accessToken");
+            string jwtToken = $"Bearer {accessToken}";
+            request.SetRequestHeader("Authorization", jwtToken);
+
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonFile);
+            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.error == null)
+            {
+                Debug.Log(request.downloadHandler.text);
+
+                SceneManager.LoadScene("MainScene");
+            }
+            else
+            {
+                Debug.Log("디바이스 토큰 갱신 실패 :" + request.responseCode);
+                PlayerPrefs.DeleteAll();
+                SceneManager.LoadScene("LoginScene");
             }
         }
     }

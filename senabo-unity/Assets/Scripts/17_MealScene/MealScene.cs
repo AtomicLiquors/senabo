@@ -28,7 +28,6 @@ public class MealScene : MonoBehaviour
         button = mealImage.GetComponent<Button>();
         button.onClick.AddListener(OnClickMeal);
 
-        // mealable = true; // TEST CODE
         StartCoroutine(CheckFeed());
     }
 
@@ -101,7 +100,7 @@ public class MealScene : MonoBehaviour
             // 배식 가능 상태, 배식 진행
             mealImage.sprite = fullSprite;
 
-            ////// StartCoroutine(GiveFeed());
+            StartCoroutine(GiveFeed());
             mealable = false;
         }
         else

@@ -10,6 +10,7 @@ public class DogStroll : MonoBehaviour
     public Animator animator;
     private float timer = 2.0f;
     private float interval = 2.0f;
+    private float sittedInterval = 1.4f;
     private float speed = 2.0f;
     private Vector3 moveDirection;
     private bool wasSitting = false;
@@ -28,27 +29,25 @@ public class DogStroll : MonoBehaviour
             if (randomValue)
             {
                 SetStateWalk();
-                // Debug.Log("walk direction: " + moveDirection); // Debug Code
+                Debug.Log("walk direction: " + moveDirection); // Debug Code
             }
             else
             {
                 SetStateStop();
-                // Debug.Log("stop direction: " + moveDirection); // Debug Code
+                Debug.Log("stop direction: " + moveDirection); // Debug Code
             }
             timer = 0.0f;
         }
         else
         {
             MoveDog();
+            // Debug.Log("Current Position: " + dog.transform.position); // Debug Code
         }
     }
 
-    bool checkWasSitting(){
-        return Vector3.Equals(moveDirection, new Vector3(0.0f, 0.0f));
-    }
     void SetStateWalk()
     {
-        wasSitting = checkWasSitting();
+        wasSitting = Vector3.Equals(moveDirection, new Vector3(0.0f, 0.0f));
         moveDirection = new Vector3(Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f)).normalized;
         SetDogImageDirection();
         animator.SetFloat("Walking", 1);
@@ -70,22 +69,23 @@ public class DogStroll : MonoBehaviour
 
     void MoveDog()
     {
-        if (wasSitting && timer <= 1.4f) {
+        if (wasSitting && timer <= sittedInterval)
+        {
             return;
         }
-            
+
         dog.transform.position += speed * Time.deltaTime * moveDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        // Debug.Log("Collider Entered!"); // Debug Code
+        Debug.Log("Collider Entered!"); // Debug Code
         if (collider.gameObject.CompareTag("Barrier"))
         {
-            // Debug.Log("Barrier Collision!"); // Debug Code
+            Debug.Log("Barrier Collision!"); // Debug Code
 
-            moveDirection = (new Vector3(0.0f, 0.0f) - dog.transform.position).normalized;
-            moveDirection *= 2;
+            moveDirection = (new Vector3(0.0f, -5.0f) - dog.transform.position).normalized;
+            moveDirection *= speed;
             SetDogImageDirection();
             timer = 0.0f;
         }

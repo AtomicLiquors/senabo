@@ -18,32 +18,40 @@ public class MainScene : MonoBehaviour
                 fullWaterBowl, emptyWaterBowl, fullFoodBowl, emptyFoodBowl;
     public bool isPoop = false, emerPoop = false, emerStomachache = false, emerAnxiety = false, emerDepression = false,
                 emerCrush = false, emerBite = false, emerWalk = false, emerBarking = false, emerVomiting = false;
+    private Button dogBody;
+    private bool actionable;
 
     [SerializeField]
     private GameObject LocationManagerObject;
     private MainLocationManager locationManager;
-    //private Button dogBody;
+
+    public GameObject EndAlertModal;
+    public Text EndAlertModalText;
 
     void Start()
     {
-        actionModal.SetActive(false);
+        isPoop = false;
+        emerPoop = false;
+        emerStomachache = false;
+        emerAnxiety = false;
+        emerDepression = false;
+        emerCrush = false;
+        emerBite = false;
+        emerWalk = false;
+        emerBarking = false;
+        emerVomiting = false;
+        actionable = true;
 
-        Debug.Log("메인씬1");
+        actionModal.SetActive(false);
+        EndAlertModal.SetActive(false);
 
         StartCoroutine(CheckIsPoop());
         StartCoroutine(CheckEmergency());
 
-        Debug.Log("메인씬2");
-
-        //dogBody = dogImage.GetComponent<Button>();
-        //dogBody.onClick.AddListener(OnClickDogBody);
-
-        Debug.Log("메인씬3");
-
         LocationAlertModalText.text = $"{PlayerPrefs.GetString("dogName")}{GetGaVerb(PlayerPrefs.GetString("dogName"))}\n집에서 기다리고 있어요!";
         locationManager = LocationManagerObject.GetComponent<MainLocationManager>();
 
-        Debug.Log("메인씬4");
+        EndAlertModalText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께 할 수 있는\n8주간의 시간이 끝났어요.\n\n다시 시작하고 싶다면\n탈퇴 후 재가입해주세요.";
 
         SetTitleDayCount();
     }
@@ -76,50 +84,67 @@ public class MainScene : MonoBehaviour
 
     public void OnClickEmerPoop()
     {
-        imageBedPoop.SetActive(false);
-        EmerPoopModalPanel.SetActive(true);
-        Invoke(nameof(CloseLocationAlertModal), 2.0f);
+        if (emerPoop) // Never Used
+        {
+            emerPoop = false;
+            imageBedPoop.SetActive(false);
+            EmerPoopModalPanel.SetActive(true);
+            Invoke(nameof(CloseLocationAlertModal), 2.0f);
+        }
     }
 
     public void OnClickEmerStomachache()
     {
-        ReceiptScene.type = ReceiptType.HospitalCost3;
-        StartCoroutine(UpdatePosition("MoveHospitalScene"));
+        if (emerStomachache) // Never Used
+        {
+            emerStomachache = false;
+            ReceiptScene.type = ReceiptType.HospitalCost3;
+            StartCoroutine(UpdatePosition("MoveHospitalScene"));
+        }
     }
 
     public void OnClickEmerAnxiety()
     {
-        // Other Loading Scene is needed!!!
-        ReceiptScene.type = ReceiptType.DamageCost1;
-        StartCoroutine(UpdatePosition("MoveGroomingScene"));
+        if (emerAnxiety)
+        {
+            emerAnxiety = false;
+            // Other Loading Scene is needed!!!
+            ReceiptScene.type = ReceiptType.DamageCost1;
+            StartCoroutine(UpdatePosition("ReceiptScene"));
+        }
     }
 
     public void OnClickEmerDepression()
     {
-        // Other Loading Scene is needed!!!
-        ReceiptScene.type = ReceiptType.DamageCost2;
-        StartCoroutine(UpdatePosition("MoveGroomingScene"));
-
+        if (emerDepression)
+        {
+            emerDepression = false;
+            // Other Loading Scene is needed!!!
+            ReceiptScene.type = ReceiptType.DamageCost2;
+            StartCoroutine(UpdatePosition("ReceiptScene"));
+        }
     }
 
     public void OnClickEmerCrush()
     {
-        // Other Loading Scene is needed!!!
-        ReceiptScene.type = ReceiptType.DamageCost3;
-        StartCoroutine(UpdatePosition("MoveGroomingScene"));
-
+        if (emerCrush)
+        {
+            emerCrush = false;
+            // Other Loading Scene is needed!!!
+            ReceiptScene.type = ReceiptType.DamageCost3;
+            StartCoroutine(UpdatePosition("ReceiptScene"));
+        }
     }
 
     public void OnClickEmerVomit()
     {
-        imageVomit.SetActive(false);
-        ReceiptScene.type = ReceiptType.HospitalCost5;
-        StartCoroutine(UpdatePosition("MoveHospitalScene"));
-    }
-
-    void OnClickDogBody()
-    {
-        Debug.Log("강아지 클릭");
+        if (emerVomiting)
+        {
+            emerVomiting = false;
+            imageVomit.SetActive(false);
+            ReceiptScene.type = ReceiptType.HospitalCost5;
+            StartCoroutine(UpdatePosition("MoveHospitalScene"));
+        }
     }
 
     void AfterJudgePoop()
@@ -238,19 +263,32 @@ public class MainScene : MonoBehaviour
         string jwtToken = $"Bearer {accessToken}";
         www.SetRequestHeader("Authorization", jwtToken);
 
+        Debug.Log("똥1" + isPoop);
+
         yield return www.SendWebRequest();
 
         if (www.error == null)
         {
             Debug.Log("MainScene CheckIsPoop Success"); // Debug Code
 
+            Debug.Log("똥2" + isPoop);
+
             FeedLatestDtoClass poop = JsonUtility.FromJson<APIResponse<FeedLatestDtoClass>>(www.downloadHandler.text).data;
 
             DateTime poopTime = Convert.ToDateTime(poop.createTime).AddHours(1);
+            Debug.Log("poopTime + 1: " + poopTime); // TEST
+            Debug.Log("curTime: " + DateTime.Now); // TEST
+
 
             if (DateTime.Now >= poopTime && !poop.cleanYn)
             {
                 isPoop = true;
+                Debug.Log("시간이 됨, 똥 있음"); // TEST
+            }
+            else
+            {
+                Debug.Log("똥3" + isPoop);
+                Debug.Log("똥 아직 없음"); // TEST}
             }
         }
         else
@@ -273,6 +311,7 @@ public class MainScene : MonoBehaviour
             }
         }
 
+        Debug.Log("MainScene의 배변 여부: " + isPoop);// TEST
         AfterJudgePoop();
     }
 
@@ -320,47 +359,111 @@ public class MainScene : MonoBehaviour
 
     void SetTitleDayCount()
     {
-        Debug.Log("텥스트트");
         string createTime = PlayerPrefs.GetString("createTime");
-        TimeSpan dateDiff = DateTime.Now - DateTime.Parse(createTime);
-
-        Debug.Log("dateDiff:" + dateDiff.Days.ToString());
+        TimeSpan dateDiff = Convert.ToDateTime(DateTime.Now.ToString("yyyy.MM.dd")) - Convert.ToDateTime(DateTime.Parse(createTime).ToString("yyyy.MM.dd"));
         MainTitleText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께한 지 {dateDiff.Days + 1}일 째 ";
+
+        if (dateDiff.Days + 1 > 56)
+        {
+            actionable = false;
+        }
+    }
+
+    private void CloseEndAlertModal()
+    {
+        EndAlertModal.SetActive(false);
     }
 
     public void LoadBathScene()
     {
+        if (!actionable)
+        {
+            EndAlertModal.SetActive(true);
+            Invoke("CloseEndAlertModal", 2.0f);
+
+            return;
+        }
+
         StartCoroutine(UpdatePosition("BathScene"));
     }
 
     public void LoadMealScene()
     {
+        if (!actionable)
+        {
+            EndAlertModal.SetActive(true);
+            Invoke("CloseEndAlertModal", 2.0f);
+
+            return;
+        }
+
         StartCoroutine(UpdatePosition("MealScene"));
     }
 
     public void LoadPoopScene()
     {
+        if (!actionable)
+        {
+            EndAlertModal.SetActive(true);
+            Invoke("CloseEndAlertModal", 2.0f);
+
+            return;
+        }
+
         StartCoroutine(UpdatePosition("PoopScene"));
     }
 
     public void LoadDogWalking2DScene()
     {
+        if (!actionable)
+        {
+            EndAlertModal.SetActive(true);
+            Invoke("CloseEndAlertModal", 2.0f);
+
+            return;
+        }
+
         StartCoroutine(UpdatePosition("WalkCheckListScene"));
     }
 
     public void LoadMoveHospitalScene()
     {
+        if (!actionable)
+        {
+            EndAlertModal.SetActive(true);
+            Invoke("CloseEndAlertModal", 2.0f);
+
+            return;
+        }
+
+        ReceiptScene.type = ReceiptType.HospitalCost1;
         StartCoroutine(UpdatePosition("MoveHospitalScene"));
     }
 
     public void LoadMoveGroomingScene()
     {
+        if (!actionable)
+        {
+            EndAlertModal.SetActive(true);
+            Invoke("CloseEndAlertModal", 2.0f);
+
+            return;
+        }
+
         ReceiptScene.type = ReceiptType.GroomingCost;
         StartCoroutine(UpdatePosition("MoveGroomingScene"));
     }
 
     public void LoadHeartScene()
     {
+        if (!actionable)
+        {
+            EndAlertModal.SetActive(true);
+            Invoke("CloseEndAlertModal", 2.0f);
+
+            return;
+        }
+
         StartCoroutine(UpdatePosition("HeartScene"));
     }
 

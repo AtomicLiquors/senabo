@@ -21,6 +21,7 @@ public class CountReport : MonoBehaviour
 
     private void Awake()
     {
+        LoadingImage.SetActive(false);
         StartCoroutine(GetTotalReport());
     }
 
@@ -142,6 +143,33 @@ public class CountReport : MonoBehaviour
             else
             {
                 SceneManager.LoadScene("ProfileScene");
+            }
+        }
+    }
+
+    public GameObject LoadingImage;
+
+    IEnumerator LoadScene(string sceneName)
+    {
+        yield return null;
+
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        op.allowSceneActivation = false;
+        LoadingImage.SetActive(true);
+
+        float time = 0.0f;
+
+        while (!op.isDone)
+        {
+            yield return null;
+
+            time += Time.deltaTime;
+
+            if (op.progress >= 0.9f && time >= 1.0f)
+            {
+                LoadingImage.SetActive(false);
+                op.allowSceneActivation = true;
+                yield break;
             }
         }
     }

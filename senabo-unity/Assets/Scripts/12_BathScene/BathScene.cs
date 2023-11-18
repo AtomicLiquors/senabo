@@ -12,7 +12,7 @@ public class BathScene : MonoBehaviour
     public Transform bubbleParent;
     public GameObject[] bubbleArray;
     public GameObject titleBar, dogBodyObject, dogCleanFace, dogDirtyFace, BathTub, YellowShine, WhiteShine;
-    public GameObject CantBathAlertPanel, HowToBathPanel1, HowToBathPanel2, HowToBathPanel3, BrushTeethPanel1, BrushTeethPanel2;
+    public GameObject CantBathAlertPanel, HowToBathPanel1, HowToBathPanel2, HowToBathPanel3, CantTeethAlertPanel, BrushTeethPanel1, BrushTeethPanel2;
     public Image background;
     public Sprite wetImage, dogClean, dogDirty, teethClean, teethDirty;
     private bool bathPossible, brushTeethPossible; // checking status
@@ -26,13 +26,13 @@ public class BathScene : MonoBehaviour
         dogBodyObject.SetActive(false); dogCleanFace.SetActive(false); dogDirtyFace.SetActive(false);
         YellowShine.SetActive(false); WhiteShine.SetActive(false);
         CloseAllAlert();
-        bathPossible = true; brushTeethPossible = true; // TEST CODE
+        bathPossible = false; brushTeethPossible = false;
         selectType = 0; dogCount = 0; dogState = 0;
 
         bubbleArray = new GameObject[dogLimit];
 
-        // StartCoroutine(CheckBathTime());
-        // StartCoroutine(CheckTeethPossible());
+        StartCoroutine(CheckBathTime());
+        StartCoroutine(CheckTeethPossible());
     }
 
     public void setSelectType(int type)
@@ -66,14 +66,24 @@ public class BathScene : MonoBehaviour
         else
         {
             titleBarText.text = "양치";
-            dogDirtyFace.SetActive(true);
             dogCleanFace.SetActive(true);
 
-            dogFace = dogDirtyFace.GetComponent<Button>();
-            dogFace.onClick.AddListener(OnClickDogFace);
+            if (brushTeethPossible)
+            {
+                dogDirtyFace.SetActive(true);
 
-            BrushTeethPanel1.SetActive(true);
-            Invoke(nameof(CloseAllAlert), 2.0f);
+                dogFace = dogDirtyFace.GetComponent<Button>();
+                dogFace.onClick.AddListener(OnClickDogFace);
+
+                BrushTeethPanel1.SetActive(true);
+                Invoke(nameof(CloseAllAlert), 2.0f);
+            }
+            else
+            {
+                WhiteShine.SetActive(true);
+                CantTeethAlertPanel.SetActive(true);
+                Invoke(nameof(CloseAllAlert), 2.0f);
+            }
         }
         titleBar.SetActive(true);
     }
@@ -119,7 +129,7 @@ public class BathScene : MonoBehaviour
                 Invoke(nameof(CloseAllAlert), 2.0f);
 
                 dogBody.onClick.RemoveListener(OnClickDogBody);
-                // StartCoroutine(DoBath());
+                StartCoroutine(DoBath());
             }
         }
     }
@@ -138,13 +148,13 @@ public class BathScene : MonoBehaviour
         else
         {
             dogDirtyFace.SetActive(false);
-            
+
             WhiteShine.SetActive(true);
             BrushTeethPanel2.SetActive(true);
             Invoke(nameof(CloseAllAlert), 2.0f);
 
             dogFace.onClick.RemoveListener(OnClickDogFace);
-            // StartCoroutine(BrushTeeth());
+            StartCoroutine(BrushTeeth());
         }
     }
 
@@ -154,6 +164,7 @@ public class BathScene : MonoBehaviour
         HowToBathPanel1.SetActive(false);
         HowToBathPanel2.SetActive(false);
         HowToBathPanel3.SetActive(false);
+        CantTeethAlertPanel.SetActive(false);
         BrushTeethPanel1.SetActive(false);
         BrushTeethPanel2.SetActive(false);
     }
@@ -180,7 +191,7 @@ public class BathScene : MonoBehaviour
                 List<BathListResponseDtoClass> bathHistories = apiResponse.data;
 
                 string lastBathTime = bathHistories[bathHistories.Count - 1].createTime;
-                DateTime createDate = DateTime.ParseExact(lastBathTime, "yyyy-MM-ddTHH:mm:ss.fffZ", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime createDate = DateTime.Parse(lastBathTime);
 
                 TimeSpan dateDiff = DateTime.Now.Date - createDate.Date;
                 if (dateDiff.Days + 1 > 35) bathPossible = true; // 5 weeks
@@ -195,10 +206,16 @@ public class BathScene : MonoBehaviour
         {
             Debug.Log("BathScene CheckBathTime Error!"); // Debug Code
 
-            if (response.responseCode == 403)
+            if (response.responseCode == 404)
+            {
+                bathPossible = true;
+                Debug.Log("목욕 기록이 없으므로 목욕 가능"); // Debug Code
+            }
+            else if (response.responseCode == 403)
             {
                 RefreshTokenManager.Instance.ReIssueRefreshToken();
 
+                Debug.Log("목욕 확인하려는데 403 나와서 토큰 재발급"); // Debug Code
                 StartCoroutine(CheckBathTime());
             }
             else
@@ -211,7 +228,9 @@ public class BathScene : MonoBehaviour
 
     IEnumerator CheckTeethPossible()
     {
-        string api_url = $"{ServerSettings.SERVER_URL}/api/brushing-teeth/check/{CountReport.selectedReportWeek}";
+        Debug.Log("양치 체크");
+
+        string api_url = $"{ServerSettings.SERVER_URL}/api/brushing-teeth/check";
 
         UnityWebRequest response = UnityWebRequest.Get(api_url);
 
@@ -221,6 +240,7 @@ public class BathScene : MonoBehaviour
         response.SetRequestHeader("Authorization", jwtToken);
 
         yield return response.SendWebRequest();
+        Debug.Log("brushing-teeth/check result: " + response.downloadHandler.text); /// TEST
 
         if (response.error == null)
         {
@@ -228,6 +248,7 @@ public class BathScene : MonoBehaviour
 
             TeethCheckResponseDtoClass teeth = JsonUtility.FromJson<APIResponse<TeethCheckResponseDtoClass>>(response.downloadHandler.text).data;
             brushTeethPossible = teeth.possibleYn;
+            Debug.Log("양치 가능 여부: " + brushTeethPossible); // Debug Code
 
             Debug.Log("BathScene CheckTeethPossible Success!"); // Debug Code
         }
@@ -235,10 +256,16 @@ public class BathScene : MonoBehaviour
         {
             Debug.Log("BathScene CheckTeethPossible Error!"); // Debug Code
 
-            if (response.responseCode == 403)
+            if (response.responseCode == 404)
+            {
+                brushTeethPossible = true;
+                Debug.Log("양치 기록이 없으므로 양치 가능"); // Debug Code
+            }
+            else if (response.responseCode == 403)
             {
                 RefreshTokenManager.Instance.ReIssueRefreshToken();
 
+                Debug.Log("양치 확인하려는데 403 나와서 토큰 재발급"); // Debug Code
                 StartCoroutine(CheckTeethPossible());
             }
             else

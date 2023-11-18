@@ -31,7 +31,7 @@ public class WeeklyReportInfo : MonoBehaviour
 
     private Vector3 scale = new Vector3(1f, 1f, 1f);
 
-    private void Awake()
+    private void Start()
     {
         CommunicationGage.SetActive(false);
         FeedGage.SetActive(false);
@@ -481,8 +481,8 @@ public class WeeklyReportInfo : MonoBehaviour
 
     string GetTimeFormat(string startTime, string endTime)
     {
-        DateTime StartTime = DateTime.Parse(startTime, CultureInfo.InvariantCulture);
-        DateTime EndTime = DateTime.Parse(endTime, CultureInfo.InvariantCulture);
+        DateTime StartTime = DateTime.Parse(startTime);
+        DateTime EndTime = DateTime.Parse(endTime);
 
         TimeSpan dateDiff = EndTime - StartTime;
 
@@ -901,7 +901,6 @@ public class WeeklyReportInfo : MonoBehaviour
             }
         }
     }
-
 
     private void OnApplicationPause(bool pause)
     {
