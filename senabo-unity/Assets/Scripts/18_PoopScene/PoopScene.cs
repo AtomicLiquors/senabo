@@ -54,13 +54,9 @@ public class PoopScene : MonoBehaviour
 
     void OnClickPoopPad()
     {
-        Debug.Log("똥치우기 고고고고고고");
-
         if (padState < 3)
         {
             padCount++;
-
-            Debug.Log("똥치우기 스텝1:" + padCount);
 
             if (padCount >= padLimit)
             {
@@ -83,24 +79,15 @@ public class PoopScene : MonoBehaviour
         {
             if (padCount == 0)
             {
-                Debug.Log("1. 접힌 패드 버리기");
-                // 1. 접힌 패드 버리기 (넣어지는 애니메이션)
                 poopPadObject.SetActive(false);
             }
             else if (padCount == 1)
             {
-                Debug.Log("1. 접힌 패드 버리기");
-                // 2. 쓰레기 봉투 치우기 (아래로 내려가는 애니메이션)
                 plasticBagObject.SetActive(false);
-
                 poopPadObject.SetActive(true);
                 poopPadImage.sprite = poopPadSprites[0];
-                poopPadObject.transform.position = new Vector3(3.5f, -3.5f);
-            }
-            else if (padCount == 2)
-            {
-                // 3. 새 패드 꺼내기 (위로 올라오는 애니메이션)
-                poopPadObject.transform.position = new Vector3(0, 0);
+
+                poopPadObject.transform.position = new Vector3(0.0f, 0.0f);
 
                 PoopCleanPanel3.SetActive(true);
                 Invoke(nameof(CloseAllPanel), 2.0f);
@@ -108,8 +95,6 @@ public class PoopScene : MonoBehaviour
 
                 button.onClick.RemoveListener(OnClickPoopPad);
                 button2.onClick.RemoveListener(OnClickPoopPad);
-
-                Debug.Log("똥 치우기 직전");
 
                 StartCoroutine(CleanPoop());
             }
@@ -180,17 +165,13 @@ public class PoopScene : MonoBehaviour
             FeedLatestDtoClass poop = JsonUtility.FromJson<APIResponse<FeedLatestDtoClass>>(www.downloadHandler.text).data;
 
             DateTime poopTime = Convert.ToDateTime(poop.createTime).AddHours(1);
-            Debug.Log("poopTime + 1: " + poopTime); // TEST
-            Debug.Log("curTime: " + DateTime.Now); // TEST
 
             if (DateTime.Now >= poopTime && !poop.cleanYn)
             {
                 isPoop = true;
-                Debug.Log("시간이 됨, 똥 있음"); // TEST
             }
             else
             {
-                Debug.Log("똥 아직 없음"); // TEST}
             }
         }
         else

@@ -230,7 +230,8 @@ public class WeeklyReportInfo : MonoBehaviour
                 PoopEmptyGroup.SetActive(true);
 
                 contentText.text += $"{PlayerPrefs.GetString("dogName")}{GetHealthVerb(PlayerPrefs.GetString("dogName"))} 배변을 하지 않았어요!\n밥을 주지 않아 그런 걸 수도 있으니 세심한 관리가 필요해요.\n\n";
-            } else
+            }
+            else
             {
                 PoopScrollView.SetActive(true);
                 PoopEmptyGroup.SetActive(false);
@@ -261,51 +262,58 @@ public class WeeklyReportInfo : MonoBehaviour
                 }
 
                 int totalTimeMinute = 0;
-
-                for (int i = 0; i < poopsByCreateTime.Count; i++)
+                if (poopsByCreateTime.Count == 0)
                 {
-                    GameObject dayPoopElement = Instantiate(DayPoopElement);
-                    dayPoopElement.name = $"{DateTime.Parse(poopsByCreateTime[i][0].createTime):yyyy.MM.dd}";
-                    dayPoopElement.transform.SetParent(PoopContent.transform);
-                    dayPoopElement.transform.localScale = scale;
-
-                    dayPoopElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(poopsByCreateTime[i][0].createTime):yyyy.MM.dd}"; // 날짜 지정
-
-                    for (int j = 0; j < poopsByCreateTime[i].Count; j++)
-                    {
-                        PoopClass poop = poopsByCreateTime[i][j];
-
-                        GameObject poopRecordElemnt = Instantiate(PoopRecordElemnt);
-                        poopRecordElemnt.transform.SetParent(dayPoopElement.transform.GetChild(1).transform);
-                        poopRecordElemnt.transform.localScale = scale;
-
-                        poopRecordElemnt.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(poop.createTime).AddHours(1):HH:mm}";
-
-                        if (poop.cleanYn)
-                        {
-                            poopRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = GetDiffTimeString(DateTime.Parse(poop.createTime).AddHours(1).ToString(), poop.updateTime);
-                            totalTimeMinute += GetTimeDiff(DateTime.Parse(poop.createTime).AddHours(1).ToString(), poop.updateTime);
-                        }
-                        else
-                        {
-                            poopRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = "아직 치우지 않았어요!";
-                            totalTimeMinute += GetTimeDiff(DateTime.Parse(poop.createTime).AddHours(1).ToString(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-                        }
-                    }
-                }
-
-                contentText.text += $"{PlayerPrefs.GetString("dogName")}{GetPoopVerb(PlayerPrefs.GetString("dogName"))} 배변을 평균 {GetTotalTimeString(totalTimeMinute)} 후에 치웠어요.\n";
-                if (totalTimeMinute <= 30)
-                {
-                    contentText.text += "배변 관리를 아주 잘하고 있어요!\n\n";
+                    PoopScrollView.SetActive(false);
+                    PoopEmptyGroup.SetActive(true);
                 }
                 else
                 {
-                    contentText.text += $"배변을 제때 치우지 않아 {PlayerPrefs.GetString("dogName")}{GetHealthVerb(PlayerPrefs.GetString("dogName"))} 스트레스를 받아요.\n\n";
-                }
-            }
+                    for (int i = 0; i < poopsByCreateTime.Count; i++)
+                    {
+                        GameObject dayPoopElement = Instantiate(DayPoopElement);
+                        dayPoopElement.name = $"{DateTime.Parse(poopsByCreateTime[i][0].createTime):yyyy.MM.dd}";
+                        dayPoopElement.transform.SetParent(PoopContent.transform);
+                        dayPoopElement.transform.localScale = scale;
 
-            StartCoroutine(GetWeeklyHealthList());
+                        dayPoopElement.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(poopsByCreateTime[i][0].createTime):yyyy.MM.dd}"; // 날짜 지정
+
+                        for (int j = 0; j < poopsByCreateTime[i].Count; j++)
+                        {
+                            PoopClass poop = poopsByCreateTime[i][j];
+
+                            GameObject poopRecordElemnt = Instantiate(PoopRecordElemnt);
+                            poopRecordElemnt.transform.SetParent(dayPoopElement.transform.GetChild(1).transform);
+                            poopRecordElemnt.transform.localScale = scale;
+
+                            poopRecordElemnt.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(poop.createTime).AddHours(1):HH:mm}";
+
+                            if (poop.cleanYn)
+                            {
+                                poopRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = GetDiffTimeString(DateTime.Parse(poop.createTime).AddHours(1).ToString(), poop.updateTime);
+                                totalTimeMinute += GetTimeDiff(DateTime.Parse(poop.createTime).AddHours(1).ToString(), poop.updateTime);
+                            }
+                            else
+                            {
+                                poopRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = "아직 치우지 않았어요!";
+                                totalTimeMinute += GetTimeDiff(DateTime.Parse(poop.createTime).AddHours(1).ToString(), DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                            }
+                        }
+                    }
+
+                    contentText.text += $"{PlayerPrefs.GetString("dogName")}{GetPoopVerb(PlayerPrefs.GetString("dogName"))} 배변을 평균 {GetTotalTimeString(totalTimeMinute / poops.Count)} 후에 치웠어요.\n";
+                    if (totalTimeMinute / poops.Count <= 30)
+                    {
+                        contentText.text += "배변 관리를 아주 잘하고 있어요!\n\n";
+                    }
+                    else
+                    {
+                        contentText.text += $"배변을 제때 치우지 않아 {PlayerPrefs.GetString("dogName")}{GetHealthVerb(PlayerPrefs.GetString("dogName"))} 스트레스를 받아요.\n\n";
+                    }
+                }
+
+                StartCoroutine(GetWeeklyHealthList());
+            }
         }
         else
         {
@@ -879,7 +887,7 @@ public class WeeklyReportInfo : MonoBehaviour
                 }
                 else
                 {
-                    contentText.text += "배식 시간을 잘 지켰어요..\n\n";
+                    contentText.text += "배식 시간을 잘 지켰어요.\n\n";
                 }
             }
 

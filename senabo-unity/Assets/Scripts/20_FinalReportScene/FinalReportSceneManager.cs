@@ -287,7 +287,7 @@ public class FinalReportSceneManager : MonoBehaviour
                         affectionRecordElemnt.transform.localScale = scale;
 
                         affectionRecordElemnt.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(affection.createTime):HH:mm}";
-                        affectionRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{GetCommunicationTypeString(affection.type)}";
+                        affectionRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{GetCommunicationTypeString(affection.type, affection.changeAmount)}";
                     }
                 }
             }
@@ -575,7 +575,7 @@ public class FinalReportSceneManager : MonoBehaviour
         }
     }
 
-    private string GetCommunicationTypeString(string type)
+    private string GetCommunicationTypeString(string type, int changeAmount)
     {
         string value = "";
 
@@ -597,7 +597,10 @@ public class FinalReportSceneManager : MonoBehaviour
                 value = "터그 놀이를 했어요.";
                 break;
             case "WALK":
-                value = "산책을 했어요.";
+                if (changeAmount > 0)
+                    value = "산책을 했어요.";
+                else
+                    value = "산책을 하지 않아 애정 지수가 떨어졌어요.";
                 break;
         }
 
@@ -685,7 +688,7 @@ public class FinalReportSceneManager : MonoBehaviour
                         communicationRecordElemnt.transform.localScale = scale;
 
                         communicationRecordElemnt.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>().text = $"{DateTime.Parse(communication.createTime):HH:mm}";
-                        communicationRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{GetCommunicationTypeString(communication.type)}";
+                        communicationRecordElemnt.transform.GetChild(1).transform.GetChild(0).GetComponent<Text>().text = $"{GetCommunicationTypeString(communication.type, 5)}";
                     }
                 }
             }
@@ -815,9 +818,9 @@ public class FinalReportSceneManager : MonoBehaviour
                         }
                     }
 
-                    PoopBodyText.text = $"{GetTotalTimeString(totalTimeMinute)}";
+                    PoopBodyText.text = $"{GetTotalTimeString(totalTimeMinute / poops.Count)}";
 
-                    if (totalTimeMinute / 7 > 30)
+                    if (totalTimeMinute / poops.Count > 30)
                     {
                         PoopGoodCommentText.SetActive(false);
                         PoopBadCommentText.SetActive(true);

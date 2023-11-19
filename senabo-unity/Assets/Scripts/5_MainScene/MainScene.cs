@@ -12,21 +12,19 @@ public class MainScene : MonoBehaviour
     public GameObject actionModal, LocationAlertModalPanel, EmerPoopModalPanel, EmerBiteModalPanel;
     public Text LocationAlertModalText;
     public Text MainTitleText;
-    public GameObject dogImage, imageBedPoop, imageVomit;
+    public GameObject dogImage, imageBedPoop, imageHurt, imageVomit;
     public Image imageBed, imageCarpet, imageFlower, imagePoopPad, imageWaterBowl, imageFoodBowl;
     public Sprite bedClean, bedDirty, carpetClean, carpetDirty, flowerClean, flowerDirty, poopPadClean, poopPadDirty,
                 fullWaterBowl, emptyWaterBowl, fullFoodBowl, emptyFoodBowl;
     public bool isPoop = false, emerPoop = false, emerStomachache = false, emerAnxiety = false, emerDepression = false,
                 emerCrush = false, emerBite = false, emerWalk = false, emerBarking = false, emerVomiting = false;
+    private long[] emerIdArray;
     private Button dogBody;
     private bool actionable;
 
     [SerializeField]
     private GameObject LocationManagerObject;
     private MainLocationManager locationManager;
-
-    public GameObject EndAlertModal;
-    public Text EndAlertModalText;
 
     void Start()
     {
@@ -41,18 +39,15 @@ public class MainScene : MonoBehaviour
         emerBarking = false;
         emerVomiting = false;
         actionable = true;
+        emerIdArray = new long[9];
 
         actionModal.SetActive(false);
-        EndAlertModal.SetActive(false);
 
         StartCoroutine(CheckIsPoop());
         StartCoroutine(CheckEmergency());
 
         LocationAlertModalText.text = $"{PlayerPrefs.GetString("dogName")}{GetGaVerb(PlayerPrefs.GetString("dogName"))}\n집에서 기다리고 있어요!";
         locationManager = LocationManagerObject.GetComponent<MainLocationManager>();
-
-        EndAlertModalText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께 할 수 있는\n8주간의 시간이 끝났어요.\n\n다시 시작하고 싶다면\n탈퇴 후 재가입해주세요.";
-
         SetTitleDayCount();
     }
 
@@ -90,6 +85,8 @@ public class MainScene : MonoBehaviour
             imageBedPoop.SetActive(false);
             EmerPoopModalPanel.SetActive(true);
             Invoke(nameof(CloseLocationAlertModal), 2.0f);
+            StartCoroutine(CleanEmergency(emerIdArray[0]));
+            emerIdArray[0] = 0;
         }
     }
 
@@ -98,8 +95,11 @@ public class MainScene : MonoBehaviour
         if (emerStomachache) // Never Used
         {
             emerStomachache = false;
+            imageHurt.SetActive(false);
             ReceiptScene.type = ReceiptType.HospitalCost3;
             StartCoroutine(UpdatePosition("MoveHospitalScene"));
+            StartCoroutine(CleanEmergency(emerIdArray[1]));
+            emerIdArray[1] = 0;
         }
     }
 
@@ -111,6 +111,8 @@ public class MainScene : MonoBehaviour
             // Other Loading Scene is needed!!!
             ReceiptScene.type = ReceiptType.DamageCost1;
             StartCoroutine(UpdatePosition("ReceiptScene"));
+            StartCoroutine(CleanEmergency(emerIdArray[2]));
+            emerIdArray[2] = 0;
         }
     }
 
@@ -122,6 +124,8 @@ public class MainScene : MonoBehaviour
             // Other Loading Scene is needed!!!
             ReceiptScene.type = ReceiptType.DamageCost2;
             StartCoroutine(UpdatePosition("ReceiptScene"));
+            StartCoroutine(CleanEmergency(emerIdArray[3]));
+            emerIdArray[3] = 0;
         }
     }
 
@@ -133,6 +137,8 @@ public class MainScene : MonoBehaviour
             // Other Loading Scene is needed!!!
             ReceiptScene.type = ReceiptType.DamageCost3;
             StartCoroutine(UpdatePosition("ReceiptScene"));
+            StartCoroutine(CleanEmergency(emerIdArray[4]));
+            emerIdArray[4] = 0;
         }
     }
 
@@ -144,6 +150,8 @@ public class MainScene : MonoBehaviour
             imageVomit.SetActive(false);
             ReceiptScene.type = ReceiptType.HospitalCost5;
             StartCoroutine(UpdatePosition("MoveHospitalScene"));
+            StartCoroutine(CleanEmergency(emerIdArray[8]));
+            emerIdArray[8] = 0;
         }
     }
 
@@ -163,8 +171,9 @@ public class MainScene : MonoBehaviour
 
         if (emerStomachache)
         {
-            imageWaterBowl.sprite = fullWaterBowl;
-            imageFoodBowl.sprite = fullFoodBowl;
+            imageHurt.SetActive(true);
+            imageWaterBowl.sprite = emptyWaterBowl; // 물을 마심
+            imageFoodBowl.sprite = fullFoodBowl; // 밥을 못 먹음
         }
         else
         {
@@ -203,6 +212,8 @@ public class MainScene : MonoBehaviour
         {
             EmerBiteModalPanel.SetActive(true);
             Invoke(nameof(CloseLocationAlertModal), 2.0f);
+            StartCoroutine(CleanEmergency(emerIdArray[5]));
+            emerIdArray[5] = 0;
         }
 
         if (emerWalk)
@@ -218,6 +229,8 @@ public class MainScene : MonoBehaviour
         if (emerVomiting)
         {
             imageVomit.SetActive(true);
+            imageWaterBowl.sprite = fullWaterBowl; // 물을 못 마심
+            imageFoodBowl.sprite = emptyFoodBowl; // 밥을 먹고 토를 함
         }
         else
         {
@@ -226,30 +239,75 @@ public class MainScene : MonoBehaviour
 
     }
 
-    void SetBooleanValue(string type, bool state)
+    void SetBooleanValue(string type, bool state, long emerId)
     {
         Debug.Log(type + " 타입: " + state); // DEBUG CODE
 
         switch (type)
         {
             case "POOP":
-                emerPoop = !state; break;
+                if (!state)
+                {
+                    emerPoop = !state;
+                    emerIdArray[0] = emerId;
+                }
+                break;
             case "STOMACHACHE":
-                emerStomachache = !state; break;
+                if (!state)
+                {
+                    emerStomachache = !state;
+                    emerIdArray[1] = emerId;
+                }
+                break;
             case "ANXIETY":
-                emerAnxiety = !state; break;
+                if (!state)
+                {
+                    emerAnxiety = !state;
+                    emerIdArray[2] = emerId;
+                }
+                break;
             case "DEPRESSION":
+                if (!state)
+                {
+                    emerDepression = !state;
+                    emerIdArray[3] = emerId;
+                }
                 emerDepression = !state; break;
             case "CRUSH":
-                emerCrush = !state; break;
+                if (!state)
+                {
+                    emerCrush = !state;
+                    emerIdArray[4] = emerId;
+                }
+                break;
             case "BITE":
-                emerBite = !state; break;
+                if (!state)
+                {
+                    emerBite = !state;
+                    emerIdArray[5] = emerId;
+                }
+                break;
             case "WALK":
-                emerWalk = !state; break;
+                if (!state)
+                {
+                    emerWalk = !state;
+                    emerIdArray[6] = emerId;
+                }
+                break;
             case "BARKING":
-                emerBarking = !state; break;
+                if (!state)
+                {
+                    emerBarking = !state;
+                    emerIdArray[7] = emerId;
+                }
+                break;
             case "VOMITING":
-                emerVomiting = !state; break;
+                if (!state)
+                {
+                    emerVomiting = !state;
+                    emerIdArray[8] = emerId;
+                }
+                break;
         }
     }
 
@@ -263,32 +321,19 @@ public class MainScene : MonoBehaviour
         string jwtToken = $"Bearer {accessToken}";
         www.SetRequestHeader("Authorization", jwtToken);
 
-        Debug.Log("똥1" + isPoop);
-
         yield return www.SendWebRequest();
 
         if (www.error == null)
         {
             Debug.Log("MainScene CheckIsPoop Success"); // Debug Code
 
-            Debug.Log("똥2" + isPoop);
-
             FeedLatestDtoClass poop = JsonUtility.FromJson<APIResponse<FeedLatestDtoClass>>(www.downloadHandler.text).data;
 
             DateTime poopTime = Convert.ToDateTime(poop.createTime).AddHours(1);
-            Debug.Log("poopTime + 1: " + poopTime); // TEST
-            Debug.Log("curTime: " + DateTime.Now); // TEST
-
 
             if (DateTime.Now >= poopTime && !poop.cleanYn)
             {
                 isPoop = true;
-                Debug.Log("시간이 됨, 똥 있음"); // TEST
-            }
-            else
-            {
-                Debug.Log("똥3" + isPoop);
-                Debug.Log("똥 아직 없음"); // TEST}
             }
         }
         else
@@ -336,7 +381,7 @@ public class MainScene : MonoBehaviour
 
             foreach (var emer in apiResponse.data)
             {
-                SetBooleanValue(emer.type, emer.solved);
+                SetBooleanValue(emer.type, emer.solved, emer.id);
             }
         }
         else
@@ -357,10 +402,46 @@ public class MainScene : MonoBehaviour
         AfterJudgeEmergency();
     }
 
+    IEnumerator CleanEmergency(long emerId)
+    {
+        // string url = ServerSettings.SERVER_URL + "/api/emergency/solve";
+        string url = ServerSettings.SERVER_URL + $"/api/emergency/solve?id={emerId}";
+        UnityWebRequest request = new UnityWebRequest(url, "PUT");
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+        string accessToken = PlayerPrefs.GetString("accessToken");
+        string jwtToken = $"Bearer {accessToken}";
+        request.SetRequestHeader("Authorization", jwtToken);
+
+        yield return request.SendWebRequest();
+
+        if (request.error == null)
+        {
+            Debug.Log("MainScene CleanEmergency Success!");
+        }
+        else
+        {
+            Debug.Log("MainScene CleanEmergency Error! " + request.error);
+
+            if (request.responseCode == 403)
+            {
+                RefreshTokenManager.Instance.ReIssueRefreshToken();
+
+                StartCoroutine(CleanEmergency(emerId));
+            }
+            else if (request.responseCode != 404)
+            {
+                Debug.Log("이미 메인화면이기 때문에 메인화면으로 돌아가는 방식 사용 불가!"); // NEED HELP
+                SceneManager.LoadScene("MainScene");
+            }
+        }
+    }
+
     void SetTitleDayCount()
     {
         string createTime = PlayerPrefs.GetString("createTime");
-        TimeSpan dateDiff = Convert.ToDateTime(DateTime.Now.ToString("yyyy.MM.dd")) - Convert.ToDateTime(DateTime.Parse(createTime).ToString("yyyy.MM.dd"));
+        TimeSpan dateDiff = DateTime.Now - DateTime.Parse(createTime);
         MainTitleText.text = $"{PlayerPrefs.GetString("dogName")}{GetVerb(PlayerPrefs.GetString("dogName"))} 함께한 지 {dateDiff.Days + 1}일 째 ";
 
         if (dateDiff.Days + 1 > 56)
@@ -369,58 +450,28 @@ public class MainScene : MonoBehaviour
         }
     }
 
-    private void CloseEndAlertModal()
-    {
-        EndAlertModal.SetActive(false);
-    }
-
     public void LoadBathScene()
     {
-        if (!actionable)
-        {
-            EndAlertModal.SetActive(true);
-            Invoke("CloseEndAlertModal", 2.0f);
-
-            return;
-        }
-
         StartCoroutine(UpdatePosition("BathScene"));
     }
 
     public void LoadMealScene()
     {
-        if (!actionable)
-        {
-            EndAlertModal.SetActive(true);
-            Invoke("CloseEndAlertModal", 2.0f);
-
-            return;
-        }
-
         StartCoroutine(UpdatePosition("MealScene"));
     }
 
     public void LoadPoopScene()
     {
-        if (!actionable)
-        {
-            EndAlertModal.SetActive(true);
-            Invoke("CloseEndAlertModal", 2.0f);
-
-            return;
-        }
-
         StartCoroutine(UpdatePosition("PoopScene"));
     }
 
     public void LoadDogWalking2DScene()
     {
-        if (!actionable)
+        if (emerWalk)
         {
-            EndAlertModal.SetActive(true);
-            Invoke("CloseEndAlertModal", 2.0f);
-
-            return;
+            StartCoroutine(CleanEmergency(emerIdArray[6]));
+            emerIdArray[6] = 0;
+            emerWalk = false;
         }
 
         StartCoroutine(UpdatePosition("WalkCheckListScene"));
@@ -428,42 +479,18 @@ public class MainScene : MonoBehaviour
 
     public void LoadMoveHospitalScene()
     {
-        if (!actionable)
-        {
-            EndAlertModal.SetActive(true);
-            Invoke("CloseEndAlertModal", 2.0f);
-
-            return;
-        }
-
         ReceiptScene.type = ReceiptType.HospitalCost1;
         StartCoroutine(UpdatePosition("MoveHospitalScene"));
     }
 
     public void LoadMoveGroomingScene()
     {
-        if (!actionable)
-        {
-            EndAlertModal.SetActive(true);
-            Invoke("CloseEndAlertModal", 2.0f);
-
-            return;
-        }
-
         ReceiptScene.type = ReceiptType.GroomingCost;
         StartCoroutine(UpdatePosition("MoveGroomingScene"));
     }
 
     public void LoadHeartScene()
     {
-        if (!actionable)
-        {
-            EndAlertModal.SetActive(true);
-            Invoke("CloseEndAlertModal", 2.0f);
-
-            return;
-        }
-
         StartCoroutine(UpdatePosition("HeartScene"));
     }
 
@@ -527,6 +554,13 @@ public class MainScene : MonoBehaviour
             {
                 if (locationManager.getIsAtHome())
                 {
+                    if (emerBarking)
+                    {
+                        StartCoroutine(CleanEmergency(emerIdArray[7]));
+                        emerIdArray[7] = 0;
+                        emerBarking = false;
+                    }
+
                     Debug.Log("집(안) 입니다.");
                     SceneManager.LoadScene(sceneName);
                 }

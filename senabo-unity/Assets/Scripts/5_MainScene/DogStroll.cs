@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DogStroll : MonoBehaviour
 {
-    public GameObject dog;
+    public GameObject dog, shadow;
     public Animator animator;
     private float timer = 2.0f;
     private float interval = 2.0f;
@@ -75,6 +75,7 @@ public class DogStroll : MonoBehaviour
         }
 
         dog.transform.position += speed * Time.deltaTime * moveDirection;
+        shadow.transform.position += speed * Time.deltaTime * moveDirection;
     }
 
     private void OnTriggerEnter2D(Collider2D collider)
@@ -87,7 +88,7 @@ public class DogStroll : MonoBehaviour
             moveDirection = (new Vector3(0.0f, -5.0f) - dog.transform.position).normalized;
             moveDirection *= speed;
             SetDogImageDirection();
-            timer = 0.0f;
+            timer = 0.5f;
         }
     }
 }
