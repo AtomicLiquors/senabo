@@ -52,7 +52,7 @@ public class DiseaseService {
     @Transactional
     public List<Disease> getDiseaseWeek(Report report, Member member) {
         LocalDateTime startTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS);
-        LocalDateTime endTime = report.getUpdateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
+        LocalDateTime endTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
         List<Disease> diseaseList = diseaseRepository.findDiseaseWeek(member, endTime, startTime);
         return diseaseList;
     }

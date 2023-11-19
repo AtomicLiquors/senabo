@@ -220,4 +220,8 @@ public class MemberService {
     public void updateAffection(String email, int score){
         memberRepository.updateAffection(email, score);
     }
+
+    public Member findById(Long id){
+       return memberRepository.findById(id).orElseThrow(() -> new UserException(ExceptionMessage.USER_NOT_FOUND));
+    }
 }

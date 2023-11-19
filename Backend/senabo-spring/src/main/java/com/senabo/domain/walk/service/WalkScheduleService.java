@@ -27,6 +27,7 @@ public class WalkScheduleService {
         log.info("산책 스케줄러 실행");
         List<Member> allMember = memberService.findAllMemberNonComplete();
         for(Member member : allMember){
+            if(member.getId() == 16) continue;
             walkService.scheduleCheckWalk(member);
         }
     }
@@ -36,7 +37,7 @@ public class WalkScheduleService {
         log.info("산책 알림 스케줄러 실행");
 
         List<FCMMessage> walkList = memberService.findAllMemberNonComplete().stream()
-                .filter(member -> member.getDeviceToken() != null)
+                .filter(member -> member.getDeviceToken() != null && member.getId() != 16)
                 .map(member -> fcmService.makeMessage("세상에 나쁜 보호자는 있다", parsingMessageService.parseLastCharacter(member.getDogName()) + "와 산책은 하셨나요?", member.getDeviceToken()))
                 .toList();
 

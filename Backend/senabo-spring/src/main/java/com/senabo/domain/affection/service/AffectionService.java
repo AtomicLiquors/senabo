@@ -70,7 +70,7 @@ public class AffectionService {
 
     public List<Affection> getAffectionWeek(Report report, Member member) {
         LocalDateTime startTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS);
-        LocalDateTime endTime = report.getUpdateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
+        LocalDateTime endTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
         List<Affection> affectionList = affectionRepository.findAffectionWeek(member, endTime, startTime);
         return affectionList;
     }

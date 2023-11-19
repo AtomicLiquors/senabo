@@ -37,24 +37,26 @@ public class BrushingTeethRepositoryImpl implements BrushingTeethRepositoryCusto
     }
 
     @Override
-    public int countBrushingTeethWeek(Member member, LocalDateTime startTime){
+    public Long countBrushingTeethWeek(Member member, LocalDateTime startTime){
         return queryFactory
                 .select(brushingTeeth.count())
+                .from(brushingTeeth)
                 .where(
                         brushingTeeth.memberId.eq(member),
                         brushingTeeth.createTime.goe(startTime)
                 )
-                .fetch().size();
+                .fetchOne();
     }
 
     @Override
-    public int countBrushingTeethToday(Member member){
+    public Long countBrushingTeethToday(Member member){
         return queryFactory
                 .select(brushingTeeth.count())
+                .from(brushingTeeth)
                 .where(
                         brushingTeeth.memberId.eq(member),
                         brushingTeeth.createTime.goe(LocalDateTime.now().truncatedTo(ChronoUnit.DAYS))
                 )
-                .fetch().size();
+                .fetchOne();
     }
 }

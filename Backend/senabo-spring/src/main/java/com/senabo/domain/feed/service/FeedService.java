@@ -62,7 +62,7 @@ public class FeedService {
     @Transactional
     public List<Feed> getFeedWeek(Report report, Member member) {
         LocalDateTime startTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS);
-        LocalDateTime endTime = report.getUpdateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
+        LocalDateTime endTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
         List<Feed> feedList = feedRepository.findFeedWeek(member, endTime, startTime);
         return feedList;
     }

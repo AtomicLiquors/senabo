@@ -65,7 +65,7 @@ public class WalkService {
     @Transactional
     public List<Walk> getWalkWeek(Report report, Member member) {
         LocalDateTime startTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS);
-        LocalDateTime endTime = report.getUpdateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
+        LocalDateTime endTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
         List<Walk> walkList = walkRepository.findWalkWeek(member, endTime, startTime);
         return walkList;
     }

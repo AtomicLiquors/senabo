@@ -24,7 +24,7 @@ public class EmergencyScheduleService {
         log.info("주중 낮 돌발 상황 스케줄러 실행");
 
         List<FCMMessage> emergencyList = memberService.findAllMemberNonComplete().stream()
-                .filter(member -> member.getDeviceToken() != null)
+                .filter(member -> member.getDeviceToken() != null && member.getId() != 16)
                 .map(emergencyService::ramdomDayEmergency)
                 .filter(fcm -> fcm.getMessage().getToken() != null)
                 .toList();
@@ -37,7 +37,7 @@ public class EmergencyScheduleService {
         log.info("주중 저녁 돌발 상황 스케줄러 실행");
 
         List<FCMMessage> emergencyList = memberService.findAllMemberNonComplete().stream()
-                .filter(member -> member.getDeviceToken() != null)
+                .filter(member -> member.getDeviceToken() != null && member.getId() != 16)
                 .map(emergencyService::ramdomEveningEmergency)
                 .filter(fcm -> fcm.getMessage().getToken() != null)
                 .toList();
@@ -50,7 +50,7 @@ public class EmergencyScheduleService {
         log.info("주말 산책 돌발 상황 스케줄러 실행");
 
         List<FCMMessage> emergencyList = memberService.findAllMemberNonComplete().stream()
-                .filter(member -> member.getDeviceToken() != null)
+                .filter(member -> member.getDeviceToken() != null && member.getId() != 16)
                 .map(emergencyService::ramdomWalkWeekendEmergency)
                 .filter(fcm -> fcm.getMessage().getToken() != null)
                 .toList();
@@ -63,7 +63,7 @@ public class EmergencyScheduleService {
         log.info("주말 짖음 돌발 상황 스케줄러 실행");
 
         List<FCMMessage> emergencyList = memberService.findAllMemberNonComplete().stream()
-                .filter(member -> member.getDeviceToken() != null)
+                .filter(member -> member.getDeviceToken() != null && member.getId() != 16)
                 .map(emergencyService::ramdomBarkWeekendEmergency)
                 .filter(fcm -> fcm.getMessage().getToken() != null)
                 .toList();
@@ -76,7 +76,7 @@ public class EmergencyScheduleService {
         log.info("주말 토 돌발 상황 스케줄러 실행");
 
         List<FCMMessage> emergencyList = memberService.findAllMemberNonComplete().stream()
-                .filter(member -> member.getDeviceToken() != null)
+                .filter(member -> member.getDeviceToken() != null && member.getId() != 16)
                 .map(emergencyService::ramdomVomitingWeekendEmergency)
                 .filter(fcm -> fcm.getMessage().getToken() != null)
                 .toList();

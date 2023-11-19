@@ -65,7 +65,7 @@ public class ExpenseService {
     @Transactional
     public TotalAmountExpenseResponse getExpenseTotalWeek(Report report, Member member) {
         LocalDateTime startTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS);
-        LocalDateTime endTime = report.getUpdateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
+        LocalDateTime endTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
         Double totalAmount = expenseRepository.getTotalAmountWeek(member, endTime, startTime);
         if (totalAmount == null) totalAmount = 0.0;
         return TotalAmountExpenseResponse.from(totalAmount);
@@ -75,7 +75,7 @@ public class ExpenseService {
     @Transactional
     public List<Expense> getExpenseWeek(Report report, Member member) {
         LocalDateTime startTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS);
-        LocalDateTime endTime = report.getUpdateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
+        LocalDateTime endTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
         List<Expense> expenseList = expenseRepository.findExpenseWeek(member, endTime, startTime);
         return expenseList;
     }

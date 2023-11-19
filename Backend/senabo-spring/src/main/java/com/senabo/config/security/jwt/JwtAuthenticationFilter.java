@@ -28,7 +28,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             "/member/sign-in",
             "/member/fcm",
             "/member/throw/token-check",
-            "/member/throw/not-found"
+            "/member/throw/not-found",
+            "/emergency/fcm"
     };
 
     @Override

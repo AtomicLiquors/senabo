@@ -67,7 +67,7 @@ public class StressService {
     @Transactional
     public List<Stress> getStressWeek(Report report, Member member) {
         LocalDateTime startTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS);
-        LocalDateTime endTime = report.getUpdateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
+        LocalDateTime endTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
         List<Stress> stressList = stressRepository.findStressWeek(member, endTime, startTime);
         return stressList;
     }

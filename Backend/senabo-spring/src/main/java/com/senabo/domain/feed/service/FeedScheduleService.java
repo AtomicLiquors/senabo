@@ -27,6 +27,7 @@ public class FeedScheduleService {
         log.info("배변 스케줄러 실행");
 
         List<FCMMessage> feedList = memberService.findAllMemberNonComplete().stream()
+                .filter(member ->member.getId() != 16)
                 .map(feedService::schedulePoop)
                 .filter(fcm -> fcm.getMessage().getToken() != null)
                 .toList();
@@ -40,6 +41,7 @@ public class FeedScheduleService {
         log.info("배식 스케줄러 실행");
 
         List<FCMMessage> feedList = memberService.findAllMemberNonComplete().stream()
+                .filter(member -> member.getId() != 16)
                 .map(feedService::scheduleFeed)
                 .filter(fcm -> fcm.getMessage().getToken() != null)
                 .toList();

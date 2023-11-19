@@ -55,7 +55,7 @@ public class CommunicationService {
     @Transactional
     public List<Communication> getCommunicationWeek(Report report, Member member) {
         LocalDateTime startTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS);
-        LocalDateTime endTime = report.getUpdateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
+        LocalDateTime endTime = report.getCreateTime().truncatedTo(ChronoUnit.DAYS).plusDays(7);
         List<Communication> communicationList = communicationRepository.findCommunicationWeek(member, endTime, startTime);
         return communicationList;
     }

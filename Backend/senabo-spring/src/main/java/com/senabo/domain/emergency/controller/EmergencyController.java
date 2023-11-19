@@ -1,9 +1,11 @@
 package com.senabo.domain.emergency.controller;
 
 import com.senabo.common.api.ApiResponse;
+import com.senabo.domain.emergency.dto.request.EmergencyFCMRequest;
 import com.senabo.domain.emergency.dto.response.EmergencyResponse;
 import com.senabo.domain.emergency.entity.Emergency;
 import com.senabo.domain.emergency.service.EmergencyService;
+import com.senabo.domain.member.entity.Member;
 import com.senabo.domain.member.service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,5 +43,13 @@ public class EmergencyController {
     public ApiResponse<List<EmergencyResponse>> getEmergencyLastWeekUnSolved(@AuthenticationPrincipal UserDetails principal) {
         List<EmergencyResponse> emergency = emergencyService.getEmergencyLastWeekUnSolved(memberService.findByEmail(principal.getUsername()));
         return ApiResponse.success("해결 못한 가장 최신 돌발상황 조회 성공", emergency);
+    }
+
+    @PostMapping("/fcm")
+    @Operation(summary = "시연용 fcm")
+    public ApiResponse<Object> sendFCM(@RequestBody EmergencyFCMRequest request){
+        Member member = memberService.findById(request.id());
+        emergencyService.sendFcm(member);
+        return ApiResponse.success("FCM 전송 성공", "");
     }
 }

@@ -12,6 +12,6 @@ import java.util.List;
 public interface BrushingTeethRepositoryCustom {
     List<BrushingTeeth> findByMemberId(Member member);
     List<BrushingTeeth> findBrushingTeethWeek(Member member, LocalDateTime endTime, LocalDateTime startTime);
-    int countBrushingTeethWeek(Member member, LocalDateTime startTime);
-    int countBrushingTeethToday(Member member);
+    Long countBrushingTeethWeek(Member member, LocalDateTime startTime);
+    Long countBrushingTeethToday(Member member);
 }
