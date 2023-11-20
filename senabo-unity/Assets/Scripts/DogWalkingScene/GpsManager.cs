@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class GpsManager : MonoBehaviour
 {
-    // À§µµ, °æµµ(ÀÌµ¿ Àü, ÀÌµ¿ ÈÄ)
+    // ï¿½ï¿½ï¿½ï¿½, ï¿½æµµ(ï¿½Ìµï¿½ ï¿½ï¿½, ï¿½Ìµï¿½ ï¿½ï¿½)
     private double pastLat, pastLon, curLat, curLon;
 
-    // »ç¿ëÀÚÀÇ ÀÌµ¿ °Å¸®
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Å¸ï¿½
     public Text userMovementDistanceText;
     private double userMovementDistance;
     public double getUserMovementDistance()
@@ -21,7 +21,7 @@ public class GpsManager : MonoBehaviour
     IEnumerator Start()
     {
 
-        // Location PermissionÀ» ¿äÃ»ÇÏ´Â ÄÚµå
+        // Location Permissionï¿½ï¿½ ï¿½ï¿½Ã»ï¿½Ï´ï¿½ ï¿½Úµï¿½
         while (!Permission.HasUserAuthorizedPermission(Permission.FineLocation))
         {
             Permission.RequestUserPermission(Permission.FineLocation);
@@ -29,7 +29,7 @@ public class GpsManager : MonoBehaviour
         }
 
         // Starts the location service.
-        Input.location.Start(1, 1); // Á¤È®µµ, ¾÷µ¥ÀÌÆ® °Å¸®
+        Input.location.Start(1, 1); // ï¿½ï¿½È®ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Å¸ï¿½
 
         // Waits until the location service initializes
         int maxWait = 20;
@@ -54,24 +54,24 @@ public class GpsManager : MonoBehaviour
         }
         else
         {
-            // °ª ÃÊ±âÈ­
+            // ï¿½ï¿½ ï¿½Ê±ï¿½È­
             userMovementDistance = 0;
             pastLat = Input.location.lastData.latitude;
             pastLon = Input.location.lastData.longitude;
 
             while (true)
             {
-                // 3ÃÊ ´ë±â
+                // 3ï¿½ï¿½ ï¿½ï¿½ï¿½
                 yield return new WaitForSeconds(3);
-                Debug.Log("Gps ¹Ýº¹ Áß");
-                // GPS °ªÀ» °¡Á®¿À´Â ÇÔ¼ö È£Ãâ
+                Debug.Log("Gps ï¿½Ýºï¿½ ï¿½ï¿½");
+                // GPS ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½
                 ContinuousGPSUpdates();
             }
         }
     }
 
 
-    // °ÔÀÓ ¿ÀºêÁ§Æ®°¡ »ç¶óÁú¶§ ½ÇÇà
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void OnDestroy()
     {
         StopAllCoroutines();
@@ -79,7 +79,7 @@ public class GpsManager : MonoBehaviour
         Input.location.Stop();
     }
 
-    // 1ÃÊ¸¶´Ù GPS µ¥ÀÌÅÍ¸¦ ¹Þ¾Æ¼­ »ç¿ëÀÚ ÀÌµ¿ °Å¸®, ¼Óµµ ¹ÝÈ¯
+    // 1ï¿½Ê¸ï¿½ï¿½ï¿½ GPS ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Å¸ï¿½, ï¿½Óµï¿½ ï¿½ï¿½È¯
     void ContinuousGPSUpdates()
     {
         if (Input.location.status == LocationServiceStatus.Running)
@@ -87,11 +87,11 @@ public class GpsManager : MonoBehaviour
             curLat = Input.location.lastData.latitude;
             curLon = Input.location.lastData.longitude;
 
-            // ÀÌµ¿ Àü, ÈÄ ÁÂÇ¥·Î °Å¸® °è»ê
+            // ï¿½Ìµï¿½ ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½
             double dist = distance(pastLat, pastLon, curLat, curLon);
             if (dist < 0) return;
 
-            // °ªÀÌ Æ¢´Â °æ¿ì ¹æÁö, »ç¶÷ÀÌ 1ÃÊ¿¡ ÀÌµ¿ °¡´ÉÇÑ °Å¸® ÀÏ °æ¿ì
+            // ï¿½ï¿½ï¿½ï¿½ Æ¢ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½Ê¿ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
             if (dist < 10)
             {
                 userMovementDistance += dist;
@@ -103,8 +103,8 @@ public class GpsManager : MonoBehaviour
     }
 
 
-    // ÇÏ¹ö½ÎÀÎ °ø½Ä(ÁöÇ¥¸é °Å¸®°è»ê °ø½Ä)
-    // ÇöÀç À§Ä¡ÀÇ À§µµ, °æµµ -> ¸ñÀûÁöÀÇ À§µµ °æµµ
+    // ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½æµµ -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½æµµ
     private double distance(double lat1, double lon1, double lat2, double lon2)
     {
         try
@@ -117,14 +117,14 @@ public class GpsManager : MonoBehaviour
             dist = Math.Acos(dist);
             dist = Rad2Deg(dist);
             dist = dist * 60 * 1.1515;
-            dist = dist * 1609.344; // ¹ÌÅÍ º¯È¯
+            dist = dist * 1609.344 / 1000; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
             return dist;
         }
         catch (Exception e)
         {
-            // ºÐ¸ð°¡ 0ÀÏ °æ¿ì ¹æÁö
-            Debug.Log("GPS ¿¹¿Ü ¹ß»ý");
-            return -1; // ¿¡·¯°¡ ¹ß»ýÇÑ °æ¿ì -1 ¶Ç´Â ´Ù¸¥ ÀûÀýÇÑ °ª ¹ÝÈ¯
+            // ï¿½Ð¸ï¿½ 0ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            Debug.Log("GPS ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½");
+            return -1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ -1 ï¿½Ç´ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¯
         }
 
     }

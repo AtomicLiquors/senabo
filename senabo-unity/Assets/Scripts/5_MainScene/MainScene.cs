@@ -81,12 +81,13 @@ public class MainScene : MonoBehaviour
     {
         if (emerPoop) // Never Used
         {
+            StartCoroutine(CleanEmergency(emerIdArray[0]));
+            emerIdArray[0] = 0;
+
             emerPoop = false;
             imageBedPoop.SetActive(false);
             EmerPoopModalPanel.SetActive(true);
             Invoke(nameof(CloseLocationAlertModal), 2.0f);
-            StartCoroutine(CleanEmergency(emerIdArray[0]));
-            emerIdArray[0] = 0;
         }
     }
 
@@ -94,12 +95,13 @@ public class MainScene : MonoBehaviour
     {
         if (emerStomachache) // Never Used
         {
+            StartCoroutine(CleanEmergency(emerIdArray[1]));
+            emerIdArray[1] = 0;
+
             emerStomachache = false;
             imageHurt.SetActive(false);
             ReceiptScene.type = ReceiptType.HospitalCost3;
             StartCoroutine(UpdatePosition("MoveHospitalScene"));
-            StartCoroutine(CleanEmergency(emerIdArray[1]));
-            emerIdArray[1] = 0;
         }
     }
 
@@ -107,12 +109,13 @@ public class MainScene : MonoBehaviour
     {
         if (emerAnxiety)
         {
+            StartCoroutine(CleanEmergency(emerIdArray[2]));
+            emerIdArray[2] = 0;
+
             emerAnxiety = false;
             // Other Loading Scene is needed!!!
             ReceiptScene.type = ReceiptType.DamageCost1;
             StartCoroutine(UpdatePosition("ReceiptScene"));
-            StartCoroutine(CleanEmergency(emerIdArray[2]));
-            emerIdArray[2] = 0;
         }
     }
 
@@ -120,12 +123,13 @@ public class MainScene : MonoBehaviour
     {
         if (emerDepression)
         {
+            StartCoroutine(CleanEmergency(emerIdArray[3]));
+            emerIdArray[3] = 0;
+
             emerDepression = false;
             // Other Loading Scene is needed!!!
             ReceiptScene.type = ReceiptType.DamageCost2;
             StartCoroutine(UpdatePosition("ReceiptScene"));
-            StartCoroutine(CleanEmergency(emerIdArray[3]));
-            emerIdArray[3] = 0;
         }
     }
 
@@ -133,12 +137,13 @@ public class MainScene : MonoBehaviour
     {
         if (emerCrush)
         {
+            StartCoroutine(CleanEmergency(emerIdArray[4]));
+            emerIdArray[4] = 0;
+
             emerCrush = false;
             // Other Loading Scene is needed!!!
             ReceiptScene.type = ReceiptType.DamageCost3;
             StartCoroutine(UpdatePosition("ReceiptScene"));
-            StartCoroutine(CleanEmergency(emerIdArray[4]));
-            emerIdArray[4] = 0;
         }
     }
 
@@ -146,12 +151,13 @@ public class MainScene : MonoBehaviour
     {
         if (emerVomiting)
         {
+            StartCoroutine(CleanEmergency(emerIdArray[8]));
+            emerIdArray[8] = 0;
+
             emerVomiting = false;
             imageVomit.SetActive(false);
             ReceiptScene.type = ReceiptType.HospitalCost5;
             StartCoroutine(UpdatePosition("MoveHospitalScene"));
-            StartCoroutine(CleanEmergency(emerIdArray[8]));
-            emerIdArray[8] = 0;
         }
     }
 
@@ -210,10 +216,11 @@ public class MainScene : MonoBehaviour
 
         if (emerBite)
         {
-            EmerBiteModalPanel.SetActive(true);
-            Invoke(nameof(CloseLocationAlertModal), 2.0f);
             StartCoroutine(CleanEmergency(emerIdArray[5]));
             emerIdArray[5] = 0;
+
+            EmerBiteModalPanel.SetActive(true);
+            Invoke(nameof(CloseLocationAlertModal), 2.0f);
         }
 
         if (emerWalk)
@@ -471,6 +478,7 @@ public class MainScene : MonoBehaviour
         {
             StartCoroutine(CleanEmergency(emerIdArray[6]));
             emerIdArray[6] = 0;
+
             emerWalk = false;
         }
 

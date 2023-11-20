@@ -18,30 +18,20 @@ public class HeartType
 
 public class HeartScene : MonoBehaviour
 {
-    public GameObject heartImage, dogAnimationGroup;
+    public GameObject dogImage, heartImage, dogAnimationGroup;
+    public GameObject[] heartButtonObjects;
     public GameObject[] dogAnimations;
 
-    private bool heartUploading = false;
+    private bool heartAnimating = false;
     private bool communicating = false;
-
-    private readonly float heartDelayTime = 2.0f; // TEST VALUE // 값 조정 필수 (애니메이션 별로 분리)
+    private readonly float heartDelayTime = 1.0f;
+    private float[] animationDelayTime = { 2.2f, 2.1f, 2.0f, 5.7f, 4.0f };
     private Button dogBody;
 
     void Start()
     {
-        PlaySelectedAnimation(0);
-
         dogBody = dogAnimationGroup.GetComponent<Button>();
         dogBody.onClick.AddListener(GiveHeart);
-    }
-
-    void PlaySelectedAnimation(int index)
-    {
-        for (int i = 0; i < dogAnimations.Length; i++)
-        {
-            dogAnimations[i].SetActive(false);
-        }
-        dogAnimations[index].SetActive(true);
     }
 
     public void OnClickButton(int type)
@@ -53,39 +43,73 @@ public class HeartScene : MonoBehaviour
 
         communicating = true;
 
-        PlaySelectedAnimation(type - 1);
+        PlaySelectedAnimation(type);
         StartCoroutine(CommunicationAfterDelay(type));
+    }
+
+    void PlaySelectedAnimation(int type)
+    {
+        AllButtonsDisable();
+        dogImage.SetActive(false);
+        StopAnimation();
+        dogAnimations[type].SetActive(true);
     }
 
     void StopAnimation()
     {
-        PlaySelectedAnimation(0);
+        for (int i = 0; i < dogAnimations.Length; i++)
+        {
+            dogAnimations[i].SetActive(false);
+        }
+    }
+
+    void AllButtonsDisable()
+    {
+        for (int i = 0; i < heartButtonObjects.Length; i++)
+        {
+            heartButtonObjects[i].GetComponent<Button>().interactable = false;
+        }
+    }
+
+    void AllButtonsAble()
+    {
+        for (int i = 0; i < heartButtonObjects.Length; i++)
+        {
+            heartButtonObjects[i].GetComponent<Button>().interactable = true;
+        }
     }
 
     public void GiveHeart()
     {
-        if (heartUploading)
+        if (heartAnimating)
         {
             return;
         }
 
-        heartUploading = true;
+        heartAnimating = true;
         heartImage.SetActive(true);
 
-        StartCoroutine(UploadAfterDelay(heartDelayTime));
+        Invoke(nameof(StopHeart), heartDelayTime);
     }
 
-    IEnumerator UploadAfterDelay(float delay)
+    public void StopHeart()
     {
-        yield return new WaitForSeconds(delay);
-
-        heartUploading = false;
+        heartAnimating = false;
         heartImage.SetActive(false);
+    }
+
+    void FinishCommunicating()
+    {
+        StopAnimation();
+        dogImage.SetActive(true);
+        AllButtonsAble();
+        communicating = false;
+        Debug.Log("모두 끝남." + DateTime.Now);
     }
 
     IEnumerator CommunicationAfterDelay(int type)
     {
-        yield return new WaitForSeconds(heartDelayTime);
+        yield return new WaitForSeconds(animationDelayTime[type]);
 
         StartCoroutine(Upload(type));
     }
@@ -94,11 +118,11 @@ public class HeartScene : MonoBehaviour
     {
         return type switch
         {
-            1 => "WAIT",
-            2 => "SIT",
-            3 => "HAND",
-            4 => "PAT",
-            5 => "TUG",
+            0 => "WAIT",
+            1 => "SIT",
+            2 => "HAND",
+            3 => "PAT",
+            4 => "TUG",
             _ => "",// SHOULD NEVER RUN
         };
     }
@@ -139,7 +163,7 @@ public class HeartScene : MonoBehaviour
             }
         }
 
-        Invoke("StopAnimation", heartDelayTime);
+        FinishCommunicating();
     }
 
     public void LoadMainScene()

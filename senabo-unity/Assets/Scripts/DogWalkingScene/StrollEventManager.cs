@@ -35,13 +35,17 @@ public class StrollEventManager : MonoBehaviour
 
     ItemSpawner itemSpawnerScript;
 
+    private bool eventSolveCheck;
 
-    private bool gestureEventTrigger;   // »ç¿ëÀÚÀÇ ´ç±è µ¿ÀÛ ¼öÇà Ã¼Å©
-    private bool distanceEventTrigger;  // myDog¿Í otherDogÀÇ °Å¸® Ã¼Å©(¸Ö¸® ¶³¾îÁ³À» °æ¿ì true)
-    public void updateGestureEventTrigger(){
+
+    private bool gestureEventTrigger;   // ì‚¬ìš©ìì˜ ë‹¹ê¹€ ë™ì‘ ìˆ˜í–‰ ì²´í¬
+    private bool distanceEventTrigger;  // myDogì™€ otherDogì˜ ê±°ë¦¬ ì²´í¬(ë©€ë¦¬ ë–¨ì–´ì¡Œì„ ê²½ìš° true)
+    public void updateGestureEventTrigger()
+    {
         this.gestureEventTrigger = true;
     }
     public void updateDistanceEventTrigger()
+
     {
         this.distanceEventTrigger = true;
     }
@@ -50,9 +54,10 @@ public class StrollEventManager : MonoBehaviour
     void Start()
     {
         //if (welshAnim == null)
-         //   welshAnim = dogObject.GetComponentInChildren<Animator>();
+        //   welshAnim = dogObject.GetComponentInChildren<Animator>();
 
-        dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>(); 
+        eventSolveCheck = false;
+        dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>();
         if (dogAnimator == null)
         {
             Debug.LogError("DogAnimationManager component not found on dogAnimationManager GameObject!");
@@ -60,108 +65,115 @@ public class StrollEventManager : MonoBehaviour
 
         randomTimes = new int[4];
 
-        // 1ºĞºÎÅÍ 60ºĞ±îÁö ·£´ıÇÑ °ª 4°³¸¦ randomTimes ¹è¿­¿¡ ÀÔ·Â
+        // 1ë¶„ë¶€í„° 60ë¶„ê¹Œì§€ ëœë¤í•œ ê°’ 4ê°œë¥¼ randomTimes ë°°ì—´ì— ì…ë ¥
         for (int i = 0; i < randomTimes.Length; i++)
         {
-            randomTimes[i] = UnityEngine.Random.Range(1, 31); // 1ºÎÅÍ 60±îÁöÀÇ ·£´ıÇÑ °ª »ı¼º
+            randomTimes[i] = UnityEngine.Random.Range(1, 31); // 1ë¶€í„° 60ê¹Œì§€ì˜ ëœë¤í•œ ê°’ ìƒì„±
         }
 
-        StartCoroutine(SuddenEncounter(randomTimes[0]));
-        StartCoroutine(SuddenEat(randomTimes[1]));
-        StartCoroutine(SuddenStop(randomTimes[2]));
-        StartCoroutine(SuddenPoop(randomTimes[3]));
+        StartCoroutine(SuddenEncounter(20));
     }
 
 
-    // ================µ¹¹ß ÀÌº¥Æ® ¹ß»ı ÇÔ¼ö================
-    // 1. ´Ù¸¥ °­¾ÆÁö¸¦ ¸¸³µÀ» ¶§
+    // ================ëŒë°œ ì´ë²¤íŠ¸ ë°œìƒ í•¨ìˆ˜================
+    // 1. ë‹¤ë¥¸ ê°•ì•„ì§€ë¥¼ ë§Œë‚¬ì„ ë•Œ
     IEnumerator SuddenEncounter(int delayTime)
     {
-        delayTime = 1;
         yield return new WaitForSeconds(delayTime);
 
-        dogManager.updateStrollEventCheck(true);    // °­¾ÆÁö ¿òÁ÷ÀÓ Á¦¾î
-        EventStatusManager.SwitchDogEvent(true);    // ¾Ö´Ï¸ŞÀÌ¼Ç °íÁ¤
-        
-        arObjectController.setDogEventTrigger();    // otherDog°¡ ³ª¿À°Ô ¼³Á¤
-        userGestureManager.SetActive(true);         // ¼Õµ¿ÀÛ ÀÎ½Ä on
+        dogManager.updateStrollEventCheck(true);    // ê°•ì•„ì§€ ì›€ì§ì„ ì œì–´
+        EventStatusManager.SwitchDogEvent(true);    // ì• ë‹ˆë©”ì´ì…˜ ê³ ì •
 
-        // Áøµ¿ ¾Ë¸²
-        for (int i = 0; i < 10; i++)
+        arObjectController.setDogEventTrigger();    // otherDogê°€ ë‚˜ì˜¤ê²Œ ì„¤ì •
+        userGestureManager.SetActive(true);         // ì†ë™ì‘ ì¸ì‹ on
+
+        // ì§„ë™ ì•Œë¦¼
+        for (int i = 0; i < 40; i++)
         {
-            // ÀÏÁ¤ °Å¸® ÀÌ»ó ¶³¾îÁø °æ¿ì
+            // ì¼ì • ê±°ë¦¬ ì´ìƒ ë–¨ì–´ì§„ ê²½ìš°
             if (distanceEventTrigger)
             {
                 distanceEventTrigger = false;
-                eventStatusManager.updateEncounterEventResolveCheck();  // µ¹¹ßÇàµ¿ ´ëÃ³ ¼º°ø µ¥ÀÌÅÍ Ã³¸®
-                yield break;
+                eventStatusManager.updateEncounterEventResolveCheck();  // ëŒë°œí–‰ë™ ëŒ€ì²˜ ì„±ê³µ ë°ì´í„° ì²˜ë¦¬
+                eventSolveCheck = true;
+                break;
             }
 
-            // »ç¿ëÀÚ°¡ ÇÚµåÆùÀ» n¹ø ´ç°åÀ» °æ¿ì
+            // ì‚¬ìš©ìê°€ í•¸ë“œí°ì„ në²ˆ ë‹¹ê²¼ì„ ê²½ìš°
             if (gestureEventTrigger)
             {
-                EventStatusManager.SwitchDogEvent(false); // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ º¯°æµÉ ¼ö ÀÖ°Ô ¼³Á¤
-                dogManager.updateStrollEventCheck(false); // °­¾ÆÁö°¡ ¿òÁ÷ÀÏ ¼ö ÀÖ°Ô ¼³Á¤
-                userGestureManager.SetActive(false);      // »ç¿ëÀÚ ¼Õµ¿ÀÛ ÀÎ½Ä off
+                EventStatusManager.SwitchDogEvent(false); // ì• ë‹ˆë©”ì´ì…˜ì´ ë³€ê²½ë  ìˆ˜ ìˆê²Œ ì„¤ì •
+                dogManager.updateStrollEventCheck(false); // ê°•ì•„ì§€ê°€ ì›€ì§ì¼ ìˆ˜ ìˆê²Œ ì„¤ì •
+                userGestureManager.SetActive(false);      // ì‚¬ìš©ì ì†ë™ì‘ ì¸ì‹ off
                 gestureEventTrigger = false;
             }
 
             dogAnimator.handleDogSuddenEvent("WelshBark");
-            Handheld.Vibrate(); // 0.5ÃÊ°£ Áøµ¿ÀÌ ¿ï¸²
-            yield return new WaitForSeconds(1); 
-        }
-
-        gestureEventTrigger = false;
-        dogManager.updateStrollEventCheck(false);
-        EventStatusManager.SwitchDogEvent(false);
-        userGestureManager.SetActive(false);
-        // µ¹¹ßÇàµ¿ ´ëÃ³ ½ÇÆĞ µ¥ÀÌÅÍ Ã³¸®
-        EventStatusManager.IncreaseStress();
-    }
-
-
-    // 2, ¶¥¿¡ ¶³¾îÁø ÀÌ¹°ÁúÀ» ÁÖ¿ö ¸ÔÀ¸·Á ÇÒ ¶§
-    IEnumerator SuddenEat(int delayTime)
-    {
-        delayTime = 15;
-        yield return new WaitForSeconds(delayTime);
-
-        dogManager.updateStrollEventCheck(true);        // °­¾ÆÁö ¿òÁ÷ÀÓ Á¦¾î
-        EventStatusManager.SwitchDogEvent(true);        // ¾Ö´Ï¸ŞÀÌ¼Ç °íÁ¤
-        userGestureManager.SetActive(true);             // ¼Õµ¿ÀÛ ÀÎ½Ä on
-
-        // Áøµ¿ ¾Ë¸²
-        for (int i = 0; i < 10; i++)
-        {
-            // »ç¿ëÀÚ°¡ ÇÚµåÆùÀ» n¹ø ´ç°åÀ» °æ¿ì
-            if (gestureEventTrigger)
-            {
-                gestureEventTrigger = false;
-                dogManager.updateStrollEventCheck(false);  // °­¾ÆÁö°¡ ¿òÁ÷ÀÏ ¼ö ÀÖ°Ô ¼³Á¤
-                EventStatusManager.SwitchDogEvent(false);  // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ º¯°æµÉ ¼ö ÀÖ°Ô ¼³Á¤
-                userGestureManager.SetActive(false);       // »ç¿ëÀÚ ¼Õµ¿ÀÛ ÀÎ½Ä off
-
-                eventStatusManager.updateEatEventResolveCheck(); // µ¹¹ßÇàµ¿ ´ëÃ³ ¼º°ø µ¥ÀÌÅÍ Ã³¸®
-                yield break;
-            }
-            dogAnimator.handleDogSuddenEvent("WelshEat");
-            Handheld.Vibrate(); // 0.5ÃÊ°£ Áøµ¿ÀÌ ¿ï¸²
+            Handheld.Vibrate(); // 0.5ì´ˆê°„ ì§„ë™ì´ ìš¸ë¦¼
             yield return new WaitForSeconds(1);
         }
 
+        yield return StartCoroutine(SuddenEat(8)); ;
+        if (eventSolveCheck)
+        {
+            eventSolveCheck = false;
+            yield break;
+        }
         gestureEventTrigger = false;
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
         userGestureManager.SetActive(false);
-        // µ¹¹ßÇàµ¿ ´ëÃ³ ½ÇÆĞ µ¥ÀÌÅÍ Ã³¸®
+        // ëŒë°œí–‰ë™ ëŒ€ì²˜ ì‹¤íŒ¨ ë°ì´í„° ì²˜ë¦¬
         EventStatusManager.IncreaseStress();
     }
 
 
-    // 3. ÁÖÀú ¾É¾Æ¼­ ¿òÁ÷ÀÌÁö ¾ÊÀ¸·Á ÇÒ ¶§
+    // 2, ë•…ì— ë–¨ì–´ì§„ ì´ë¬¼ì§ˆì„ ì£¼ì›Œ ë¨¹ìœ¼ë ¤ í•  ë•Œ
+    IEnumerator SuddenEat(int delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        dogManager.updateStrollEventCheck(true);        // ê°•ì•„ì§€ ì›€ì§ì„ ì œì–´
+        EventStatusManager.SwitchDogEvent(true);        // ì• ë‹ˆë©”ì´ì…˜ ê³ ì •
+        userGestureManager.SetActive(true);             // ì†ë™ì‘ ì¸ì‹ on
+
+        // ì§„ë™ ì•Œë¦¼
+        for (int i = 0; i < 30; i++)
+        {
+            // ì‚¬ìš©ìê°€ í•¸ë“œí°ì„ në²ˆ ë‹¹ê²¼ì„ ê²½ìš°
+            if (gestureEventTrigger)
+            {
+                gestureEventTrigger = false;
+                dogManager.updateStrollEventCheck(false);  // ê°•ì•„ì§€ê°€ ì›€ì§ì¼ ìˆ˜ ìˆê²Œ ì„¤ì •
+                EventStatusManager.SwitchDogEvent(false);  // ì• ë‹ˆë©”ì´ì…˜ì´ ë³€ê²½ë  ìˆ˜ ìˆê²Œ ì„¤ì •
+                userGestureManager.SetActive(false);       // ì‚¬ìš©ì ì†ë™ì‘ ì¸ì‹ off
+                eventStatusManager.updateEatEventResolveCheck(); // ëŒë°œí–‰ë™ ëŒ€ì²˜ ì„±ê³µ ë°ì´í„° ì²˜ë¦¬
+                eventSolveCheck = true;
+                break;
+            }
+            dogAnimator.handleDogSuddenEvent("WelshEat");
+            Handheld.Vibrate(); // 0.5ì´ˆê°„ ì§„ë™ì´ ìš¸ë¦¼
+            yield return new WaitForSeconds(1);
+        }
+
+        yield return StartCoroutine(SuddenStop(8));
+        if (eventSolveCheck)
+        {
+            eventSolveCheck = false;
+            yield break;
+        }
+        gestureEventTrigger = false;
+        dogManager.updateStrollEventCheck(false);
+        EventStatusManager.SwitchDogEvent(false);
+        userGestureManager.SetActive(false);
+        // ëŒë°œí–‰ë™ ëŒ€ì²˜ ì‹¤íŒ¨ ë°ì´í„° ì²˜ë¦¬
+        EventStatusManager.IncreaseStress();
+    }
+
+
+    // 3. ì£¼ì € ì•‰ì•„ì„œ ì›€ì§ì´ì§€ ì•Šìœ¼ë ¤ í•  ë•Œ
     IEnumerator SuddenStop(int delayTime)
     {
-        delayTime = 30;
         yield return new WaitForSeconds(delayTime);
 
         dogManager.updateStrollEventCheck(true);
@@ -169,21 +181,22 @@ public class StrollEventManager : MonoBehaviour
         EventStatusManager.SwitchDogStopResolved(false);
         if (itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
 
-        // Áøµ¿ ¾Ë¸²
+        // ì§„ë™ ì•Œë¦¼
         int cnt = 0;
         for (int i = 0; i < 30; i++)
         {
-            // °£½ÄÀ» ÁÖ°í 4ÃÊ ‰çÀ» ¶§
+            // ê°„ì‹ì„ ì£¼ê³  4ì´ˆ ë¬ì„ ë•Œ
             if (cnt == 4)
             {
                 dogManager.updateStrollEventCheck(false);
                 EventStatusManager.SwitchDogEvent(false);
                 itemSpawnerScript.HandleRemoveAction(ItemType.Snack);
-                eventStatusManager.updateStopEventResolveCheck(); // µ¹¹ßÇàµ¿ ´ëÃ³ ¼º°ø µ¥ÀÌÅÍ Ã³¸®
-                yield break;
+                eventStatusManager.updateStopEventResolveCheck(); // ëŒë°œí–‰ë™ ëŒ€ì²˜ ì„±ê³µ ë°ì´í„° ì²˜ë¦¬
+                eventSolveCheck = true;
+                break;
             }
 
-            // °£½ÄÀ» ÁØ »óÅÂÀÏ ¶§
+            // ê°„ì‹ì„ ì¤€ ìƒíƒœì¼ ë•Œ
             if (EventStatusManager.GetDogStopResolved())
             {
                 if (cnt == 0)
@@ -205,25 +218,30 @@ public class StrollEventManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
+        yield return StartCoroutine(SuddenPoop(8));
+        if (eventSolveCheck)
+        {
+            eventSolveCheck = false;
+            yield break;
+        }
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
         EventStatusManager.SwitchDogStopResolved(true);
-        // ½ÇÆĞ Ã³¸®
+        // ì‹¤íŒ¨ ì²˜ë¦¬
         EventStatusManager.IncreaseStress();
     }
 
-    // 4. ¹èº¯ È°µ¿
+    // 4. ë°°ë³€ í™œë™
     IEnumerator SuddenPoop(int delayTime)
     {
-        delayTime = 50;
         yield return new WaitForSeconds(delayTime);
 
-        if(itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
+        if (itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
 
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
 
-        // Áøµ¿ ¾Ë¸²
+        // ì§„ë™ ì•Œë¦¼
         for (int i = 0; i < 4; i++)
         {
             dogAnimator.handleDogSuddenEvent("WelshPoop");
@@ -231,8 +249,9 @@ public class StrollEventManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-        itemSpawnerScript.HandleSpawnAction(ItemType.Poop); // Poop »ı¼º
+        itemSpawnerScript.HandleSpawnAction(ItemType.Poop); // Poop ìƒì„±
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
+        yield break;
     }
 }

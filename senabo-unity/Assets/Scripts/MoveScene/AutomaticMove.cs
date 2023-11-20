@@ -11,7 +11,7 @@ public class AutomaticMove : MonoBehaviour
 
     private float journeyLength;
     private float startTime;
-    private readonly float limitTime = 1.0f;
+    private readonly float limitTime = 3.0f;
 
     void Start()
     {
@@ -51,7 +51,7 @@ public class AutomaticMove : MonoBehaviour
         else
         {
             transform.position = startPoint.position;
-            startTime = Time.time;
+            // startTime = Time.time;
         }
     }
 }
