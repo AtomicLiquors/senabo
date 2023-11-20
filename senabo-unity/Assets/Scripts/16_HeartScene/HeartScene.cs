@@ -49,9 +49,9 @@ public class HeartScene : MonoBehaviour
 
     void PlaySelectedAnimation(int type)
     {
+        AllButtonsDisable();
         dogImage.SetActive(false);
         StopAnimation();
-        AllButtonsDisable();
         dogAnimations[type].SetActive(true);
     }
 
@@ -118,11 +118,11 @@ public class HeartScene : MonoBehaviour
     {
         return type switch
         {
-            1 => "WAIT",
-            2 => "SIT",
-            3 => "HAND",
-            4 => "PAT",
-            5 => "TUG",
+            0 => "WAIT",
+            1 => "SIT",
+            2 => "HAND",
+            3 => "PAT",
+            4 => "TUG",
             _ => "",// SHOULD NEVER RUN
         };
     }
