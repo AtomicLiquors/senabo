@@ -29,11 +29,9 @@
 
 제작 기간 : 2023. 10.09 ~ 2023. 11. 17 (7주) <br/>
 참여 인원 : 6인
+<img src="Documents/member.PNG" width="100%" height="300">
 
-|<img src="Documents/dog1.jpg" width="100" height="100">|<img src="Documents/dog4.png" width="100" height="100">|<img title="" src="Documents/dog3.png" width="100" height="100">|<img src="Documents/dog2.png" width="100" height="100">|<img src="Documents/dog6.png" width="100" height="100">|<img src="Documents/dog5.jpg" width="100" height="100">|
-|:--:|:--:|:--:|:--:|:--:|:--:|
-|<a href="">김령은</a>|<a href="">김재아</a>|<a href="">한라연</a>|<a href="">함소연</a>|<a href="">이종원</a>|<a href="">최효빈</a>
-|Unity|Unity|Unity|Backend|Unity AR|Unity AR|
+
 
 
 ## 🐾 주요 기능
@@ -66,6 +64,10 @@
 ![Docker-Compose 뱃지](https://img.shields.io/badge/Docker--Compose-1C72C7.svg?style=flat-square&logo=Docker&logoColor=white)
 
 
+## 시스템 모식도
+<img src="Documents/architecture.PNG" width="100%" height="300">
+
 ## ERD
+<img src="Documents/erd.PNG" width="600" height="300">
 
 ## 기능 명세
