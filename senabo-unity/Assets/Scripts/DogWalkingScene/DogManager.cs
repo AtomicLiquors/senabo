@@ -15,7 +15,7 @@ public class DogManager : MonoBehaviour
 
     DogAnimationManager dogAnimator;
 
-    Vector3 screenCenter; // Ä«¸Ş¶ó Áß¾Ó À§Ä¡
+    Vector3 screenCenter; // ì¹´ë©”ë¼ ì¤‘ì•™ ìœ„ì¹˜
 
     private bool strollEventCheck;
     public void updateStrollEventCheck(bool check)
@@ -28,49 +28,49 @@ public class DogManager : MonoBehaviour
     {
         dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>();
         hits = new List<ARRaycastHit>();
-        screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));   // Ä«¸Ş¶óÀÇ Áß¾ÓÀ¸·Î ray¸¦ ½ğ´Ù
+        screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));   // ì¹´ë©”ë¼ì˜ ì¤‘ì•™ìœ¼ë¡œ rayë¥¼ ìœë‹¤
     }
 
     // Update is called once per frame
     void Update()
     {
-        // µ¹¹ß ÀÌº¥Æ® ¹ß»ı ÁßÀÏ ¶§(¾Æ·¡ ½ÇÇà x)
+        // ëŒë°œ ì´ë²¤íŠ¸ ë°œìƒ ì¤‘ì¼ ë•Œ(ì•„ë˜ ì‹¤í–‰ x)
         if (strollEventCheck)
         {
-            myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // ¼Óµµ ÁßÁö
-            myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // È¸Àü ÁßÁö
+            myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // ì†ë„ ì¤‘ì§€
+            myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // íšŒì „ ì¤‘ì§€
             return;
         }
 
-        arRaycaster.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon); // Æò¸éÀ» ÀÎ½ÄÇÏ¿© hits¿¡ °ªÀ» ÀÔ·Â
+        arRaycaster.Raycast(screenCenter, hits, UnityEngine.XR.ARSubsystems.TrackableType.PlaneWithinPolygon); // í‰ë©´ì„ ì¸ì‹í•˜ì—¬ hitsì— ê°’ì„ ì…ë ¥
 
-        // Æò¸éÀ» ÀÎ½Ä ÇßÀ» ¶§
+        // í‰ë©´ì„ ì¸ì‹ í–ˆì„ ë•Œ
         if (hits.Count > 0)
         {
             Pose hitPose = hits[0].pose;
 
-            // ÀÌµ¿ ¹æÇâ ¼³Á¤
+            // ì´ë™ ë°©í–¥ ì„¤ì •
             Vector3 moveDirection = hitPose.position - myDog.transform.position;
-            moveDirection.y = 0; // ¿øÇÏ´Â ÃàÀ¸·Î ÀÌµ¿ÇÏµµ·Ï y °ªÀ» 0À¸·Î ¼³Á¤
+            //moveDirection.y = 0; // ì›í•˜ëŠ” ì¶•ìœ¼ë¡œ ì´ë™í•˜ë„ë¡ y ê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
 
-            // ÀÌµ¿ÇÏ´Â °æ¿ì(ÀÌµ¿ °Å¸®°¡ Á¤ÇÑ °ªº¸´Ù Å¬ °æ¿ì)
-            if (moveDirection.magnitude > stoppingDistance) // magnitude´Â 3Â÷¿ø ¹éÅÍÀÇ Å©±â/±æÀÌ
+            // ì´ë™í•˜ëŠ” ê²½ìš°(ì´ë™ ê±°ë¦¬ê°€ ì •í•œ ê°’ë³´ë‹¤ í´ ê²½ìš°)
+            if (moveDirection.magnitude > stoppingDistance) // magnitudeëŠ” 3ì°¨ì› ë°±í„°ì˜ í¬ê¸°/ê¸¸ì´
             {
-                // ÀÌµ¿ ¹æÇâÀ¸·Î È¸Àü
+                // ì´ë™ ë°©í–¥ìœ¼ë¡œ íšŒì „
                 Quaternion newRotation = Quaternion.LookRotation(moveDirection);
                 myDog.GetComponent<Rigidbody>().MoveRotation(newRotation);
 
-                // °Å¸®°¡ ¸Ö ¶§
+                // ê±°ë¦¬ê°€ ë©€ ë•Œ
                 if (moveDirection.magnitude > 1.4f)
                 {
-                    myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // ¼Óµµ ÁßÁö
+                    myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // ì†ë„ ì¤‘ì§€
                     if (!strollEventCheck)
                     {
                         dogAnimator.handleDogMovement("WelshRun");
                         myDog.GetComponent<Rigidbody>().AddForce(moveDirection.normalized * 100f);
                     }
                 }
-                // °Å¸®°¡ ÂªÀ» ¶§
+                // ê±°ë¦¬ê°€ ì§§ì„ ë•Œ
                 else
                 {
                     if (!strollEventCheck)
@@ -80,28 +80,28 @@ public class DogManager : MonoBehaviour
                     }
                 }
             }
-            // ÀÌµ¿¾ÈÇÏ´Â °æ¿ì(³Ê¹« ÂªÀº °Å¸®´Â ÀÌµ¿ X)
+            // ì´ë™ì•ˆí•˜ëŠ” ê²½ìš°(ë„ˆë¬´ ì§§ì€ ê±°ë¦¬ëŠ” ì´ë™ X)
             else
             {
                 if (!strollEventCheck)
                 {
-                    // ¸ØÃâ °Å¸®¿¡ µµ´ŞÇÑ °æ¿ì
+                    // ë©ˆì¶œ ê±°ë¦¬ì— ë„ë‹¬í•œ ê²½ìš°
                     dogAnimator.handleDogMovement("WelshIdle");
-                    myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // ¼Óµµ ÁßÁö
-                    myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // È¸Àü ÁßÁö
+                    myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // ì†ë„ ì¤‘ì§€
+                    myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // íšŒì „ ì¤‘ì§€
                 }
             }
         }
-        // Æò¸éÀ» ÀÎ½Ä ¸ø ÇßÀ» ¶§
+        // í‰ë©´ì„ ì¸ì‹ ëª» í–ˆì„ ë•Œ
         else
         {
             if (!strollEventCheck)
             {
                 dogAnimator.handleDogMovement("WelshIdle");
-                myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // ¼Óµµ ÁßÁö
-                myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // È¸Àü ÁßÁö
+                myDog.GetComponent<Rigidbody>().velocity = Vector3.zero; // ì†ë„ ì¤‘ì§€
+                myDog.GetComponent<Rigidbody>().angularVelocity = Vector3.zero; // íšŒì „ ì¤‘ì§€
             }
         }
 
     }
-    }
+}
