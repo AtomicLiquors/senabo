@@ -19,11 +19,8 @@
 반려동물 유기의 가장 큰 원인은 <span style="color:yellow;"><b>"사람들의 잘못된 지식, 준비되지 않은 자세"</b> </span>입니다.
 
 #### 📌 개발 목적
-모바일 AR, 실시간 알림을 통해
-반려견 양육의 현실적인 어려움을 경험하고,<br> 
+반려견 양육의 현실적인 어려움을 경험하고,
 예비 보호자들의 양육 지식과 성숙한 태도를 확인하는 반려견 시뮬레이터
-<br>
-<img src="Documents/system.PNG" width="450" height="300">
 
 #### 📆 제작 기간 및 인원
 
@@ -38,6 +35,8 @@
 
 
 ## 🐾 2. 주요 기능
+<img src="Documents/system.PNG" width="450" height="300">
+
 |반려견 시뮬레이터(2D)|AR 산책 모드(3D)|
 |:--:|:--:|
 |<img src="Documents/mainscene.png" alt="logo" width="200" height="400">|<img src="Documents/arscene.png" alt="logo" width="200" height="400">|
