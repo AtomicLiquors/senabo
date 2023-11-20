@@ -11,7 +11,7 @@
 </center>
 </div>
 
-## :clipboard: 프로젝트 소개
+## :clipboard: 1. 프로젝트 소개
 #### 💡 기획 배경
 반려동물을 키우는 가정이 늘어나며, 유기되는 동물의 수도 그만큼 늘어나고 있습니다.<br>
 유기동물 보호 및 입양 시스템은 있지만, 유기 동물 발생을 줄일 수 있는 근본적인 해결책은 부족합니다.<br>
@@ -29,12 +29,13 @@
 
 제작 기간 : 2023. 10.09 ~ 2023. 11. 17 (7주) <br/>
 참여 인원 : 6인
-<img src="Documents/member.png" width="100%" height="300">
+
+<img src="Documents/member.png" width="600" height="300">
 
 
 
 
-## 🐾 주요 기능
+## 🐾 2. 주요 기능
 |반려견 시뮬레이터(2D)|AR 산책 모드(3D)|
 |:--:|:--:|
 |<img src="Documents/mainscene.png" alt="logo" width="200" height="400">|<img src="Documents/arscene.png" alt="logo" width="200" height="400">|
@@ -43,7 +44,7 @@
 |강아지 관리 리포트|산책 중 돌발 이벤트 발생 (4종류)
 
 
-## 💻 기술 스택
+## 💻 3. 기술 스택
 ### Unity
 ![Unity 뱃지](https://img.shields.io/badge/Unity%202022.3.11-000000.svg?style=flat-square&logo=Unity&logoColor=white)
 ![AR Foundation 뱃지](https://img.shields.io/badge/AR%20Foundation-FF6C00.svg?style=flat-square&logo=Unity&logoColor=white)
@@ -64,10 +65,10 @@
 ![Docker-Compose 뱃지](https://img.shields.io/badge/Docker--Compose-1C72C7.svg?style=flat-square&logo=Docker&logoColor=white)
 
 
-## 시스템 모식도
-<img src="Documents/architecture.png" width="100%" height="300">
+## 4. 시스템 모식도
+<img src="Documents/architecture.png" width="600" height="300">
 
-## ERD
+## 5. ERD
 <img src="Documents/erd.png" width="600" height="300">
 
-## 기능 명세
+## 6. 기능 명세
