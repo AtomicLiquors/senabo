@@ -72,4 +72,17 @@
 ## 5. ERD
 <img src="Documents/erd.png" width="600" height="300">
 
-## 6. 기능 명세
+## 6. AR 산책
+
+### AR 강아지 이동
+평면 인식 기술로 바닥을 인식 후,  새로 인식된 평면을 따라 강아지가 함께 이동한다.
+
+<img src="Documents/walk.gif" width="200" height="100%">
+
+### AR 돌발 이벤트
+실제 반려견을 산책시키면서 일어날 수 있는 돌발 상황 구현.<br>
+돌발 이벤트 발생 시 이벤트 해제 전 까지 휴대폰 진동이 울리면서 강아지가 움직이지 않는다.
+|1. 강아지가 주저 앉아서<br> 움직이지 않을 때|2. 산책 중 마주친<br> 다른 강아지와 싸울때|3. 바닥에 떨어진 이물질 섭취|
+|:--:|:--:|:--:|
+|<img src="Documents/strollevent3.gif" width="200" height="100%">|<img src="Documents/strollevent1.gif" width="200" height="100%">|<img src="Documents/strollevent2.gif" width="200" height="100%">|
+|간식을 줘서 강아지를 달래면<br> 이벤트 해제|목줄을 당긴 후, 다른 강아지로부터<br> 분리시키면 이벤트 해제|이물질을 주워먹기 전<br> 목줄을 당겨 이벤트 해제
