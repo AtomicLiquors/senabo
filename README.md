@@ -30,11 +30,11 @@
 제작 기간 : 2023. 10.09 ~ 2023. 11. 17 (7주) <br/>
 참여 인원 : 6인
 
-|<img src="Documents/령은.png" width="100" height="100">|<img src="Documents/재아.png" width="100" height="100">|<img title="" src="Documents/라연.png" width="100" height="100">|<img src="Documents/소연.png" width="100" height="100">|<img src="Documents/종원.png" width="100" height="100">|<img src="Documents/효빈.png" width="100" height="100">|
+|<img src="Documents/령은.png" width="100%" height="100">|<img src="Documents/재아.png" width="100%" height="100">|<img title="" src="Documents/라연.png" width="100%" height="100">|<img src="Documents/소연.png" width="100%" height="100">|<img src="Documents/종원.png" width="100%" height="100">|<img src="Documents/효빈.png" width="100%" height="100">|
 |:--:|:--:|:--:|:--:|:--:|:--:|
 |<a href="https://github.com/yooongeun?tab=repositories">김령은</a>|<a href="https://github.com/kimjaea">김재아</a>|<a href="https://github.com/zoeyvarnax">한라연</a>|<a href="https://github.com/soyeon37">함소연</a>|<a href="https://github.com/Jongwon97">이종원</a>|<a href="https://github.com/AtomicLiquors">최효빈</a>
 |Unity 2D|Unity 2D|Unity 2D|Backend, CI/CD|Unity AR|Unity AR|
-|UI/UX 기획 및 설계<br>Unity Asset 제작<br>애니메이션 구현|UI/UX 기획 및 설계<br>Unity Asset 제작<br>애니메이션 구현<br>디버깅 및 리팩토링|UI/UX 기획 및 설계<br>Unity Asset 제작<br>DB 및 API 설계<br>디버깅 및 리팩토링|UI/UX 기획 및 설계<br>Unity Asset 제작<br>DB 설계 및 API 개발<br>CI/CD 구축|AR 강아지 이동 구현<br>AR 돌발 이벤트 구현<br>GPS 활용 기능 구현<br>가속도계 활용 기능 구현|AR 애니메이션 구현<br>AR 돌발 이벤트 구현<br>객체/스크립트 간 의존관계<br> 설정 등 유지보수성 향상<br>UCC 총괄제작|
+|UI/UX 기획 및 설계<br>Unity Asset 제작<br>애니메이션 구현|UI/UX 기획 및 설계<br>Unity Asset 제작<br>애니메이션 구현<br>디버깅 및 리팩토링|UI/UX 기획 및 설계<br>Unity Asset 제작<br>DB 및 API 설계<br>디버깅 및 리팩토링|UI/UX 기획 및 설계<br>Unity Asset 제작<br>DB 설계 및 API 개발<br>CI/CD 구축|AR 강아지 이동 구현<br>AR 돌발 이벤트 구현<br>GPS 활용 기능 구현<br>가속도계 활용 기능 <br>구현|AR 애니메이션 구현<br>AR 유지보수성 향상<br>3D Asset<br>커스터 마이징<br>UCC 총괄제작|
 
 
 ## 🐾 2. 주요 기능
