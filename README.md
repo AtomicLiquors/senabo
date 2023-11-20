@@ -29,7 +29,7 @@
 
 제작 기간 : 2023. 10.09 ~ 2023. 11. 17 (7주) <br/>
 참여 인원 : 6인
-<img src="Documents/member.PNG" width="100%" height="300">
+<img src="Documents/member.png" width="100%" height="300">
 
 
 
@@ -65,9 +65,9 @@
 
 
 ## 시스템 모식도
-<img src="Documents/architecture.PNG" width="100%" height="300">
+<img src="Documents/architecture.png" width="100%" height="300">
 
 ## ERD
-<img src="Documents/erd.PNG" width="600" height="300">
+<img src="Documents/erd.png" width="600" height="300">
 
 ## 기능 명세
