@@ -35,13 +35,10 @@ public class StrollEventManager : MonoBehaviour
 
     ItemSpawner itemSpawnerScript;
 
-    private bool eventSolveCheck;
-
 
     private bool gestureEventTrigger;   // 사용자의 당김 동작 수행 체크
     private bool distanceEventTrigger;  // myDog와 otherDog의 거리 체크(멀리 떨어졌을 경우 true)
-    public void updateGestureEventTrigger()
-    {
+    public void updateGestureEventTrigger(){
         this.gestureEventTrigger = true;
     }
     public void updateDistanceEventTrigger()
@@ -53,11 +50,8 @@ public class StrollEventManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //if (welshAnim == null)
-        //   welshAnim = dogObject.GetComponentInChildren<Animator>();
 
-        eventSolveCheck = false;
-        dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>();
+        dogAnimator = dogAnimationManager.GetComponent<DogAnimationManager>(); 
         if (dogAnimator == null)
         {
             Debug.LogError("DogAnimationManager component not found on dogAnimationManager GameObject!");
@@ -71,7 +65,7 @@ public class StrollEventManager : MonoBehaviour
             randomTimes[i] = UnityEngine.Random.Range(1, 31); // 1부터 60까지의 랜덤한 값 생성
         }
 
-        StartCoroutine(SuddenEncounter(20));
+        StartCoroutine(SuddenEat(16));
     }
 
 
@@ -83,7 +77,7 @@ public class StrollEventManager : MonoBehaviour
 
         dogManager.updateStrollEventCheck(true);    // 강아지 움직임 제어
         EventStatusManager.SwitchDogEvent(true);    // 애니메이션 고정
-
+        
         arObjectController.setDogEventTrigger();    // otherDog가 나오게 설정
         userGestureManager.SetActive(true);         // 손동작 인식 on
 
@@ -95,7 +89,6 @@ public class StrollEventManager : MonoBehaviour
             {
                 distanceEventTrigger = false;
                 eventStatusManager.updateEncounterEventResolveCheck();  // 돌발행동 대처 성공 데이터 처리
-                eventSolveCheck = true;
                 break;
             }
 
@@ -110,15 +103,11 @@ public class StrollEventManager : MonoBehaviour
 
             dogAnimator.handleDogSuddenEvent("WelshBark");
             Handheld.Vibrate(); // 0.5초간 진동이 울림
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1); 
         }
 
-        yield return StartCoroutine(SuddenEat(8)); ;
-        if (eventSolveCheck)
-        {
-            eventSolveCheck = false;
-            yield break;
-        }
+        yield return StartCoroutine(SuddenStop(6)); ;
+
         gestureEventTrigger = false;
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
@@ -148,7 +137,6 @@ public class StrollEventManager : MonoBehaviour
                 EventStatusManager.SwitchDogEvent(false);  // 애니메이션이 변경될 수 있게 설정
                 userGestureManager.SetActive(false);       // 사용자 손동작 인식 off
                 eventStatusManager.updateEatEventResolveCheck(); // 돌발행동 대처 성공 데이터 처리
-                eventSolveCheck = true;
                 break;
             }
             dogAnimator.handleDogSuddenEvent("WelshEat");
@@ -156,12 +144,8 @@ public class StrollEventManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-        yield return StartCoroutine(SuddenStop(8));
-        if (eventSolveCheck)
-        {
-            eventSolveCheck = false;
-            yield break;
-        }
+        yield return StartCoroutine(SuddenPoop(8));
+
         gestureEventTrigger = false;
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
@@ -192,7 +176,6 @@ public class StrollEventManager : MonoBehaviour
                 EventStatusManager.SwitchDogEvent(false);
                 itemSpawnerScript.HandleRemoveAction(ItemType.Snack);
                 eventStatusManager.updateStopEventResolveCheck(); // 돌발행동 대처 성공 데이터 처리
-                eventSolveCheck = true;
                 break;
             }
 
@@ -218,17 +201,12 @@ public class StrollEventManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-        yield return StartCoroutine(SuddenPoop(8));
-        if (eventSolveCheck)
-        {
-            eventSolveCheck = false;
-            yield break;
-        }
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
         EventStatusManager.SwitchDogStopResolved(true);
         // 실패 처리
         EventStatusManager.IncreaseStress();
+        yield break;
     }
 
     // 4. 배변 활동
@@ -236,13 +214,13 @@ public class StrollEventManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
 
-        if (itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
+        if(itemSpawnerScript == null) itemSpawnerScript = itemSpawner.GetComponent<ItemSpawner>();
 
         dogManager.updateStrollEventCheck(true);
         EventStatusManager.SwitchDogEvent(true);
 
         // 진동 알림
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 5; i++)
         {
             dogAnimator.handleDogSuddenEvent("WelshPoop");
             Handheld.Vibrate();
@@ -252,6 +230,6 @@ public class StrollEventManager : MonoBehaviour
         itemSpawnerScript.HandleSpawnAction(ItemType.Poop); // Poop 생성
         dogManager.updateStrollEventCheck(false);
         EventStatusManager.SwitchDogEvent(false);
-        yield break;
+        yield return StartCoroutine(SuddenEncounter(16));
     }
 }
