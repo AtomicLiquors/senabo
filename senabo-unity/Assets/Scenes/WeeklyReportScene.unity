@@ -3676,7 +3676,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: d77f30718ae2d964da6e9ae5665b0ca3, type: 3}
-    m_FontSize: 75
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 6
@@ -3687,7 +3687,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uAC04 \uACAC\uC8FC \uBCF4\uACE0\uC11C"
+  m_Text: "\uC8FC\uAC04 \uBCF4\uD638\uC790 \uBCF4\uACE0\uC11C"
 --- !u!1 &635600554
 GameObject:
   m_ObjectHideFlags: 0
