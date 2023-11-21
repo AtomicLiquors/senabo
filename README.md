@@ -66,13 +66,12 @@
 ![Docker-Compose 뱃지](https://img.shields.io/badge/Docker--Compose-1C72C7.svg?style=flat-square&logo=Docker&logoColor=white)
 
 
-## 4. 시스템 모식도
-<img src="Documents/architecture.png" width="600" height="300">
+## 4. 시스템 모식도 & ERD
+<img src="Documents/architecture.png" width="400" height="300">
+<img src="Documents/erd.png" width="400" height="300">
 
-## 5. ERD
-<img src="Documents/erd.png" width="600" height="300">
 
-## 6. AR 산책
+## 5. AR 산책
 
 #### (1) AR 강아지 이동
 AR 산책이 시작되면 평면 인식 시스템이 동작하여 바닥을 인식 후, 새로운 평면을 인식하면 인식된 평면을 따라 강아지가 함께 이동한다.
