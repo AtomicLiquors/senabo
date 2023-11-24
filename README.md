@@ -12,17 +12,17 @@
 </div>
 
 ## :clipboard: 1. 프로젝트 소개
-#### 💡 기획 배경
+#### (1) 💡 기획 배경
 반려동물을 키우는 가정이 늘어나며, 유기되는 동물의 수도 그만큼 늘어나고 있습니다.<br>
 유기동물 보호 및 입양 시스템은 있지만, 유기 동물 발생을 줄일 수 있는 근본적인 해결책은 부족합니다.<br>
 반려동물 양육자의 22.1%가 양육을 포기하거나, 파양을 고민해본 경험이 있다고 합니다. <br>
 반려동물 유기의 가장 큰 원인은 <span style="color:yellow;"><b>"사람들의 잘못된 지식, 준비되지 않은 자세"</b> </span>입니다.
 
-#### 📌 개발 목적
+#### (2) 📌 개발 목적
 반려견 양육의 현실적인 어려움을 경험하고,
 예비 보호자들의 양육 지식과 성숙한 태도를 확인하는 반려견 시뮬레이터
 
-#### 📆 제작 기간 및 인원
+#### (3) 📆 제작 기간 및 인원
 
 제작 기간 : 2023. 10.09 ~ 2023. 11. 17 (7주) <br/>
 참여 인원 : 6인
@@ -36,14 +36,6 @@
 
 ## 🐾 2. 주요 기능
 <img src="Documents/system.PNG" width="450" height="300">
-
-|반려견 시뮬레이터(2D)|AR 산책 모드(3D)|
-|:--:|:--:|
-|<img src="Documents/mainscene.png" alt="logo" width="200" height="400">|<img src="Documents/arscene.png" alt="logo" width="200" height="400">|
-|반려견 육성|AR 강아지 생성 및 이동
-|강아지 생활패턴에 맞춘 알림 기능|GPS를 활용한 이동 거리 측정
-|강아지 관리 리포트|산책 중 돌발 이벤트 발생 (4종류)
-
 
 ## 💻 3. 기술 스택
 ### Unity
@@ -76,12 +68,16 @@
 #### (1) AR 강아지 이동
 AR 산책이 시작되면 평면 인식 시스템이 동작하여 바닥을 인식 후, 새로운 평면을 인식하면 인식된 평면을 따라 강아지가 함께 이동한다.
 
-<img src="Documents/walk.gif" width="200" height="100%">
+|평면 인식|강아지 이동|
+|:--:|:--:|
+|<img src="Documents/ServiceGif/plane.gif" width="170" height="100%">|<img src="Documents/ServiceGif/walk.gif" width="200" height="100%">|
+
 
 #### (2) AR 돌발 이벤트
 실제 반려견을 산책시키면서 일어날 수 있는 돌발 상황 구현.<br>
 돌발 이벤트 발생 시 이벤트 해제 전 까지 휴대폰 진동이 울리면서 강아지가 움직이지 않는다.
 |1. 강아지가 주저 앉아서<br> 움직이지 않을 때|2. 산책 중 마주친<br> 다른 강아지와 싸울때|3. 바닥에 떨어진 이물질 섭취|
 |:--:|:--:|:--:|
-|<img src="Documents/strollevent3.gif" width="200" height="100%">|<img src="Documents/strollevent1.gif" width="200" height="100%">|<img src="Documents/strollevent2.gif" width="200" height="100%">|
+|<img src="Documents/ServiceGif/strollevent3.gif" width="200" height="100%">|<img src="Documents/ServiceGif/strollevent1.gif" width="200" height="100%">|<img src="Documents/ServiceGif/strollevent2.gif" width="200" height="100%">|
 |간식을 줘서 강아지를 달래면<br> 이벤트 해제|목줄을 당긴 후, 다른 강아지로부터<br> 분리시키면 이벤트 해제|이물질을 주워먹기 전<br> 목줄을 당겨 이벤트 해제
+
